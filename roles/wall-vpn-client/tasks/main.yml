@@ -1,0 +1,21 @@
+- name: Install udp2raw wall client config
+  template:
+    src: udp2raw.conf.j2
+    dest: /etc/udp2raw/wall.conf
+  vars:
+    udp2raw_conf: "{{ udp2raw.openvpn }}"
+    udp2raw_server_ip: "{{ hostvars[wall_server_host].ansible_default_ipv4.address }}"
+  notify: Reload udp2raw wall client service
+  tags:
+    - wall-client
+
+- name: Install openvpn wall client config
+  template:
+    src: openvpn/wall.conf.j2
+    dest: /etc/openvpn/client/wall.conf
+  vars:
+    udp2raw_conf: "{{ udp2raw.openvpn }}"
+    wall_server: "{{ hostvars[wall_server_host] }}"
+  notify: Reload openvpn wall client service
+  tags:
+    - wall-client

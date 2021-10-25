@@ -1,0 +1,27 @@
+- name: Reload udp2raw server services
+  systemd:
+    name: "udp2raw@{{ item.key }}-server"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
+  with_dict: "{{ udp2raw }}"
+
+- name: Reload openvpn static server
+  systemd:
+    name: "openvpn@server"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
+
+- name: Reload network interfaces
+  shell: "ifdown {{ item }}; ip link del {{ item }}; ifup {{ item }}"
+  with_items:
+    - he-ipv6
+    - unatatp-dummy
+
+- name: Reload unatatp service
+  systemd:
+    name: "unatatp@{{ unatatp.port }}"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

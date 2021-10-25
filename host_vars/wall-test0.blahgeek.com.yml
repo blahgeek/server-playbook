@@ -1,0 +1,6 @@
+vpn_subnet_id: 44
+
+tunnelbroker:
+  server: 72.52.104.74
+  subnet: 2001:470:1f04:30c::/64
+  routed_subnet: 2001:470:1f05:30c::/64

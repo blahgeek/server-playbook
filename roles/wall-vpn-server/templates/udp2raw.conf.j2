@@ -1,0 +1,7 @@
+-s
+-l 0.0.0.0:{{ item.value.server_listen_port }}
+-r 127.0.0.1:{{ item.value.server_local_port }}
+--raw-mode {{ item.value.raw_mode }}
+--cipher-mode {{ item.value.cipher_mode }}
+--sock-buf 10240
+-k {{ item.value.key }}

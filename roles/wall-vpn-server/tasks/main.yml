@@ -1,0 +1,133 @@
+- assert:
+    that: ansible_os_family == 'Debian'
+
+- name: Configure network related sysctl
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: yes
+    reload: yes
+  with_items:
+    - { name: "net.ipv4.ip_forward", "value": "1"}
+    - { name: "net.ipv4.tcp_window_scaling", "value": "1"}
+    - { name: "net.ipv4.tcp_syncookies", "value": "1"}
+    - { name: "net.core.rmem_max", "value": "16777216"}
+    - { name: "net.core.wmem_max", "value": "16777216"}
+    - { name: "net.ipv4.tcp_rmem", "value": "4096 87380 16777216"}
+    - { name: "net.ipv4.tcp_wmem", "value": "4096 65536 16777216"}
+    - { name: "net.ipv4.conf.default.rp_filter", "value": "2"}
+    - { name: "net.ipv4.conf.all.rp_filter", "value": "2"}
+    - { name: "net.ipv6.conf.all.forwarding", "value": "1"}
+    - { name: "net.core.default_qdisc", "value": "fq"}
+    - { name: "net.ipv4.tcp_congestion_control", "value": "bbr"}
+
+- name: Configure iptables for nat masquerade
+  iptables_raw:
+    name: nat_masquerade
+    table: nat
+    rules: "-A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE"
+
+- name: Configure tunnelbroker
+  when: tunnelbroker != None
+  template:
+    src: network/tunnelbroker.j2
+    dest: /etc/network/interfaces.d/tunnelbroker
+  notify: Reload network interfaces
+
+- name: Download and install unatatp
+  when: unatatp != None
+  get_url:
+    url: https://github.com/blahgeek/unatatp/releases/download/0.1/unatatp
+    dest: /usr/local/bin/unatatp
+    mode: 0755
+  notify:
+    - Reload unatatp service
+
+- name: Add unatatp systemd service
+  when: unatatp != None
+  template:
+    src: systemd/unatatp@.service.j2
+    dest: /etc/systemd/system/unatatp@.service
+  vars:
+    unatatp_binary_path: /usr/local/bin/unatatp
+  notify:
+    - Reload unatatp service
+
+- name: Configure unatatp policy routing
+  when: unatatp != None
+  template:
+    src: network/unatatp-dummy.j2
+    dest: /etc/network/interfaces.d/unatatp-dummy
+  notify: Reload network interfaces
+
+- name: Configure iptables for unatatp
+  when: unatatp != None
+  iptables_raw:
+    name: unatatp_route
+    table: mangle
+    rules: |
+      -A PREROUTING -s 192.168.0.0/16 ! -d 192.168.0.0/16 -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip 127.0.0.1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A PREROUTING -m socket --transparent -j MARK --set-xmark {{ unatatp.route_fwmark }}
+
+- name: Download and install udp2raw
+  unarchive:
+    remote_src: yes
+    src: https://github.com/wangyu-/udp2raw/releases/download/20200818.0/udp2raw_binaries.tar.gz
+    include: ["udp2raw_amd64"]
+    dest: /usr/local/bin/
+    mode: 0755
+  notify: Reload udp2raw server services
+
+- name: Add udp2raw systemd service
+  template:
+    src: systemd/udp2raw@.service.j2
+    dest: /etc/systemd/system/udp2raw@.service
+  vars:
+    udp2raw_binary_path: /usr/local/bin/udp2raw_amd64
+  notify:
+    - Reload udp2raw server services
+
+- name: Stop old udp2raw server services
+  systemd:
+    name: "udp2raw@{{ item }}"
+    enabled: false
+    state: stopped
+  with_items: "{{ udp2raw_cleanup_configs }}"
+
+- name: Cleanup old udp2raw configs
+  file:
+    path: "/etc/udp2raw/{{ item }}.conf"
+    state: absent
+  with_items: "{{ udp2raw_cleanup_configs }}"
+
+- name: Create /etc/udp2raw folder
+  file:
+    path: /etc/udp2raw
+    state: directory
+    mode: 0755
+
+- name: Install udp2raw server configs
+  template:
+    src: udp2raw.conf.j2
+    dest: "/etc/udp2raw/{{ item.key }}-server.conf"
+  with_dict: "{{ udp2raw }}"
+  notify: Reload udp2raw server services
+
+- name: Configure iptables for udp2raw
+  iptables_raw:
+    name: udp2raw_filter
+    table: filter
+    rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
+  with_dict: "{{ udp2raw }}"
+
+- name: Copy openvpn keys
+  copy:
+    src: ../common-wall/files/openvpn/static.key
+    dest: /etc/openvpn/static.key
+  notify: Reload openvpn static server
+
+- name: Configure openvpn static server
+  template:
+    src: openvpn/static-server.conf.j2
+    dest: /etc/openvpn/server.conf
+  notify: Reload openvpn static server

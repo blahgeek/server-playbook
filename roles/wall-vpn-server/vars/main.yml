@@ -1,0 +1,3 @@
+udp2raw_cleanup_configs:
+  - server
+  - main-server

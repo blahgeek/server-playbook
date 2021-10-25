@@ -1,0 +1,13 @@
+udp2raw:
+  openvpn:
+    server_listen_port: 8443
+    server_local_port: 3000
+    client_listen_port: 3000
+    raw_mode: faketcp
+    cipher_mode: none
+    key: blahnet
+
+unatatp:
+  port: 9999
+  route_table: 100
+  route_fwmark: "0x100/0xf00"

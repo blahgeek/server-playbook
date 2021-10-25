@@ -1,0 +1,45 @@
+- name: Setup ssh authorized keys
+  authorized_key:
+    user: root
+    state: present
+    key: "{{ item }}"
+  with_items:
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDa8+tJNp46aIZ1OxOanF0xkIaAX3Ig3lgMaasdenmp3aryZmi0lSuNzF2sUk94EBdibevqUQYEwFr0R3erAH/uOnCso/RiZ6h83x9F4u1QWBqI68MEwe5x7t2Wu0VcGZ32i/nqh/UhCPGQxHa6K2ToLw2zhhsVPmJ9f6CWx6palvm0zDnJDxx/UF2wW0owAGR1sEl3xInkfzbg1RUpQPa+wMSBb6v2m4+wDfedIUlH1j+uoP9I6niWjsmT6q67OmvxeT6nV3+VZf5ji7cfaBVLfGF8P66qdFBJEw2fHG3OpXnE9H+DF86eJCR+XgKIt1hyBxXWGZXlpOZ1SW1S/gdW/BaLCCk1LIeYvgxlLqI+MmY8sF8h2X4/ekCteN0CoV4z3M9AFnFOK+bQpWfzyZSf2GG/lu/6LNG/tNx1bK7rEyfD+DENip4VxorFBE6ALdi6v9XwO2F03o8p2ti4T8cXw3gPce+1GVHZlqgzJtdBnJSdhdwtNQYbjF722MxhLRs= blahgeek@Oldtown"
+    - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/ZA/MZJWs4TyeSUkVhehLtwst7xx0Rcjt6rKNS/PX798+Eijq/8PgTFi7hZC/mCXREQCRNcbVRdoFqj1kBQkEUu1ThPTBt6fc+BilKj7IQme5Y8dVRWP6kUuIx06hEUtAujDAo53JtFtHTich/SjZVKVV0+MmQ7ISOUvT2QJkP8XGEY86HzCGk9IOQl6cIDleorIhoOg3OmLby7zElVa2AA2z+UL7Y0H3ovOKguAIp2WL4UfQF5rmczFGDxTb2DiuD39cWaoeGhGHSMr+zU1Cz7WPqMY1qNKrFo17hY4FrhrjEgIapcaS+GFPPS7x1qGGvW4eMSnFcVTI3iP+CXLZ cardno:000604138113"
+
+- name: Apt update
+  apt:
+    cache_valid_time: 86400
+  when: ansible_os_family == 'Debian'
+
+- name: Install packages
+  package:
+    name:
+      - fail2ban
+      - openvpn
+      - htop
+    state: present
+
+- name: Install packages for debian
+  package:
+    name:
+      - iptables-persistent
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Configure fail2ban
+  copy:
+    content: |
+      [sshd]
+      enabled = true
+    dest: /etc/fail2ban/jail.local
+  notify:
+    - Reload fail2ban
+
+- name: Flush handlers
+  meta: flush_handlers
+
+- name: Check fail2ban status
+  command: fail2ban-client status sshd
+  changed_when: False
+

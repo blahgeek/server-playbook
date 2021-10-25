@@ -1,0 +1,9 @@
+auto he-ipv6
+iface he-ipv6 inet6 v4tunnel
+        address {{ tunnelbroker.subnet | ansible.netcommon.nthhost(2) }}
+        netmask {{ tunnelbroker.subnet | ansible.netcommon.ipaddr('prefix') }}
+        endpoint {{ tunnelbroker.server }}
+        local {{ ansible_default_ipv4.address }}
+        ttl 255
+        # gateway {{ tunnelbroker.subnet | ansible.netcommon.nthhost(1) }}
+        up /bin/ip -6 route add 2000::/3 via {{ tunnelbroker.subnet | ansible.netcommon.nthhost(1) }}

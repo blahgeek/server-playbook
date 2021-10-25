@@ -1,0 +1,8 @@
+- community.docker.docker_compose:
+    project_name: sync-server
+    definition:
+      services:
+        rslsync:
+          image: resilio/sync
+          container_name: rslsync
+          restart: always

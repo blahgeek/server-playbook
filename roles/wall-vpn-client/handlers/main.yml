@@ -1,0 +1,13 @@
+- name: Reload udp2raw wall client service
+  systemd:
+    name: "udp2raw@wall"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
+
+- name: Reload openvpn wall client service
+  systemd:
+    name: "openvpn-client@wall"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

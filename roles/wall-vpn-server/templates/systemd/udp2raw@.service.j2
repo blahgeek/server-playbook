@@ -1,0 +1,13 @@
+[Unit]
+Description=UDP over TCP/ICMP/UDP tunnel
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart={{ udp2raw_binary_path }} --conf-file /etc/udp2raw/%i.conf
+Restart=always
+RestartSec=30
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target

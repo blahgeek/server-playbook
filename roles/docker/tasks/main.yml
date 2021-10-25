@@ -1,0 +1,30 @@
+- name: Install python pip
+  package:
+    name:
+      - python3-pip
+    state: present
+
+- name: Install docker sdk for python
+  pip:
+    name:
+      - docker
+      - docker-compose
+
+- name: Configure docker nginx-proxy
+  community.docker.docker_compose:
+    project_name: nginx-proxy
+    definition:
+      services:
+        nginx-proxy:
+          image: nginxproxy/nginx-proxy:0.9.3
+          ports:
+            - "80:80"
+          volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        whoami:
+          image: jwilder/whoami
+          expose:
+            - 8000
+          environment:
+            - VIRTUAL_HOST=whoami.local
+            - VIRTUAL_PORT=8000

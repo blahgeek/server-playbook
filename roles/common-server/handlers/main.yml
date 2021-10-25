@@ -1,0 +1,6 @@
+- name: Reload fail2ban
+  systemd:
+    name: fail2ban
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

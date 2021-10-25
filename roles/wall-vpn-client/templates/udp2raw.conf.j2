@@ -1,0 +1,6 @@
+-c
+-l 127.0.0.1:{{ udp2raw_conf.client_listen_port }}
+-r {{ udp2raw_server_ip }}:{{ udp2raw_conf.server_listen_port }}
+--raw-mode {{ udp2raw_conf.raw_mode }}
+--cipher-mode {{ udp2raw_conf.cipher_mode }}
+-k {{ udp2raw_conf.key }}
