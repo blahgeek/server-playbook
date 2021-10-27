@@ -11,8 +11,6 @@
       - docker-compose
 
 - name: Create directories for docker service
-  tags:
-    - test
   file:
     path: "{{ item }}"
     state: directory
@@ -24,8 +22,6 @@
     - /var/nginx-proxy/acme
 
 - name: Container nginx-proxy
-  tags:
-    - test
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
@@ -41,8 +37,6 @@
       - /var/nginx-proxy/html:/usr/share/nginx/html
 
 - name: Container acme-companion
-  tags:
-    - test
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
@@ -55,8 +49,6 @@
       - /var/nginx-proxy/acme:/etc/acme.sh
 
 - name: Container whoami for http test
-  tags:
-    - test
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped

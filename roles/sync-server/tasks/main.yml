@@ -6,6 +6,7 @@
   with_items:
     - /var/rslsync
     - /data/Raven
+    - /data/Notes
 
 - name: Configure docker rslsync
   docker_container:
@@ -19,6 +20,7 @@
     volumes:
       - /var/rslsync:/mnt/sync
       - /data/Raven:/mnt/mounted_folders/Raven
+      - /data/Notes:/mnt/mounted_folders/Notes
 
 - name: Configure docker raven-postfix
   docker_container:
@@ -33,3 +35,19 @@
     volumes:
       - /data/Raven:/root/Maildir
     hostname: "{{ raven_host }}"
+
+- name: Configure docker webdav
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: webdav
+    image: bytemark/webdav:2.4
+    volumes:
+      - /data/Notes:/var/lib/dav/data/Notes
+    env:
+      USERNAME: "{{ webdav_username }}"
+      PASSWORD: "{{ webdav_password }}"
+      VIRTUAL_PORT: "80"
+      VIRTUAL_HOST: "webdav.{{ inventory_hostname }}"
+      LETSENCRYPT_HOST: "webdav.{{ inventory_hostname }}"
+    expose: 80
