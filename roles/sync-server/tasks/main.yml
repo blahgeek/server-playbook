@@ -1,8 +1,35 @@
-- community.docker.docker_compose:
-    project_name: sync-server
-    definition:
-      services:
-        rslsync:
-          image: resilio/sync
-          container_name: rslsync
-          restart: always
+- name: Create directories for sync server
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /var/rslsync
+    - /data/Raven
+
+- name: Configure docker rslsync
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: rslsync
+    image: resilio/sync:2.7.2
+    ports:
+      - 9099:8888
+      - 55555
+    volumes:
+      - /var/rslsync:/mnt/sync
+      - /data/Raven:/mnt/mounted_folders/Raven
+
+- name: Configure docker raven-postfix
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: raven-postfix
+    image: blahgeek/raven-postfix:0.2
+    ports:
+      - "25:25"
+      - "465:465"
+      - "587:587"
+    volumes:
+      - /data/Raven:/root/Maildir
+    hostname: "{{ raven_host }}"
