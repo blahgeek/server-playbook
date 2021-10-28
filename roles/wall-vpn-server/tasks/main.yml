@@ -66,6 +66,7 @@
     name: unatatp_route
     table: mangle
     rules: |
+      -A PREROUTING -m addrtype --dst-type local -j ACCEPT
       -A PREROUTING -s 192.168.0.0/16 ! -d 192.168.0.0/16 -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip 127.0.0.1 --tproxy-mark {{ unatatp.route_fwmark }}
       -A PREROUTING -m socket --transparent -j MARK --set-xmark {{ unatatp.route_fwmark }}
 
@@ -113,9 +114,14 @@
   with_dict: "{{ udp2raw }}"
   notify: Reload udp2raw server services
 
-- name: Configure iptables for udp2raw
+- name: Remove old iptable rules for udp2raw
   iptables_raw:
     name: udp2raw_filter
+    state: absent
+
+- name: Configure iptables for udp2raw
+  iptables_raw:
+    name: "udp2raw_filter_{{ item.key }}"
     table: filter
     rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
   with_dict: "{{ udp2raw }}"
