@@ -15,19 +15,20 @@
     name: rslsync
     image: resilio/sync:2.7.2
     ports:
-      - 9099:8888
+      - "192.168.{{ vpn_subnet_id }}.1:9099:8888"
       - 55555
     volumes:
       - /var/rslsync:/mnt/sync
       - /data/Raven:/mnt/mounted_folders/Raven
       - /data/Notes:/mnt/mounted_folders/Notes
+    hostname: "{{ inventory_hostname }}"
 
 - name: Configure docker raven-postfix
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: raven-postfix
-    image: blahgeek/raven-postfix:0.2
+    image: blahgeek/raven-postfix:0.4
     ports:
       - "25:25"
       - "465:465"
