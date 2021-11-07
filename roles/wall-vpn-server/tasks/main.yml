@@ -28,14 +28,14 @@
     rules: "-A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE"
 
 - name: Configure tunnelbroker
-  when: tunnelbroker != None
+  when: tunnelbroker is defined
   template:
     src: network/tunnelbroker.j2
     dest: /etc/network/interfaces.d/tunnelbroker
   notify: Reload network interfaces
 
 - name: Download and install unatatp
-  when: unatatp != None
+  when: unatatp is defined
   get_url:
     url: https://github.com/blahgeek/unatatp/releases/download/0.1/unatatp
     dest: /usr/local/bin/unatatp
@@ -44,7 +44,7 @@
     - Reload unatatp service
 
 - name: Add unatatp systemd service
-  when: unatatp != None
+  when: unatatp is defined
   template:
     src: systemd/unatatp@.service.j2
     dest: /etc/systemd/system/unatatp@.service
@@ -54,14 +54,14 @@
     - Reload unatatp service
 
 - name: Configure unatatp policy routing
-  when: unatatp != None
+  when: unatatp is defined
   template:
     src: network/unatatp-dummy.j2
     dest: /etc/network/interfaces.d/unatatp-dummy
   notify: Reload network interfaces
 
 - name: Configure iptables for unatatp
-  when: unatatp != None
+  when: unatatp is defined
   iptables_raw:
     name: unatatp_route
     table: mangle

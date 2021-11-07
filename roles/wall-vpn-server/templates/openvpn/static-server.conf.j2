@@ -3,7 +3,7 @@ lport {{ udp2raw.openvpn.server_local_port }}
 dev tun
 
 ifconfig {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, vpn_subnet_id) | ansible.netcommon.nthhost(1) }} {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, vpn_subnet_id) | ansible.netcommon.nthhost(2) }}
-{% if tunnelbroker %}
+{% if tunnelbroker is defined %}
 ifconfig-ipv6 {{ tunnelbroker.routed_subnet | ansible.netcommon.ipsubnet(80, vpn_subnet_id) | ansible.netcommon.nthhost(1) }} {{ tunnelbroker.routed_subnet | ansible.netcommon.ipsubnet(80, vpn_subnet_id) | ansible.netcommon.nthhost(2) }}
 {% endif %}
 

@@ -2,7 +2,7 @@ remote 127.0.0.1 {{ item.udp2raw_client.openvpn.client_listen_port }}
 dev tun
 
 ifconfig {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(2) }} {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(1) }}
-{% if hostvars[item.host].tunnelbroker %}
+{% if hostvars[item.host].tunnelbroker is defined %}
 ifconfig-ipv6 {{ hostvars[item.host].tunnelbroker.routed_subnet | ansible.netcommon.ipsubnet(80, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(2) }} {{ hostvars[item.host].tunnelbroker.routed_subnet | ansible.netcommon.ipsubnet(80, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(1) }}
 {% endif %}
 
