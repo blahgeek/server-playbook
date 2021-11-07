@@ -1,0 +1,4 @@
+#!/bin/sh
+# This file closes down the tap device.
+
+ip rule del fwmark {{ item.route_v4.fwmark }} table {{ item.route_v4.table }} || true

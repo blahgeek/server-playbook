@@ -1,1 +1,11 @@
-wall_server_host: wall.blahgeek.com
+wall_servers:
+  - name: wall
+    host: wall.blahgeek.com
+    udp2raw_client:
+      openvpn:
+        client_listen_port: 3000
+    route_v4:
+      table: 1
+      fwmark: '0x1/0xf'
+    route_v6:
+      default: true

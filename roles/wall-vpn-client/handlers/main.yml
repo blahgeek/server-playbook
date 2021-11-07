@@ -1,13 +1,15 @@
-- name: Reload udp2raw wall client service
+- name: Reload udp2raw client services for openvpn
   systemd:
-    name: "udp2raw@wall"
+    name: "udp2raw@{{ item.name }}"
     enabled: yes
     state: restarted
     daemon-reload: yes
+  with_items: "{{ wall_servers }}"
 
-- name: Reload openvpn wall client service
+- name: Reload openvpn client services
   systemd:
-    name: "openvpn-client@wall"
+    name: "openvpn-client@{{ item.name }}"
     enabled: yes
     state: restarted
     daemon-reload: yes
+  with_items: "{{ wall_servers }}"
