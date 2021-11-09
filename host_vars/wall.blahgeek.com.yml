@@ -1,6 +1,6 @@
 vpn_subnet_id: 42
 
 tunnelbroker:
-  server: 74.82.46.6
-  subnet: 2001:470:23:3c2::/64
-  routed_subnet: 2001:470:24:3c2::/64
+  server: 216.66.84.46
+  subnet: 2001:470:1f14:73e::/64
+  routed_subnet: 2001:470:1f15:73e::/64
