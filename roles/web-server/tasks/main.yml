@@ -1,0 +1,31 @@
+- name: Create directories for hpshare server
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /var/hpshare
+
+- name: Copy config file for hpshare server
+  copy:
+    src: hpshare/config.py
+    dest: /var/hpshare/config.py
+
+- name: Configure docker hpshare
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: hpshare
+    image: blahgeek/hpurl:0.3.2
+    volumes:
+      - /var/hpshare:/data
+    env:
+      DJANGO_SECRET_KEY: "{{ hpshare.django_secret_key }}"
+      DJANGO_ALLOWED_HOST: "{{ hpshare.domain }}"
+      ADMIN_USER: "{{ hpshare.admin_user }}"
+      ADMIN_EMAIL: "{{ hpshare.admin_email }}"
+      ADMIN_PASSWD: "{{ hpshare.admin_password }}"
+      VIRTUAL_PORT: "80"
+      VIRTUAL_HOST: "{{ hpshare.domain }}"
+      LETSENCRYPT_HOST: "{{ hpshare.domain }}"
+    expose: 80
