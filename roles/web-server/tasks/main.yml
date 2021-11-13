@@ -16,7 +16,7 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: hpshare
-    image: blahgeek/hpurl:0.3.2
+    image: blahgeek/hpurl:0.3.3
     volumes:
       - /var/hpshare:/data
     env:
