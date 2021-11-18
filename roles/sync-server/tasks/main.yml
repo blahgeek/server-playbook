@@ -52,3 +52,17 @@
       VIRTUAL_HOST: "webdav.{{ inventory_hostname }}"
       LETSENCRYPT_HOST: "webdav.{{ inventory_hostname }}"
     expose: 80
+
+- name: Configure docker webdav-tina proxy
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: webdav-tina_proxy
+    image: tecnativa/tcp-proxy:v1.0.1
+    env:
+      LISTEN: ":80"
+      TALK: "192.168.{{ vpn_subnet_id }}.2:80"
+      VIRTUAL_PORT: "80"
+      VIRTUAL_HOST: "webdav-tina.{{ inventory_hostname }}"
+      LETSENCRYPT_HOST: "webdav-tina.{{ inventory_hostname }}"
+    expose: 80
