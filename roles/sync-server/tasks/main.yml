@@ -1,3 +1,13 @@
+- import_tasks: roles/docker/tasks/docker-forward.yml
+  vars:
+    ports:
+      - 55555
+      - 25
+      - 465
+      - 587
+
+# port 9099 will be handled separately, see below
+
 - name: Create directories for sync server
   file:
     path: "{{ item }}"
@@ -15,13 +25,19 @@
     name: rslsync
     image: resilio/sync:2.7.2
     ports:
-      - "192.168.{{ vpn_subnet_id }}.1:9099:8888"
-      - 55555
+      - "9099:8888"
+      - "55555:55555"
     volumes:
       - /var/rslsync:/mnt/sync
       - /data/Raven:/mnt/mounted_folders/Raven
       - /data/Notes:/mnt/mounted_folders/Notes
     hostname: "{{ inventory_hostname }}"
+
+- name: "Configure iptables port forward for rslsync web"
+  iptables_raw:
+    name: "docker_forward_rslsync"
+    table: nat
+    rules: "-A PREROUTING -d 192.168.{{ vpn_subnet_id }}.1 -p tcp --dport 9099 -j DNAT --to 10.255.0.100:9099"
 
 - name: Configure docker raven-postfix
   docker_container:

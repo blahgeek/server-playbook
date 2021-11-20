@@ -10,6 +10,21 @@
       - docker
       - docker-compose
 
+- name: Install docker netns config
+  copy:
+    src: docker.service.d
+    dest: /etc/systemd/system/
+  notify: Reload docker
+
+- name: Flush reload docker handlers
+  meta: flush_handlers
+
+- name: Configure iptables masquerade for docker
+  iptables_raw:
+    name: docker_masquerade
+    table: nat
+    rules: "-A POSTROUTING -s 10.255.0.0/24 ! -o lo -j MASQUERADE"
+
 - name: Create directories for docker service
   file:
     path: "{{ item }}"
@@ -35,6 +50,12 @@
       - /var/nginx-proxy/certs:/etc/nginx/certs
       - /var/nginx-proxy/vhost.d:/etc/nginx/vhost.d
       - /var/nginx-proxy/html:/usr/share/nginx/html
+
+- import_tasks: docker-forward.yml
+  vars:
+    ports:
+      - 80
+      - 443
 
 - name: Container acme-companion
   docker_container:

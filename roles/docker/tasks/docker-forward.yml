@@ -1,0 +1,8 @@
+- name: "Configure iptables port forward for docker"
+  iptables_raw:
+    name: "docker_forward_{{ item }}"
+    table: nat
+    rules: |
+      -A PREROUTING -m addrtype --dst-type local -p tcp --dport {{ item }} -j DNAT --to 10.255.0.100:{{ item }}
+      -A PREROUTING -m addrtype --dst-type local -p udp --dport {{ item }} -j DNAT --to 10.255.0.100:{{ item }}
+  with_items: "{{ ports }}"
