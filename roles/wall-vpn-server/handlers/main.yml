@@ -14,10 +14,13 @@
     daemon-reload: yes
 
 - name: Reload network interfaces
-  shell: "ifdown {{ item }}; ip link del {{ item }}; ifup {{ item }}"
+  shell: "ifdown {{ item.name }}; ip link del {{ item.name }}; ifup {{ item.name }}"
+  when: item.when
   with_items:
-    - he-ipv6
-    - unatatp-dummy
+    - name: he-ipv6
+      when: "{{ tunnelbroker is defined }}"
+    - name: unatatp-dummy
+      when: yes
 
 - name: Reload unatatp service
   systemd:
