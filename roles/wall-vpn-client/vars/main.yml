@@ -1,21 +1,21 @@
 wall_servers:
   - name: wall
     host: wall.blahgeek.com
-    udp2raw_client:
-      openvpn:
+    openvpn:
+      udp2raw:
         client_listen_port: 3000
-    route_v4:
-      table: 1
-      fwmark: '0x1/0xf'
-    route_v6:
-      default: true
+      route_v4:
+        table: 1
+        fwmark: '0x1/0xf'
+      route_v6:
+        default: true
   - name: ironisland
     host: ironisland.blahgeek.com
-    udp2raw_client:
-      openvpn:
-        client_listen_port: 3001
-    route_v4:
-      table: 3
-      fwmark: '0x3/0xf'
-    route_v6:
-      default: false
+    openvpn:
+      # udp2raw:
+      #   client_listen_port: 3001
+      route_v4:
+        table: 3
+        fwmark: '0x3/0xf'
+      route_v6:
+        default: false

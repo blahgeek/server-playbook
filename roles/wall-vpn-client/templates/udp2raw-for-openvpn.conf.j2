@@ -1,5 +1,5 @@
 -c
--l 127.0.0.1:{{ item.udp2raw_client.openvpn.client_listen_port }}
+-l 127.0.0.1:{{ item.openvpn.udp2raw.client_listen_port }}
 -r {{ hostvars[item.host].ansible_default_ipv4.address }}:{{ udp2raw.openvpn.server_listen_port }}
 --raw-mode {{ udp2raw.openvpn.raw_mode }}
 --cipher-mode {{ udp2raw.openvpn.cipher_mode }}

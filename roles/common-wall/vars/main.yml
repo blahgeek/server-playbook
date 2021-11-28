@@ -1,7 +1,10 @@
+openvpn:
+  server_listen_port: 3000
+
 udp2raw:
   openvpn:
     server_listen_port: 8443
-    server_local_port: 3000
+    server_local_port: 3000  # same as openvpn.server_listen_port
     raw_mode: faketcp
     cipher_mode: none
     key: blahnet

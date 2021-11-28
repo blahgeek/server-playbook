@@ -3,6 +3,7 @@
     src: udp2raw-for-openvpn.conf.j2
     dest: "/etc/udp2raw/{{ item.name }}.conf"
   notify: Reload udp2raw client services for openvpn
+  when: item.openvpn.udp2raw is defined
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client

@@ -4,6 +4,7 @@
     enabled: yes
     state: restarted
     daemon-reload: yes
+  when: item.openvpn.udp2raw is defined
   with_items: "{{ wall_servers }}"
 
 - name: Reload openvpn client services
