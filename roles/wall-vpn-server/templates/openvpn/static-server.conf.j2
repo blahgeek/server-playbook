@@ -8,6 +8,7 @@ ifconfig-ipv6 {{ tunnelbroker.routed_subnet | ansible.netcommon.ipsubnet(80, vpn
 {% endif %}
 
 route 192.168.0.0 255.255.0.0
+route 100.64.0.0 255.192.0.0
 
 secret static.key
 # 128bit, faster

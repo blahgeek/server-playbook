@@ -25,7 +25,9 @@
   iptables_raw:
     name: nat_masquerade
     table: nat
-    rules: "-A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE"
+    rules: |
+      -A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE
+      -A POSTROUTING -s 100.64.0.0/10 -j MASQUERADE
 
 - name: Configure tunnelbroker
   when: tunnelbroker is defined
