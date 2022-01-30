@@ -5,11 +5,11 @@
     - role: sync-server
     - role: web-server
 
-- hosts: ironisland
-  roles:
-    - role: common-server
-    - role: wall-vpn-server
-    - role: sync-server
+# - hosts: ironisland
+#   roles:
+#     - role: common-server
+#     - role: wall-vpn-server
+#     - role: sync-server
 
 - hosts: mhome
   roles:
