@@ -1,5 +1,5 @@
-auto he-ipv6
-iface he-ipv6 inet6 v4tunnel
+auto tb-ipv6
+iface tb-ipv6 inet6 v4tunnel
         address {{ tunnelbroker.subnet | ansible.netcommon.nthhost(2) }}
         netmask {{ tunnelbroker.subnet | ansible.netcommon.ipaddr('prefix') }}
         endpoint {{ tunnelbroker.server }}

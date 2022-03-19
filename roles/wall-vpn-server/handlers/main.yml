@@ -14,10 +14,10 @@
     daemon-reload: yes
 
 - name: Reload network interfaces
-  shell: "ifdown {{ item.name }}; ip link del {{ item.name }}; ifup {{ item.name }}"
+  shell: "ifdown {{ item.name }} || true; ip link del {{ item.name }} || true; ifup {{ item.name }}"
   when: item.when
   with_items:
-    - name: he-ipv6
+    - name: tb-ipv6
       when: "{{ tunnelbroker is defined }}"
     - name: unatatp-dummy
       when: yes

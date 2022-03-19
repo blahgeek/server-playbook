@@ -1,6 +1,8 @@
 vpn_subnet_id: 42
 
+ipv6_subnet: 2a0e:b107:178c::/48
+
+# https://www.tunnelbroker.ch/tunnel/7171
 tunnelbroker:
-  server: 72.52.104.74
-  subnet: 2001:470:1f04:577::/64
-  routed_subnet: 2001:470:1f05:577::/64
+  server: 85.202.203.249
+  subnet: 2a09:4c0:fe0:137::/64
