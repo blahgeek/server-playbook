@@ -43,3 +43,9 @@
   command: fail2ban-client status sshd
   changed_when: False
 
+- name: Ensure loading /etc/network/interfaces.d
+  lineinfile:
+    path: /etc/network/interfaces
+    regexp: '^source '
+    line: source /etc/network/interfaces.d/*
+  when: ansible_os_family == 'Debian'

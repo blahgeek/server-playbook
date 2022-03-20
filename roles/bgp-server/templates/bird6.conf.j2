@@ -1,0 +1,32 @@
+router id {{ ansible_default_ipv4.address }};
+
+protocol kernel {
+  scan time 60;
+  import none;
+#  export all;   # Actually insert routes into the kernel routing table
+}
+
+protocol device {
+  scan time 60;
+}
+
+protocol static {
+# TODO
+  route 2a0e:aa07:e035::/48 blackhole;
+  route {{ ipv6_subnet }} via {{ ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
+}
+
+{% for name, value in bgp.items() %}
+
+protocol bgp {{ name }} {
+  local as {{ my_asn }};
+  source address {{ value.local_addr }};
+  import none;
+  export all;
+  graceful restart on;
+  # TODO: multihop
+  neighbor {{ value.peer_addr }} as {{ value.peer_asn }};
+  # TODO: password
+}
+
+{% endfor %}

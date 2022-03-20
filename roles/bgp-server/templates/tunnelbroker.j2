@@ -1,0 +1,12 @@
+auto {{ item.key }}
+iface {{ item.key }} inet6 v4tunnel
+        address {{ item.value.subnet | ansible.netcommon.nthhost(2) }}
+        netmask {{ item.value.subnet | ansible.netcommon.ipaddr('prefix') }}
+        endpoint {{ item.value.server }}
+        local {{ ansible_default_ipv4.address }}
+        ttl 255
+{% if item.value.routes is defined %}
+{% for route in item.value.routes %}
+        up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.netcommon.nthhost(1) }}
+{% endfor %}
+{% endif %}

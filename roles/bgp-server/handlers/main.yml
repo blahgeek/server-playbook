@@ -1,0 +1,14 @@
+- name: Reload BIRDv6 service
+  systemd:
+    name: bird6
+    state: restarted
+    daemon-reload: yes
+
+- name: Delete old tunnelbroker interfaces
+  shell: "ifdown {{ item }} || true; ip link del {{ item }} || true"
+  with_items:
+    - tb-ipv6
+
+- name: Reload tunnelbroker interfaces
+  shell: "ifdown {{ item.key }} || true; ip link del {{ item.key }} || true; ifup {{ item.key }}"
+  with_dict: "{{ tunnelbroker }}"

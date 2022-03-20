@@ -1,0 +1,46 @@
+- assert:
+    that: ansible_os_family == 'Debian'
+
+- name: Configure tunnelbroker
+  when: tunnelbroker is defined
+  template:
+    src: tunnelbroker.j2
+    dest: "/etc/network/interfaces.d/{{ item.key }}"
+  with_dict: "{{ tunnelbroker }}"
+  notify:
+    - Delete old tunnelbroker interfaces
+    - Reload tunnelbroker interfaces
+  tags:
+    - bgp
+
+- name: Install BIRD
+  package:
+    name:
+      - bird
+    state: present
+  tags:
+    - bgp
+
+- name: Disable BIRDv4
+  systemd:
+    name: bird
+    enabled: false
+    state: stopped
+  tags:
+    - bgp
+
+- name: Install BIRDv6 config
+  template:
+    src: bird6.conf.j2
+    dest: /etc/bird/bird6.conf
+  notify: Reload BIRDv6 service
+  tags:
+    - bgp
+
+- name: Enable BIRDv6
+  systemd:
+    name: bird6
+    enabled: true
+    state: started
+  tags:
+    - bgp

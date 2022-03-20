@@ -29,13 +29,6 @@
       -A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE
       -A POSTROUTING -s 100.64.0.0/10 -j MASQUERADE
 
-- name: Configure tunnelbroker
-  when: tunnelbroker is defined
-  template:
-    src: network/tunnelbroker.j2
-    dest: /etc/network/interfaces.d/tunnelbroker
-  notify: Reload network interfaces
-
 - name: Download and install unatatp
   when: unatatp is defined
   get_url:

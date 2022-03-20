@@ -2,7 +2,23 @@ vpn_subnet_id: 42
 
 ipv6_subnet: 2a0e:b107:178c::/48
 
-# https://www.tunnelbroker.ch/tunnel/7171
 tunnelbroker:
-  server: 85.202.203.249
-  subnet: 2a09:4c0:fe0:137::/64
+  tb-proj6:
+    server: 134.195.121.41
+    subnet: 2a0e:46c4:2d0d:8679::/64
+  # https://www.tunnelbroker.ch/tunnel/7196
+  tb-ch:
+    server: 85.202.203.249
+    subnet: 2a09:4c0:fe0:12e::/64
+    routes:
+      - 2000::/3
+
+bgp:
+  tb_proj6:
+    peer_asn: 208753
+    peer_addr: 2a0e:46c4:2d0d:8679::1
+    local_addr: 2a0e:46c4:2d0d:8679::2
+  tb_ch:
+    peer_asn: 58057
+    peer_addr: 2a09:4c0:fe0:12e::1
+    local_addr: 2a09:4c0:fe0:12e::2
