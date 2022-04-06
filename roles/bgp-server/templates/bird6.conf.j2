@@ -20,12 +20,12 @@ protocol static {
 
 protocol bgp {{ name }} {
   local as {{ my_asn }};
-  source address {{ value.local_addr }};
+  # no source address. rely on route table to select source. this simplifies the configuration
   import none;
   export all;
   graceful restart on;
-  # TODO: multihop
   neighbor {{ value.peer_addr }} as {{ value.peer_asn }};
+  # TODO: multihop
   # TODO: password
 }
 

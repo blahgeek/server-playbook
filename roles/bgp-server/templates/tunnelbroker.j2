@@ -1,9 +1,16 @@
 auto {{ item.key }}
+{% if item.value.gre is defined and item.value.gre %}
+iface {{ item.key }} inet tunnel
+{% else %}
 iface {{ item.key }} inet6 v4tunnel
+{% endif %}
         address {{ item.value.subnet | ansible.netcommon.nthhost(2) }}
         netmask {{ item.value.subnet | ansible.netcommon.ipaddr('prefix') }}
         endpoint {{ item.value.server }}
         local {{ ansible_default_ipv4.address }}
+{% if item.value.gre is defined and item.value.gre %}
+        mode gre
+{% endif %}
         ttl 255
 {% if item.value.routes is defined %}
 {% for route in item.value.routes %}

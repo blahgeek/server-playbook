@@ -8,6 +8,7 @@
   shell: "ifdown {{ item }} || true; ip link del {{ item }} || true"
   with_items:
     - tb-ipv6
+    - gre1
 
 - name: Reload tunnelbroker interfaces
   shell: "ifdown {{ item.key }} || true; ip link del {{ item.key }} || true; ifup {{ item.key }}"
