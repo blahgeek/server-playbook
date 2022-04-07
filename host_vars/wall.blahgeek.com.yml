@@ -1,6 +1,6 @@
 vpn_subnet_id: 42
 
-ipv6_subnet: 2a0e:b107:178c::/48
+vpn_ipv6_subnet: 2a0e:b107:178c::/48
 
 tunnelbroker:
   tb-proj6:
@@ -21,9 +21,15 @@ bgp:
   tb_proj6:
     peer_asn: 208753
     peer_addr: 2a0e:46c4:2d0d:8679::1
+    static_routes:
+      - "2a0e:aa07:e035::/48 blackhole"
   tb_ch:
     peer_asn: 58057
     peer_addr: 2a09:4c0:fe0:12e::1
+    static_routes:
+      - "2a0e:b107:178d::/48 blackhole"
   tb_li:
     peer_asn: 34927
     peer_addr: 2a0c:9a40:100f:38d::1
+    static_routes:
+      - "2a0e:b107:178e::/48 blackhole"

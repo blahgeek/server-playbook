@@ -10,15 +10,25 @@ protocol device {
   scan time 60;
 }
 
-protocol static {
-# TODO
-  route 2a0e:aa07:e035::/48 blackhole;
-  route {{ ipv6_subnet }} via {{ ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
-}
-
 {% for name, value in bgp.items() %}
 
+table table_{{ name }};
+
+protocol static {
+  table table_{{ name }};
+{% if value.static_routes is defined %}
+{% for route in value.static_routes %}
+  route {{ route }};
+{% endfor %}
+{% endif %}
+
+{% if vpn_ipv6_subnet is defined %}
+  route {{ vpn_ipv6_subnet }} via {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
+{% endif %}
+}
+
 protocol bgp {{ name }} {
+  table table_{{ name }};
   local as {{ my_asn }};
   # no source address. rely on route table to select source. this simplifies the configuration
   import none;
