@@ -32,11 +32,14 @@
 - name: Download and install unatatp
   when: unatatp is defined
   get_url:
-    url: https://github.com/blahgeek/unatatp/releases/download/0.1/unatatp
+    url: https://github.com/blahgeek/unatatp/releases/download/0.2/unatatp
+    checksum: sha1:0898d2d4d6f16d8e8d1fef808a90755a7e37d3b9
     dest: /usr/local/bin/unatatp
     mode: 0755
   notify:
     - Reload unatatp service
+  tags:
+    - unatatp
 
 - name: Add unatatp systemd service
   when: unatatp is defined
@@ -47,6 +50,8 @@
     unatatp_binary_path: /usr/local/bin/unatatp
   notify:
     - Reload unatatp service
+  tags:
+    - unatatp
 
 - name: Configure unatatp policy routing
   when: unatatp is defined
@@ -54,6 +59,8 @@
     src: network/unatatp-dummy.j2
     dest: /etc/network/interfaces.d/unatatp-dummy
   notify: Reload network interfaces
+  tags:
+    - unatatp
 
 - name: Configure iptables for unatatp
   when: unatatp is defined
@@ -64,6 +71,20 @@
       -A PREROUTING -m addrtype --dst-type local -j ACCEPT
       -A PREROUTING -s 192.168.0.0/16 ! -d 192.168.0.0/16 -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip 127.0.0.1 --tproxy-mark {{ unatatp.route_fwmark }}
       -A PREROUTING -m socket --transparent -j MARK --set-xmark {{ unatatp.route_fwmark }}
+  tags:
+    - unatatp
+
+- name: Configure ip6tables for unatatp
+  when: unatatp is defined and vpn_ipv6_subnet is defined
+  iptables_raw:
+    ipversion: 6
+    name: unatatp_route_6
+    table: mangle
+    rules: |
+      -A PREROUTING -m addrtype --dst-type local -j ACCEPT
+      -A PREROUTING -s {{ vpn_ipv6_subnet }} ! -d {{ vpn_ipv6_subnet }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+  tags:
+    - unatatp
 
 - name: Download and install udp2raw
   unarchive:

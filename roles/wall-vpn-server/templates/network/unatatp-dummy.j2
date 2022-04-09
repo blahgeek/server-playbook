@@ -1,6 +1,10 @@
 auto unatatp-dummy
 iface unatatp-dummy inet manual
   up /sbin/ip route add local default dev lo scope host table {{ unatatp.route_table }}
+  up /sbin/ip -6 route add local default dev lo scope host table {{ unatatp.route_table }}
   up /sbin/ip rule add fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
+  up /sbin/ip -6 rule add fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
   down /sbin/ip route flush table {{ unatatp.route_table }}
+  down /sbin/ip -6 route flush table {{ unatatp.route_table }}
   down /sbin/ip rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
+  down /sbin/ip -6 rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
