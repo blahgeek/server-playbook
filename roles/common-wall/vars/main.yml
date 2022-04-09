@@ -13,3 +13,5 @@ unatatp:
   port: 9999
   route_table: 100
   route_fwmark: "0x100/0xf00"
+
+home_ipv6_subnet: 2a0e:b107:178d::/48

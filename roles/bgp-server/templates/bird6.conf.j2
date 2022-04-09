@@ -10,29 +10,28 @@ protocol device {
   scan time 60;
 }
 
-{% for name, value in bgp.items() %}
-
-table table_{{ name }};
-
 protocol static {
-  table table_{{ name }};
-{% if value.static_routes is defined %}
-{% for route in value.static_routes %}
-  route {{ route }};
-{% endfor %}
-{% endif %}
-
 {% if vpn_ipv6_subnet is defined %}
+{% if home_ipv6_subnet is defined %}
+  route {{ home_ipv6_subnet }} via {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
+{% endif %}
   route {{ vpn_ipv6_subnet }} via {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
 {% endif %}
 }
 
+{% for name, value in bgp.items() %}
+
 protocol bgp {{ name }} {
-  table table_{{ name }};
   local as {{ my_asn }};
   # no source address. rely on route table to select source. this simplifies the configuration
   import none;
+{% if value.export_filter is defined %}
+  export filter {
+    {{ value.export_filter }}
+  };
+{% else %}
   export all;
+{% endif %}
   graceful restart on;
   neighbor {{ value.peer_addr }} as {{ value.peer_asn }};
   # TODO: multihop
