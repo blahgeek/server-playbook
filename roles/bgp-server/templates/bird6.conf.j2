@@ -12,12 +12,10 @@ protocol device {
 
 protocol static {
   # use blackhole because we would configure the routes manually
-{% if vpn_ipv6_subnet is defined %}
-{% if home_ipv6_subnet is defined %}
-  route {{ home_ipv6_subnet }} blackhole;
+{% if home_ipv6_prefix is defined %}
+  route {{ home_ipv6_prefix }} blackhole;
 {% endif %}
-  route {{ vpn_ipv6_subnet }} blackhole;
-{% endif %}
+  route {{ ipv6_prefix }} blackhole;
 }
 
 {% for name, value in bgp.items() %}

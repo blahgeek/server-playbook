@@ -6,9 +6,7 @@ remote {{ hostvars[item.host].ansible_default_ipv4.address }} {{ openvpn.server_
 dev tun
 
 ifconfig {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(2) }} {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(1) }}
-{% if hostvars[item.host].vpn_ipv6_subnet is defined %}
-ifconfig-ipv6 {{ hostvars[item.host].vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }} {{ hostvars[item.host].vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(1) }}
-{% endif %}
+ifconfig-ipv6 {{ hostvars[item.host].ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }} {{ hostvars[item.host].ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(1) }}
 
 {% if item.openvpn.route_v6.default %}
 route-ipv6 2000::/3

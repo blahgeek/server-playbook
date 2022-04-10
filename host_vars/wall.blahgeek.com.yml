@@ -1,6 +1,6 @@
 vpn_subnet_id: 42
 
-vpn_ipv6_subnet: 2a0e:b107:178c::/48
+ipv6_prefix: 2a0e:b107:178c::/48
 
 tunnelbroker:
   tb-proj6:

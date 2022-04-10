@@ -3,14 +3,12 @@ lport {{ openvpn.server_listen_port }}
 dev tun
 
 ifconfig {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, vpn_subnet_id) | ansible.netcommon.nthhost(1) }} {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, vpn_subnet_id) | ansible.netcommon.nthhost(2) }}
-{% if vpn_ipv6_subnet is defined %}
-ifconfig-ipv6 {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(1) }} {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }}
-{% endif %}
+ifconfig-ipv6 {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(1) }} {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }}
 
 route 192.168.0.0 255.255.0.0
 route 100.64.0.0 255.192.0.0
-{% if vpn_ipv6_subnet is defined and home_ipv6_subnet is defined %}
-route-ipv6 {{ home_ipv6_subnet }} {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }}
+{% if home_ipv6_prefix is defined %}
+route-ipv6 {{ home_ipv6_prefix }} {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }}
 {% endif %}
 
 secret static.key

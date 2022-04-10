@@ -75,14 +75,14 @@
     - unatatp
 
 - name: Configure ip6tables for unatatp
-  when: unatatp is defined and vpn_ipv6_subnet is defined
+  when: unatatp is defined and ipv6_prefix is defined
   iptables_raw:
     ipversion: 6
     name: unatatp_route_6
     table: mangle
     rules: |
       -A PREROUTING -m addrtype --dst-type local -j ACCEPT
-      -A PREROUTING -s {{ vpn_ipv6_subnet }} ! -d {{ vpn_ipv6_subnet }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A PREROUTING -s {{ ipv6_prefix }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
   tags:
     - unatatp
 
