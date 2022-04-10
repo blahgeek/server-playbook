@@ -17,6 +17,16 @@ tunnelbroker:
     subnet: 2a0c:9a40:100f:38d::/64
     gre: true
 
+# ipv6 stateless src addr prefix translation
+# so that we can use `ipv6_prefix` for outgoing connections (instead of vps/tunnel's own address)
+ipv6_snpt:
+  - iface: tb-ch
+    src: "{{ tunnelbroker['tb-ch'].subnet }}"
+    dst: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x2000) }}"
+  - iface: tb-proj6
+    src: "{{ tunnelbroker['tb-proj6'].subnet }}"
+    dst: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 0x2001) }}"
+
 bgp:
   tb_proj6:
     peer_asn: 208753
