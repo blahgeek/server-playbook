@@ -11,11 +11,12 @@ protocol device {
 }
 
 protocol static {
+  # use blackhole because we would configure the routes manually
 {% if vpn_ipv6_subnet is defined %}
 {% if home_ipv6_subnet is defined %}
-  route {{ home_ipv6_subnet }} via {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
+  route {{ home_ipv6_subnet }} blackhole;
 {% endif %}
-  route {{ vpn_ipv6_subnet }} via {{ vpn_ipv6_subnet | ansible.netcommon.ipsubnet(64, 0x1000) | ansible.netcommon.nthhost(2) }};
+  route {{ vpn_ipv6_subnet }} blackhole;
 {% endif %}
 }
 
