@@ -20,7 +20,7 @@
 
 - name: Reload unatatp service
   systemd:
-    name: "unatatp@{{ unatatp.port }}"
+    name: unatatp
     enabled: yes
     state: restarted
     daemon-reload: yes

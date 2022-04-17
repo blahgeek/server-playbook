@@ -12,6 +12,8 @@ tunnelbroker:
     subnet: 2a09:4c0:fe0:12e::/64
     routes:
       - 2000::/3
+    routes_local:
+      - "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_unatatp_subnet_id)}}"
   tb-li:
     server: 185.44.83.17
     subnet: 2a0c:9a40:100f:38d::/64

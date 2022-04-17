@@ -1,6 +1,17 @@
 - assert:
     that: ansible_os_family == 'Debian'
 
+- name: Configure network related sysctl for bgp server
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: yes
+    reload: yes
+  with_items:
+    - { name: "net.ipv6.ip_nonlocal_bind", "value": "1"}
+  tags:
+    - bgp
+
 - name: Configure tunnelbroker
   when: tunnelbroker is defined
   template:

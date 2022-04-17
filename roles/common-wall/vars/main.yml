@@ -16,3 +16,4 @@ unatatp:
 
 home_ipv6_prefix: 2a0e:b107:178d::/48
 ipv6_vpn_subnet_id: 0x1000
+ipv6_unatatp_subnet_id: 0x3000

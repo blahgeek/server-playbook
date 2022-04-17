@@ -29,11 +29,27 @@
       -A POSTROUTING -s 192.168.0.0/16 -j MASQUERADE
       -A POSTROUTING -s 100.64.0.0/10 -j MASQUERADE
 
+- name: Remove legacy unatatp system service
+  systemd:
+    name: "unatatp@{{ unatatp.port }}"
+    enabled: no
+    state: stopped
+  ignore_errors: yes
+  tags:
+    - unatatp
+
+- name: Remove legacy unatatp systemd service config
+  file:
+    path: /etc/systemd/system/unatatp@.service
+    state: absent
+  tags:
+    - unatatp
+
 - name: Download and install unatatp
   when: unatatp is defined
   get_url:
-    url: https://github.com/blahgeek/unatatp/releases/download/0.2/unatatp
-    checksum: sha1:0898d2d4d6f16d8e8d1fef808a90755a7e37d3b9
+    url: https://github.com/blahgeek/unatatp/releases/download/0.3/unatatp
+    checksum: sha1:9de21944d7462a942174e4bdb152ca7509fc8701
     dest: /usr/local/bin/unatatp
     mode: 0755
   notify:
@@ -44,8 +60,8 @@
 - name: Add unatatp systemd service
   when: unatatp is defined
   template:
-    src: systemd/unatatp@.service.j2
-    dest: /etc/systemd/system/unatatp@.service
+    src: systemd/unatatp.service.j2
+    dest: /etc/systemd/system/unatatp.service
   vars:
     unatatp_binary_path: /usr/local/bin/unatatp
   notify:
@@ -82,7 +98,7 @@
     table: mangle
     rules: |
       -A PREROUTING -m addrtype --dst-type local -j ACCEPT
-      -A PREROUTING -s {{ ipv6_prefix }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A PREROUTING -s {{ home_ipv6_prefix }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
   tags:
     - unatatp
 
