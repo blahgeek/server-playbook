@@ -16,7 +16,4 @@ iface {{ item.key }} inet6 v4tunnel
 {% for route in item.value.routes %}
         up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.netcommon.nthhost(1) }}
 {% endfor %}
-{% for route in item.value.routes_local %}
-        up /bin/ip -6 route add local {{ route }} dev {{ item.key }}
-{% endfor %}
 {% endif %}

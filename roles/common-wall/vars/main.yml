@@ -13,7 +13,7 @@ unatatp:
   port: 9999
   route_table: 100
   route_fwmark: "0x100/0xf00"
+  ipv6_subnet_id: 0x3000
 
 home_ipv6_prefix: 2a0e:b107:178d::/48
 ipv6_vpn_subnet_id: 0x1000
-ipv6_unatatp_subnet_id: 0x3000
