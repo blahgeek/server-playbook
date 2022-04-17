@@ -1,3 +1,21 @@
+- name: Remove old udp2raw services for openvpn
+  systemd:
+    name: "udp2raw@{{ item }}"
+    enabled: no
+    state: stopped
+  ignore_errors: yes
+  with_items: "{{ absent_wall_servers }}"
+  tags:
+    - wall-client
+
+- name: Remove old udp2raw client configs for openvpn
+  file:
+    path: "/etc/udp2raw/{{ item }}.conf"
+    state: absent
+  with_items: "{{ absent_wall_servers }}"
+  tags:
+    - wall-client
+
 - name: Install udp2raw client configs for openvpn
   template:
     src: udp2raw-for-openvpn.conf.j2
@@ -28,11 +46,45 @@
   tags:
     - wall-client
 
+- name: Remove old openvpn services
+  systemd:
+    name: "openvpn-client@{{ item }}"
+    enabled: no
+    state: stopped
+  ignore_errors: yes
+  with_items: "{{ absent_wall_servers }}"
+  tags:
+    - wall-client
+
+- name: Remove old openvpn client up scripts
+  file:
+    path: "/etc/openvpn/client/{{ item }}-up.sh"
+    state: absent
+  with_items: "{{ absent_wall_servers }}"
+  tags:
+    - wall-client
+
+- name: Remove old openvpn client down scripts
+  file:
+    path: "/etc/openvpn/client/{{ item }}-down.sh"
+    state: absent
+  with_items: "{{ absent_wall_servers }}"
+  tags:
+    - wall-client
+
 - name: Install openvpn client configs
   template:
     src: openvpn/client.conf.j2
     dest: "/etc/openvpn/client/{{ item.name }}.conf"
   notify: Reload openvpn client services
   with_items: "{{ wall_servers }}"
+  tags:
+    - wall-client
+
+- name: Remove old openvpn client configs
+  file:
+    path: "/etc/openvpn/client/{{ item }}.conf"
+    state: absent
+  with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client

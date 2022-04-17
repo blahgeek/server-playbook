@@ -9,13 +9,16 @@ wall_servers:
         fwmark: '0x1/0xf'
       route_v6:
         default: true
-  # - name: ironisland
-  #   host: ironisland.blahgeek.com
-  #   openvpn:
-  #     # udp2raw:
-  #     #   client_listen_port: 3001
-  #     route_v4:
-  #       table: 3
-  #       fwmark: '0x3/0xf'
-  #     route_v6:
-  #       default: false
+  - name: eastwatch
+    host: eastwatch.blahgeek.com
+    openvpn:
+      udp2raw:
+        client_listen_port: 3001
+      route_v4:
+        table: 3
+        fwmark: '0x3/0xf'
+      route_v6:
+        default: false
+
+absent_wall_servers:
+  - ironisland
