@@ -24,17 +24,12 @@
   tags:
     - bgp
 
-- name: Configure ipv6 SNPT
-  when: ipv6_snpt is defined
+- name: Remove legacy ipv6 SNPT config
   iptables_raw:
     ipversion: 6
     name: ipv6_snpt
     table: mangle
-    rules: |
-      {% for item in ipv6_snpt %}
-      -A POSTROUTING -s {{ item.src }} ! -d {{ item.src }} -o {{ item.iface }} -j SNPT --src-pfx {{ item.src }} --dst-pfx {{ item.dst }}
-      -A PREROUTING ! -s {{ item.src }} -d {{ item.dst }} -i {{ item.iface }} -j DNPT --src-pfx {{ item.dst }} --dst-pfx {{ item.src }}
-      {% endfor %}
+    state: absent
   tags:
     - bgp
 
