@@ -33,8 +33,12 @@ protocol bgp {{ name }} {
 {% endif %}
   graceful restart on;
   neighbor {{ value.peer_addr }} as {{ value.peer_asn }};
-  # TODO: multihop
-  # TODO: password
+{% if value.password is defined %}
+  password "{{ value.password }}";
+{% endif %}
+{% if value.multihop is defined %}
+  multihop {{ value.multihop }};
+{% endif %}
 }
 
 {% endfor %}

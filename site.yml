@@ -1,4 +1,4 @@
-- hosts: wall
+- hosts: wall_master
   roles:
     - role: common-server
     - role: wall-vpn-server
@@ -6,11 +6,11 @@
     - role: web-server
     - role: bgp-server
 
-# - hosts: ironisland
-#   roles:
-#     - role: common-server
-#     - role: wall-vpn-server
-#     - role: sync-server
+- hosts: wall_slave
+  roles:
+    - role: common-server
+    - role: wall-vpn-server
+    - role: bgp-server
 
 - hosts: mhome
   roles:

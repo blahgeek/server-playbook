@@ -1,0 +1,10 @@
+vpn_subnet_id: 43
+
+ipv6_prefix: 2a0e:aa07:e035::/48
+
+bgp:
+  virtua:
+    peer_asn: 64559
+    peer_addr: 2a0e:8a84::be:1
+    password: z3Aqqg802X8T
+    multihop: 2
