@@ -10,17 +10,24 @@ protocol device {
   scan time 60;
 }
 
-protocol static {
-  # use blackhole because we would configure the routes manually
-{% if home_ipv6_prefix is defined %}
-  route {{ home_ipv6_prefix }} blackhole;
-{% endif %}
-  route {{ ipv6_prefix }} blackhole;
-}
-
 {% for name, value in bgp.items() %}
 
+table tb_{{ name }};
+
+protocol static {
+  table tb_{{ name }};
+
+  # use blackhole because we would configure the routes manually
+{% if value.prefixes is defined %}
+{% for prefix in value.prefixes %}
+  route {{ prefix }} blackhole;
+{% endfor %}
+{% endif %}
+}
+
 protocol bgp {{ name }} {
+  table tb_{{ name }};
+
   local as {{ my_asn }};
   # no source address. rely on route table to select source. this simplifies the configuration
   import none;

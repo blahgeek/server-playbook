@@ -7,9 +7,7 @@ ifconfig-ipv6 {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id
 
 route 192.168.0.0 255.255.0.0
 route 100.64.0.0 255.192.0.0
-{% if home_ipv6_prefix is defined %}
-route-ipv6 {{ home_ipv6_prefix }} {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.netcommon.nthhost(2) }}
-{% endif %}
+route-ipv6 {{ yikai_net.home_prefix }} {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.netcommon.nthhost(2) }}
 
 secret static.key
 # 128bit, faster

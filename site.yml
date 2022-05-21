@@ -1,4 +1,4 @@
-- hosts: wall_master
+- hosts: wall
   roles:
     - role: common-server
     - role: wall-vpn-server
@@ -6,10 +6,9 @@
     - role: web-server
     - role: bgp-server
 
-- hosts: wall_slave
+- hosts: eastwatch
   roles:
     - role: common-server
-    - role: wall-vpn-server
     - role: bgp-server
 
 - hosts: mhome

@@ -15,5 +15,10 @@ unatatp:
   route_fwmark: "0x100/0xf00"
   ipv6_subnet_id: 0x3000
 
+yikai_net:
+  home_prefix: 2a0e:b107:178d::/48
+  wall_prefix: 2a0e:b107:178c::/48
+  eastwatch_prefix: 2a0e:aa07:e035::/48
+
 home_ipv6_prefix: 2a0e:b107:178d::/48
 ipv6_vpn_subnet_id: 0x1000

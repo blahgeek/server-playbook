@@ -27,6 +27,14 @@
     state: present
   when: ansible_os_family == 'Debian'
 
+- name: Disblae UFW
+  systemd:
+    name: ufw
+    enabled: no
+    state: stopped
+  when: ansible_os_family == 'Debian'
+  ignore_errors: yes
+
 - name: Configure fail2ban
   copy:
     content: |

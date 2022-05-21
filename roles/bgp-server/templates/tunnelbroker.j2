@@ -1,12 +1,17 @@
+{% set is_client = True %}
+{% if item.value.is_server is defined and item.value.is_server %}
+        {% set is_client = False %}
+{% endif %}
+
 auto {{ item.key }}
 {% if item.value.gre is defined and item.value.gre %}
 iface {{ item.key }} inet tunnel
 {% else %}
 iface {{ item.key }} inet6 v4tunnel
 {% endif %}
-        address {{ item.value.subnet | ansible.netcommon.nthhost(2) }}
+        address {{ item.value.subnet | ansible.netcommon.nthhost(2 if is_client else 1) }}
         netmask {{ item.value.subnet | ansible.netcommon.ipaddr('prefix') }}
-        endpoint {{ item.value.server }}
+        endpoint {{ item.value.remote }}
         local {{ ansible_default_ipv4.address }}
 {% if item.value.gre is defined and item.value.gre %}
         mode gre
@@ -14,6 +19,6 @@ iface {{ item.key }} inet6 v4tunnel
         ttl 255
 {% if item.value.routes is defined %}
 {% for route in item.value.routes %}
-        up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.netcommon.nthhost(1) }}
+        up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.netcommon.nthhost(1 if is_client else 2) }}
 {% endfor %}
 {% endif %}

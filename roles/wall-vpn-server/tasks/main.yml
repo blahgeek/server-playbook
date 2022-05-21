@@ -1,26 +1,6 @@
 - assert:
     that: ansible_os_family == 'Debian'
 
-- name: Configure network related sysctl
-  ansible.posix.sysctl:
-    name: "{{ item.name }}"
-    value: "{{ item.value }}"
-    sysctl_set: yes
-    reload: yes
-  with_items:
-    - { name: "net.ipv4.ip_forward", "value": "1"}
-    - { name: "net.ipv4.tcp_window_scaling", "value": "1"}
-    - { name: "net.ipv4.tcp_syncookies", "value": "1"}
-    - { name: "net.core.rmem_max", "value": "16777216"}
-    - { name: "net.core.wmem_max", "value": "16777216"}
-    - { name: "net.ipv4.tcp_rmem", "value": "4096 87380 16777216"}
-    - { name: "net.ipv4.tcp_wmem", "value": "4096 65536 16777216"}
-    - { name: "net.ipv4.conf.default.rp_filter", "value": "2"}
-    - { name: "net.ipv4.conf.all.rp_filter", "value": "2"}
-    - { name: "net.ipv6.conf.all.forwarding", "value": "1"}
-    - { name: "net.core.default_qdisc", "value": "fq"}
-    - { name: "net.ipv4.tcp_congestion_control", "value": "bbr"}
-
 - name: Configure iptables for nat masquerade
   iptables_raw:
     name: nat_masquerade
@@ -98,7 +78,7 @@
     table: mangle
     rules: |
       -A PREROUTING -m addrtype --dst-type local -j ACCEPT
-      -A PREROUTING -s {{ home_ipv6_prefix }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A PREROUTING -s {{ yikai_net.home_prefix }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
   tags:
     - unatatp
 
