@@ -9,6 +9,7 @@
 - hosts: eastwatch
   roles:
     - role: common-server
+    - role: wall-vpn-server
     - role: bgp-server
 
 - hosts: mhome
