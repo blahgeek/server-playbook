@@ -10,6 +10,11 @@
       - docker
       - docker-compose
 
+- name: Ensure docker.service.d folder exists
+  file:
+    path: /etc/systemd/system/docker.service.d
+    state: directory
+
 - name: Install docker netns config
   template:
     src: docker.service.d/netns.conf.j2
