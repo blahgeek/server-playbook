@@ -11,6 +11,7 @@
     - role: common-server
     - role: wall-vpn-server
     - role: bgp-server
+    - role: sync-server
 
 - hosts: mhome
   roles:
