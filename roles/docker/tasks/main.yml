@@ -15,10 +15,21 @@
     path: /etc/systemd/system/docker.service.d
     state: directory
 
+- name: Ensure /etc/docker folder exists
+  file:
+    path: /etc/docker
+    state: directory
+
 - name: Install docker netns config
   template:
     src: docker.service.d/netns.conf.j2
     dest: /etc/systemd/system/docker.service.d/netns.conf
+  notify: Reload docker
+
+- name: Apply docker daemon.json
+  copy:
+    src: daemon.json
+    dest: /etc/docker/daemon.json
   notify: Reload docker
 
 - name: Flush reload docker handlers
