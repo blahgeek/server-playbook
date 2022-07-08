@@ -57,3 +57,11 @@
     regexp: '^source '
     line: source /etc/network/interfaces.d/*
   when: ansible_os_family == 'Debian'
+
+# aliyun SB
+- name: Reset iptable default policy
+  iptables_raw:
+    name: reset_default
+    table: filter
+    rules: |
+      -P FORWARD ACCEPT
