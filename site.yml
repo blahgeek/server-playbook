@@ -16,3 +16,8 @@
 - hosts: mhome
   roles:
     - role: wall-vpn-client
+
+- hosts: fleabottom
+  roles:
+    - role: common-server
+    - role: beian-web-server
