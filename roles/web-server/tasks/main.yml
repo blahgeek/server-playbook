@@ -5,6 +5,7 @@
     mode: 0755
   with_items:
     - /var/hpshare
+    - /var/searxng
 
 - name: Copy config file for hpshare server
   copy:
@@ -41,3 +42,32 @@
       VIRTUAL_HOST: "blog.blahgeek.com,z1k.dev"
       LETSENCRYPT_HOST: "blog.blahgeek.com,z1k.dev"
     expose: 80
+
+- name: Copy config file for searxng
+  copy:
+    src: searxng/settings.yml
+    dest: /var/searxng/settings.yml
+  notify: Restart docker searxng
+
+- name: Configure docker searxng
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: searxng
+    image: searxng/searxng:2022.08.07-04e34270
+    volumes:
+      - /var/searxng/:/etc/searxng/
+    env:
+      VIRTUAL_PORT: "8080"
+      VIRTUAL_HOST: "search.z1k.dev"
+      LETSENCRYPT_HOST: "search.z1k.dev"
+      INSTANCE_NAME: "Search.z1k.dev"
+      BASE_URL: "https://search.z1k.dev/"
+    expose: 8080
+
+- name: Configure uwsgi config for docker searxng (after docker start)
+  lineinfile:
+    path: /var/searxng/uwsgi.ini
+    regexp: "^workers =.*"
+    line: "workers = 1"
+  notify: Restart docker searxng
