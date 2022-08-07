@@ -32,6 +32,9 @@
       - /data/Raven:/mnt/mounted_folders/Raven
       - /data/Notes:/mnt/mounted_folders/Notes
     hostname: "{{ inventory_hostname }}"
+    log_driver: json-file
+    log_options:
+      max-size: "10m"
 
 - name: "Configure iptables port forward for rslsync web"
   iptables_raw:
