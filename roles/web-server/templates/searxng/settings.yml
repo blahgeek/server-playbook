@@ -61,7 +61,7 @@ server:
   # If your instance owns a /etc/searxng/settings.yml file, then set the following
   # values there.
 
-  secret_key: "0948848588702cecd02caf92e6644c18aa476d5a6b654865e02f1a0fafc5e558"  # change this!
+  secret_key: "{{ searxng.secret_key }}"
   # Proxying image results through searx
   image_proxy: false
   # 1.0 and 1.1 are supported
@@ -97,7 +97,7 @@ ui:
   center_alignment: false
   # Default interface locale - leave blank to detect from browser information or
   # use codes from the 'locales' config section
-  default_locale: ""
+  default_locale: "en"
   # Open result links in a new tab by default
   # results_on_new_tab: false
   theme_args:
@@ -142,6 +142,7 @@ outgoing:
   pool_maxsize: 20
   # See https://www.python-httpx.org/http2/
   enable_http2: true
+  keepalive_expiry: 60
   # uncomment below section if you want to use a proxyq see: SOCKS proxies
   #   https://2.python-requests.org/en/latest/user/advanced/#proxies
   # are also supported: see
@@ -427,6 +428,8 @@ engines:
     enable_http: true
     number_of_results: 20
     timeout: 3.0
+    tokens:
+      - "{{ searxng.private_engine_token }}"
 
 doi_resolvers:
   oadoi.org: 'https://oadoi.org/'

@@ -44,7 +44,7 @@
     expose: 80
 
 - name: Copy config file for searxng
-  copy:
+  template:
     src: searxng/settings.yml
     dest: /var/searxng/settings.yml
   notify: Restart docker searxng
