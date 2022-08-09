@@ -64,6 +64,11 @@
       INSTANCE_NAME: "Search.z1k.dev"
       BASE_URL: "https://search.z1k.dev/"
     expose: 8080
+    networks:
+      # enable ipv6
+      - name: bridge
+      - name: v6net
+        ipv6_address: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) | ansible.netcommon.nthhost(0x3ea0) }}"
 
 - name: Configure uwsgi config for docker searxng (after docker start)
   lineinfile:
