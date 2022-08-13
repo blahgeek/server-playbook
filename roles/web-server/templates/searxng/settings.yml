@@ -26,7 +26,7 @@ search:
   # Existing autocomplete backends: "dbpedia", "duckduckgo", "google",
   # "seznam", "startpage", "swisscows", "qwant", "wikipedia" - leave blank to turn it off
   # by default.
-  autocomplete: ""
+  autocomplete: "google"
   # minimun characters to type before autocompleter starts
   autocomplete_min: 4
   # Default search language - leave blank to detect from browser information or
@@ -253,35 +253,28 @@ checker:
 categories_as_tabs:
   general:
   history:
-  # images:
+  images:
   # videos:
   # news:
   # map:
   # music:
   it:
-  repos:
-  packages:
-  science:
+  # science:
   # files:
   # social media:
 
 engines:
 
-  - name: arch linux wiki
+  - name: archwiki
     engine: archlinux
     shortcut: archwiki
-    categories: it
-
-  - name: arxiv
-    engine: arxiv
-    shortcut: arx
-    categories: science
-    timeout: 4.0
+    disabled: true
 
   - name: wikipedia
     engine: wikipedia
     shortcut: wiki
     base_url: 'https://{language}.wikipedia.org/'
+    disabled: true
 
   - name: bitbucket
     engine: xpath
@@ -290,7 +283,9 @@ engines:
     url_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]/@href
     title_xpath: //article[@class="repo-summary"]//a[@class="repo-link"]
     content_xpath: //article[@class="repo-summary"]/p
-    categories: repos
+    categories:
+      - repos
+      - it
     timeout: 4.0
     shortcut: bb
     about:
@@ -309,7 +304,9 @@ engines:
   - name: docker hub
     engine: docker_hub
     shortcut: dh
-    categories: packages
+    categories:
+      - packages
+      - it
 
   - name: duckduckgo
     engine: duckduckgo
@@ -323,7 +320,9 @@ engines:
     title_query: name_with_namespace
     content_query: description
     page_size: 20
-    categories: repos
+    categories:
+      - repos
+      - it
     shortcut: gl
     timeout: 10.0
     about:
@@ -337,11 +336,9 @@ engines:
   - name: github
     engine: github
     shortcut: gh
-    categories: [it, repos]
-
-    # This a Gitea service. If you would like to use a different instance,
-    # change codeberg.org to URL of the desired Gitea host. Or you can create a
-    # new engine by copying this and changing the name, shortcut and search_url.
+    categories:
+      - it
+      - repos
 
   - name: google
     engine: google
@@ -350,10 +347,6 @@ engines:
     use_mobile_ui: false
     # additional_tests:
     #   android: *test_android
-
-  - name: google scholar
-    engine: google_scholar
-    shortcut: gos
 
   - name: npm
     engine: json_engine
@@ -365,7 +358,9 @@ engines:
     title_query: package/name
     content_query: package/description
     page_size: 25
-    categories: packages
+    categories:
+      - packages
+      - it
     timeout: 5.0
     shortcut: npm
     about:
@@ -387,7 +382,9 @@ engines:
     content_xpath: ./p
     suggestion_xpath: /html/body/main/div/div/div/form/div/div[@class="callout-block"]/p/span/a[@class="link"]
     first_page_num: 1
-    categories: packages
+    categories:
+      - packages
+      - it
     about:
       website: https://pypi.org
       wikidata_id: Q2984686
@@ -400,24 +397,7 @@ engines:
     engine: reddit
     shortcut: re
     page_size: 25
-
-  - name: stackoverflow
-    engine: stackexchange
-    shortcut: st
-    api_site: 'stackoverflow'
-    categories: [it, q&a]
-
-  - name: askubuntu
-    engine: stackexchange
-    shortcut: ubuntu
-    api_site: 'askubuntu'
-    categories: [it, q&a]
-
-  - name: superuser
-    engine: stackexchange
-    shortcut: su
-    api_site: 'superuser'
-    categories: [it, q&a]
+    disabled: true
 
   - name: yacy
     engine: yacy
@@ -430,6 +410,32 @@ engines:
     timeout: 3.0
     tokens:
       - "{{ searxng.private_engine_token }}"
+
+  - name: bing
+    engine: bing
+    shortcut: bi
+    disabled: true
+
+  - name: bing images
+    engine: bing_images
+    shortcut: bii
+    disabled: true
+
+  - name: google images
+    engine: google_images
+    shortcut: goi
+
+  - name: duckduckgo images
+    engine: duckduckgo_images
+    shortcut: ddi
+    timeout: 3.0
+    disabled: true
+
+  - name: emojipedia
+    engine: emojipedia
+    timeout: 4.0
+    shortcut: em
+    disabled: true
 
 doi_resolvers:
   oadoi.org: 'https://oadoi.org/'
