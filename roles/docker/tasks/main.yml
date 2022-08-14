@@ -66,6 +66,13 @@
     - /var/nginx-proxy/html
     - /var/nginx-proxy/acme
 
+- name: Remove legacy docker services
+  docker_container:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - webdav-tina_proxy
+
 - name: Container nginx-proxy
   docker_container:
     container_default_behavior: no_defaults
