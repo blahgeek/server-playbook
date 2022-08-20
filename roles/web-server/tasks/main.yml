@@ -48,6 +48,8 @@
     src: searxng/settings.yml
     dest: /var/searxng/settings.yml
   notify: Restart docker searxng
+  tags:
+    - searx
 
 - name: Configure docker searxng
   docker_container:
@@ -69,6 +71,8 @@
       - name: bridge
       - name: v6net
         ipv6_address: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) | ansible.netcommon.nthhost(0x3ea0) }}"
+  tags:
+    - searx
 
 - name: Configure uwsgi config for docker searxng (after docker start)
   lineinfile:
@@ -76,3 +80,5 @@
     regexp: "^workers =.*"
     line: "workers = 1"
   notify: Restart docker searxng
+  tags:
+    - searx
