@@ -347,8 +347,6 @@ engines:
     use_mobile_ui: false
     # additional_tests:
     #   android: *test_android
-    # https://github.com/searxng/searxng/pull/1633/files
-    results_xpath: '//div[contains(@class, "kvH3mc")]'
 
   - name: npm
     engine: json_engine
