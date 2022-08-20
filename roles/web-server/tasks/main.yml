@@ -56,7 +56,7 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: searxng
-    image: searxng/searxng:2022.08.07-04e34270
+    image: searxng/searxng:2022.08.19-6f28a69f
     volumes:
       - /var/searxng/:/etc/searxng/
     env:
