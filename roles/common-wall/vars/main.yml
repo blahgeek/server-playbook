@@ -9,12 +9,6 @@ udp2raw:
     cipher_mode: none
     key: blahnet
 
-unatatp:
-  port: 9999
-  route_table: 100
-  route_fwmark: "0x100/0xf00"
-  ipv6_subnet_id: 0x3000
-
 yikai_net:
   home_prefix: 2a0e:b107:178d::/48
   wall_prefix: 2a0e:b107:178c::/48
