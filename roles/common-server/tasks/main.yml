@@ -18,6 +18,7 @@
       - fail2ban
       - openvpn
       - htop
+      - unzip
     state: present
 
 - name: Install packages for debian

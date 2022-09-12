@@ -1,0 +1,14 @@
+[Unit]
+Description=UDP over TCP tunnel client
+After=network-online.target
+
+[Service]
+Type=simple
+EnvironmentFile=/etc/phantun/client/%i.conf
+ExecStart=/usr/local/bin/phantun_client -4 --local ${LOCAL} --remote ${REMOTE} --tun-local ${TUN_LOCAL} --tun-peer ${TUN_PEER} --tun ${TUN}
+Restart=always
+RestartSec=30
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target

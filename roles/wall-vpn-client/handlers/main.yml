@@ -7,6 +7,15 @@
   when: item.openvpn.udp2raw is defined
   with_items: "{{ wall_servers }}"
 
+- name: Reload phantun client services for openvpn
+  systemd:
+    name: "phantun-client@{{ item.name }}"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
+  when: item.openvpn.phantun is defined
+  with_items: "{{ wall_servers }}"
+
 - name: Reload openvpn client services
   systemd:
     name: "openvpn-client@{{ item.name }}"

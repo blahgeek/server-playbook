@@ -1,5 +1,7 @@
 {% if item.openvpn.udp2raw is defined %}
 remote 127.0.0.1 {{ item.openvpn.udp2raw.client_listen_port }}
+{% elif item.openvpn.phantun is defined %}
+remote 127.0.0.1 {{ item.openvpn.phantun.client_listen_port }}
 {% else %}
 remote {{ hostvars[item.host].ansible_default_ipv4.address }} {{ openvpn.server_listen_port }}
 {% endif %}

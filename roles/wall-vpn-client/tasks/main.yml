@@ -26,6 +26,16 @@
   tags:
     - wall-client
 
+- name: Install phantun client configs for openvpn
+  template:
+    src: phantun-client-for-openvpn.conf.j2
+    dest: "/etc/phantun/client/{{ item.name }}.conf"
+  notify: Reload phantun client services for openvpn
+  when: item.openvpn.phantun is defined
+  with_items: "{{ wall_servers }}"
+  tags:
+    - wall-client
+
 - name: Install openvpn client up scripts
   template:
     src: openvpn/client-up.sh.j2

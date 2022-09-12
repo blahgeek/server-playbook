@@ -144,6 +144,21 @@
     rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
   with_dict: "{{ udp2raw }}"
 
+- name: Install phantun server configs
+  template:
+    src: phantun_server.conf.j2
+    dest: "/etc/phantun/server/{{ item.key }}.conf"
+  with_dict: "{{ phantun }}"
+  notify: Reload phantun server services
+
+- name: Configure iptables for phantun
+  iptables_raw:
+    name: "phantun_nat_{{ item.key }}"
+    table: nat
+    rules: |
+      -A PREROUTING -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DNAT --to-destination 172.16.201.2
+  with_dict: "{{ phantun }}"
+
 - name: Copy openvpn keys
   copy:
     src: ../common-wall/files/openvpn/static.key
