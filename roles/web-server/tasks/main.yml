@@ -17,7 +17,7 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: hpshare
-    image: blahgeek/hpurl:0.3.3
+    image: blahgeek/hpurl:0.3.4
     volumes:
       - /var/hpshare:/data
     env:
@@ -30,6 +30,7 @@
       VIRTUAL_HOST: "{{ hpshare.domain }}"
       LETSENCRYPT_HOST: "{{ hpshare.domain }}"
     expose: 80
+  tags: hpshare
 
 - name: Configure docker blog website
   docker_container:
