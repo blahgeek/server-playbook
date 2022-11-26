@@ -11,15 +11,15 @@ ExecStartPre=ip link set docker0_ns name eth0
 
 # bring host online
 ExecStartPre=nsenter -t 1 -n -- ip addr add 10.255.0.1/24 dev docker0
-ExecStartPre=nsenter -t 1 -n -- ip -6 addr add {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.netcommon.nthhost(1) }}/64 dev docker0
+ExecStartPre=nsenter -t 1 -n -- ip -6 addr add {{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.utils.nthhost(1) }}/64 dev docker0
 ExecStartPre=nsenter -t 1 -n -- ip link set docker0 up
 
 # bring ns online
 ExecStartPre=ip addr add 10.255.0.100/24 dev eth0
-ExecStartPre=ip -6 addr add {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.netcommon.nthhost(0x100) }}/64 dev eth0
+ExecStartPre=ip -6 addr add {{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.utils.nthhost(0x100) }}/64 dev eth0
 ExecStartPre=ip link set eth0 up
 ExecStartPre=ip route add default via 10.255.0.1 dev eth0
-ExecStartPre=ip -6 route add default via {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.netcommon.nthhost(1) }} dev eth0
+ExecStartPre=ip -6 route add default via {{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.utils.nthhost(1) }} dev eth0
 
 # add host route
-ExecStartPre=nsenter -t 1 -n -- ip -6 route add {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) }} via {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.netcommon.nthhost(0x100) }} dev docker0
+ExecStartPre=nsenter -t 1 -n -- ip -6 route add {{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_subnet_id) }} via {{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_netns_subnet_id) | ansible.utils.nthhost(0x100) }} dev docker0

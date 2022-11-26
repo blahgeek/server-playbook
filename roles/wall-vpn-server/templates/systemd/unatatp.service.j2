@@ -5,7 +5,7 @@ After=network-online.target
 [Service]
 Type=simple
 CapabilityBoundingSet=CAP_NET_ADMIN
-ExecStart={{ unatatp_binary_path }} -port {{ unatatp.port }}{% if ipv6_prefix is defined %} -bind_ipv6_prefix {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, unatatp.ipv6_subnet_id)}}{% endif %}
+ExecStart={{ unatatp_binary_path }} -port {{ unatatp.port }}{% if ipv6_prefix is defined %} -bind_ipv6_prefix {{ ipv6_prefix | ansible.utils.ipsubnet(64, unatatp.ipv6_subnet_id)}}{% endif %}
 
 Restart=always
 RestartSec=30

@@ -9,6 +9,6 @@ iface unatatp-dummy inet manual
   down /sbin/ip rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
   down /sbin/ip -6 rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
 {% if ipv6_prefix is defined %}
-  up /sbin/ip -6 route add local {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo
-  down /sbin/ip -6 route del local {{ ipv6_prefix | ansible.netcommon.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo || true
+  up /sbin/ip -6 route add local {{ ipv6_prefix | ansible.utils.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo
+  down /sbin/ip -6 route del local {{ ipv6_prefix | ansible.utils.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo || true
 {% endif %}

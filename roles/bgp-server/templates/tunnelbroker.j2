@@ -9,7 +9,7 @@ iface {{ item.key }} inet tunnel
 {% else %}
 iface {{ item.key }} inet6 v4tunnel
 {% endif %}
-        address {{ item.value.subnet | ansible.netcommon.nthhost(2 if is_client else 1) }}
+        address {{ item.value.subnet | ansible.utils.nthhost(2 if is_client else 1) }}
         netmask {{ item.value.subnet | ansible.netcommon.ipaddr('prefix') }}
         endpoint {{ item.value.remote }}
         local {{ ansible_default_ipv4.address }}
@@ -19,6 +19,6 @@ iface {{ item.key }} inet6 v4tunnel
         ttl 255
 {% if item.value.routes is defined %}
 {% for route in item.value.routes %}
-        up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.netcommon.nthhost(1 if is_client else 2) }}
+        up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.utils.nthhost(1 if is_client else 2) }}
 {% endfor %}
 {% endif %}
