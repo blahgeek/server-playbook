@@ -40,7 +40,7 @@
     name: v6net
     enable_ipv6: yes
     ipam_config:
-      - subnet: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) }}"
+      - subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_subnet_id) }}"
 
 - name: Configure iptables masquerade for docker
   iptables_raw:
@@ -94,7 +94,7 @@
       # it must exists and comes first so that this container can access others
       - name: bridge
       - name: v6net
-        ipv6_address: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) | ansible.netcommon.nthhost(0x6666) }}"
+        ipv6_address: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_subnet_id) | ansible.utils.nthhost(0x6666) }}"
 
 - import_tasks: docker-forward.yml
   vars:

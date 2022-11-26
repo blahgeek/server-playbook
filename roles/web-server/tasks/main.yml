@@ -71,7 +71,7 @@
       # enable ipv6
       - name: bridge
       - name: v6net
-        ipv6_address: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_docker_subnet_id) | ansible.netcommon.nthhost(0x3ea0) }}"
+        ipv6_address: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_docker_subnet_id) | ansible.utils.nthhost(0x3ea0) }}"
   tags:
     - searx
 

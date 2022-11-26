@@ -5,7 +5,7 @@ ipv6_prefix: "{{ yikai_net.eastwatch_prefix }}"
 tunnelbroker:
   tb-wall:
     remote: 67.230.174.235  # wall.blahgeek.com
-    subnet: "{{ ipv6_prefix | ansible.netcommon.ipsubnet(64, 1)}}"
+    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
     is_server: true
     routes:
       - "{{ yikai_net.home_prefix }}"
