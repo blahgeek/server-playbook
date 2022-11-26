@@ -2,8 +2,10 @@
 
 REMOTE="$5"
 
+{% if item.openvpn.route_v4 is defined %}
 ip route flush table {{ item.openvpn.route_v4.table }}
 ip route add table {{ item.openvpn.route_v4.table }} default via "$REMOTE"
 
 ip rule del fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }} || true
 ip rule add fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }}
+{% endif %}

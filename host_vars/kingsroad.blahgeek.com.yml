@@ -1,0 +1,12 @@
+vpn_subnet_id: 41
+
+ipv6_prefix: "{{ yikai_net.kingsroad_prefix }}"
+
+bgp:
+  vultr:
+    peer_asn: 64515
+    peer_addr: 2001:19f0:ffff::1
+    password: legendary
+    multihop: 2
+    prefixes:
+      - "{{ ipv6_prefix }}"

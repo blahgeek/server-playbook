@@ -1,4 +1,6 @@
 #!/bin/sh
 # This file closes down the tap device.
 
+{% if item.openvpn.route_v4 is defined %}
 ip rule del fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }} || true
+{% endif %}

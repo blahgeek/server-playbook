@@ -2,6 +2,8 @@
 remote 127.0.0.1 {{ item.openvpn.udp2raw.client_listen_port }}
 {% elif item.openvpn.phantun is defined %}
 remote 127.0.0.1 {{ item.openvpn.phantun.client_listen_port }}
+{% elif item.openvpn.forward is defined %}
+remote {{ item.openvpn.forward.address }} {{ item.openvpn.forward.port }}
 {% else %}
 remote {{ hostvars[item.host].ansible_default_ipv4.address }} {{ openvpn.server_listen_port }}
 {% endif %}
@@ -10,7 +12,7 @@ dev tun
 ifconfig {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(2) }} {{ '192.168.0.0/16' | ansible.netcommon.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.netcommon.nthhost(1) }}
 ifconfig-ipv6 {{ hostvars[item.host].ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.netcommon.nthhost(2) }} {{ hostvars[item.host].ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.netcommon.nthhost(1) }}
 
-{% if item.openvpn.route_v6.default %}
+{% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.default %}
 route-ipv6 2000::/3
 {% endif %}
 

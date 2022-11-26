@@ -20,6 +20,12 @@ wall_servers:
         fwmark: '0x3/0xf'
       route_v6:
         default: false
+  - name: kingsroad
+    host: kingsroad.blahgeek.com
+    openvpn:
+      forward:
+        address: ink-szzf-jp.inkiwike.com
+        port: 10124
 
 absent_wall_servers:
   - ironisland
