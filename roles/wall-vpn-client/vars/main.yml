@@ -1,3 +1,6 @@
+# route_v4 and route_v6 have different mechanisms... see mhome's iptable rules.
+# for route_v4, the default route is the china net;
+# for route_v6, the default route is the yikai net.
 wall_servers:
   - name: wall
     host: wall.blahgeek.com
@@ -19,7 +22,10 @@ wall_servers:
         table: 3
         fwmark: '0x3/0xf'
       route_v6:
-        default: false
+        table: 3
+        fwmark: '0x3/0xf'
+        uids:
+          - transmission
   - name: kingsroad
     host: kingsroad.blahgeek.com
     openvpn:

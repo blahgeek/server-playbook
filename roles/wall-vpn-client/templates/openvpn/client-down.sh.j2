@@ -1,6 +1,11 @@
-#!/bin/sh
-# This file closes down the tap device.
+#!/bin/bash -ex
 
 {% if item.openvpn.route_v4 is defined %}
-ip rule del fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }} || true
+ip route flush table {{ item.openvpn.route_v4.table }} || true
+while ip rule del table {{ item.openvpn.route_v4.table }} 2>/dev/null; do true; done
+{% endif %}
+
+{% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.table is defined %}
+ip -6 route flush table {{ item.openvpn.route_v6.table }} || true
+while ip -6 rule del table {{ item.openvpn.route_v6.table }} 2>/dev/null; do true; done
 {% endif %}

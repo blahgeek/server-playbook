@@ -1,11 +1,31 @@
-#!/bin/sh
+#!/bin/bash -ex
 
+DEVICE="$1"
 REMOTE="$5"
 
 {% if item.openvpn.route_v4 is defined %}
-ip route flush table {{ item.openvpn.route_v4.table }}
+ip route flush table {{ item.openvpn.route_v4.table }} || true
 ip route add table {{ item.openvpn.route_v4.table }} default via "$REMOTE"
 
-ip rule del fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }} || true
+while ip rule del table {{ item.openvpn.route_v4.table }} 2>/dev/null; do true; done
+
 ip rule add fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.route_v4.table }}
+{% endif %}
+
+{% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.table is defined %}
+ip -6 route flush table {{ item.openvpn.route_v6.table }} || true
+ip -6 route add table {{ item.openvpn.route_v6.table }} 2000::/3 via {{ hostvars[item.host].ipv6_prefix | ansible.netcommon.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.netcommon.nthhost(1) }} dev "$DEVICE"
+
+while ip -6 rule del table {{ item.openvpn.route_v6.table }} 2>/dev/null; do true; done
+
+ip -6 rule add fwmark {{ item.openvpn.route_v6.fwmark }} table {{ item.openvpn.route_v6.table }}
+
+{% if item.openvpn.route_v6.uids is defined %}
+{% for uid in item.openvpn.route_v6.uids %}
+if id {{ uid }}; then
+  ip -6 rule add to 2000::/3 uidrange $(id -u {{ uid }})-$(id -u {{ uid }}) table {{ item.openvpn.route_v6.table }}
+fi
+{% endfor %}
+{% endif %}
+
 {% endif %}
