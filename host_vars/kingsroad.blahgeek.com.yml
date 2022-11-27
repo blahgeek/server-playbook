@@ -10,3 +10,4 @@ bgp:
     multihop: 2
     prefixes:
       - "{{ ipv6_prefix }}"
+      - "{{ yikai_net.home_prefix }}"
