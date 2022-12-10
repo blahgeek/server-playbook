@@ -1,0 +1,161 @@
+"":
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "67.230.174.235"
+- type: "MX"
+  values:
+  - exchange: "aspmx.l.google.com."
+    preference: 1
+  - exchange: "alt1.aspmx.l.google.com."
+    preference: 5
+  - exchange: "alt2.aspmx.l.google.com."
+    preference: 5
+  - exchange: "alt3.aspmx.l.google.com."
+    preference: 10
+  - exchange: "alt4.aspmx.l.google.com."
+    preference: 10
+- type: "TXT"
+  value: "v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all"
+"*.eastwatch":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.eastwatch.blahgeek.com."
+"*.fleabottom":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.fleabottom.blahgeek.com."
+"*.kingsroad":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.kingsroad.blahgeek.com."
+"*.wall":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.wall.blahgeek.com."
+_dnsauth.qnsource.hpurl:
+  type: "TXT"
+  value: "2022070701154107mculg4tn6wkyz7ia7n84wq2xy2wxgnlg1vdzq1ufao3i7qsr"
+blog:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.wall.blahgeek.com."
+eastwatch:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "149.28.71.244"
+fleabottom:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "8.130.14.239"
+google._domainkey:
+  type: "TXT"
+  value: "v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw\" \"qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB"
+kingsroad:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "198.13.40.151"
+mhome:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "blahgeek-mhome.duckdns.org."
+qncdn.blog:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "qncdn.blog.blahgeek.com.qiniudns.com."
+qncdn.hpurl:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "idv0ypk.qiniudns.com."
+qndownload.blog:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "qndownload-blog-blahgeek-com-idvh1ps.qiniudns.com."
+qnsource.hpurl:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "iovip-z0.qbox.me."
+wall:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "67.230.174.235"
+web.eastwatch:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "149.28.71.244"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:aa07:e035:d0ce::6666"
+web.fleabottom:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "8.130.14.239"
+web.kingsroad:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "198.13.40.151"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178e:d0ce::6666"
+web.wall:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "67.230.174.235"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178c:d0ce::6666"
+www:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.wall.blahgeek.com."
+xhome:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "blahgeek-mhome.duckdns.org."

@@ -1,0 +1,31 @@
+---
+providers:
+
+  googlecloud:
+    class: octodns_googlecloud.GoogleCloudProvider
+    project: yikai-net
+
+  cloudflare:
+    class: octodns_cloudflare.CloudflareProvider
+    token: env/CLOUDFLARE_API_TOKEN
+
+  config:
+    class: octodns.provider.yaml.YamlProvider
+    directory: ./config
+    default_ttl: 300
+    enforce_order: True
+
+zones:
+  blahgeek.com.:
+    sources:
+      - config
+    targets:
+      - googlecloud
+      - cloudflare
+
+  z1k.dev.:
+    sources:
+      - config
+    targets:
+      - googlecloud
+      - cloudflare
