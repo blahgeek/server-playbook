@@ -1,20 +1,6 @@
-local manifestYaml(obj) = std.manifestYamlDoc(obj, quote_keys=false);
+local utils = import './utils.libsonnet';
 
-local ansibleHostsYamlStr = importstr '../hosts.yml';
-local ansibleHostsYaml = std.parseYaml(ansibleHostsYamlStr);
-
-local commonWallVarsYamlStr = importstr '../roles/common-wall/vars/main.yml';
-local commonWallVarsYaml = std.parseYaml(commonWallVarsYamlStr);
-
-local hosts = {
-  [std.split(hostname, '.')[0]]: {
-    ipv4: ansibleHostsYaml.all.children[group].hosts[hostname].ansible_host,
-    ipv6_prefix: std.get(commonWallVarsYaml.yikai_net, std.split(hostname, '.')[0] + '_prefix'),
-  }
-  for group in std.objectFields(ansibleHostsYaml.all.children)
-  for hostname in std.objectFields(ansibleHostsYaml.all.children[group].hosts)
-  if hostname != 'mhome.blahgeek.com'
-};
+local hosts = utils.hosts;
 
 local CLOUDFLARE_NO_PROXY = { octodns: { cloudflare: { proxied: false } } };
 
@@ -44,7 +30,7 @@ local hostRules(name) = {
 };
 
 {
-  'blahgeek.com.yaml': manifestYaml({
+  'blahgeek.com.yaml': utils.manifestYaml({
     '': [
       A(hosts['wall'].ipv4),
       GMAIL_MX,
@@ -66,7 +52,7 @@ local hostRules(name) = {
 
   } + std.foldr(function(a, b) a+b, [hostRules(x) for x in std.objectFields(hosts)], {})),
 
-  'z1k.dev.yaml': manifestYaml({
+  'z1k.dev.yaml': utils.manifestYaml({
     '': [
       A(hosts['wall'].ipv4),
       AAAA(ipv6WebAddr('wall')),
