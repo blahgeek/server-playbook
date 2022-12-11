@@ -1,13 +1,15 @@
 local utils = import './utils.libsonnet';
 
 local hosts = utils.hosts;
-
 local CLOUDFLARE_NO_PROXY = { octodns: { cloudflare: { proxied: false } } };
+
+local ensureEndDot(val) = if std.endsWith(val, '.') then val else val + '.';
 
 local A(val) = {type: 'A', value: val} + CLOUDFLARE_NO_PROXY;
 local AAAA(val) = {type: 'AAAA', value: val} + CLOUDFLARE_NO_PROXY;
 local TXT(val) = {type: 'TXT', value: val};
-local CNAME(val) = {type: 'CNAME', value: if std.endsWith(val, '.') then val else val + '.'} + CLOUDFLARE_NO_PROXY;
+local CNAME(val) = {type: 'CNAME', value: ensureEndDot(val)} + CLOUDFLARE_NO_PROXY;
+local PTR(val) = {type: 'PTR', value: ensureEndDot(val) };
 local MX(vals) = {type: 'MX', values: vals};
 
 local GMAIL_MX = MX([
@@ -20,6 +22,7 @@ local GMAIL_MX = MX([
 
 # docker ipv6 address
 local ipv6WebAddr(name) = std.strReplace(hosts[name].ipv6_prefix, ':/48', 'd0ce::6666');
+local ipv6RdnsName(addr) = std.join('.', std.reverse(std.stringChars(std.strReplace(addr, ':', ''))));
 
 local hostRules(name) = {
   [name]: A(hosts[name].ipv4),
@@ -70,4 +73,20 @@ local hostRules(name) = {
 
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnAPXEssA1Z1Js6uQ7kSGGbNj0N/vER3DygA/GnfIu6oILSUG/5XzSxIZN5t1qkdpwM3vKyMFmYzv0iDszl2PWeP0QDNVOIaMDweUAYZqt3DpoOmFuWNFZOLZs5V63AzpxeUcNQGXzttQFE7p2+TquM/Z3ZzSWggeSx/7MxesWy7taQbyjNuLTqArcAKwEitbqGg31hOJQ+YmByWHPEfPGzPRCIkUZbtSVkTJXefMGR0+252Tmo9KXDuhFnOfLZdPxnn7Tc3NPCbHbcfre2eqquCHWm1m65JEwSDcCxeRqqjgJSyIONxJKKZTY76xt8wNFRq3tMgGACfLfJWAsfWS4QIDAQAB'),
   }),
+
+  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.home_ipv6_prefix) + 'yaml']: utils.manifestYaml({
+    [ipv6RdnsName('beef:0000:0000:0000:0001')]: PTR('mhome.blahgeek.com'),
+    [ipv6RdnsName('beef:0000:0000:0000:0023')]: PTR('oldtown.mhome.blahgeek.com'),
+  }),
+
+} + {
+  [utils.ipv6RdnsZone(hosts[name].ipv6_prefix) + 'yaml']: utils.manifestYaml({
+    # docker_subnet_id
+    [ipv6RdnsName('d0ce:0000:0000:0000:6666')]: PTR('web.' + name + '.blahgeek.com'),
+    # vpn_subnet_id
+    [ipv6RdnsName('1000:0000:0000:0000:0001')]: PTR('vpn-server.' + name + '.blahgeek.com'),
+    [ipv6RdnsName('1000:0000:0000:0000:0002')]: PTR('vpn-client.' + name + '.blahgeek.com'),
+  })
+  for name in std.objectFields(hosts)
+  if hosts[name].ipv6_prefix != null
 }

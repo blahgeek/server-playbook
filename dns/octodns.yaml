@@ -11,12 +11,32 @@ providers:
     class: "octodns_googlecloud.GoogleCloudProvider"
     project: "yikai-net"
 zones:
+  5.3.0.e.7.0.a.a.e.0.a.2.ip6.arpa.:
+    sources:
+    - "config"
+    targets:
+    - "googlecloud"
   blahgeek.com.:
     sources:
     - "config"
     targets:
     - "googlecloud"
     - "cloudflare"
+  c.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    sources:
+    - "config"
+    targets:
+    - "googlecloud"
+  d.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    sources:
+    - "config"
+    targets:
+    - "googlecloud"
+  e.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    sources:
+    - "config"
+    targets:
+    - "googlecloud"
   z1k.dev.:
     sources:
     - "config"

@@ -23,5 +23,11 @@ utils.manifestYaml({
       targets: ['googlecloud', 'cloudflare'],
     }
     for x in ['blahgeek.com.', 'z1k.dev.']
+  } + {
+    [utils.ipv6RdnsZone(x)]: {
+      sources: ['config'],
+      targets: ['googlecloud'],
+    }
+    for x in std.objectValues(utils.commonWallVarsYaml.yikai_net)
   }
 })

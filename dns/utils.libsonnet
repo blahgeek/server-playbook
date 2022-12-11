@@ -13,5 +13,8 @@ local hosts = {
 
 {
   manifestYaml(obj):: std.manifestYamlDoc(obj, quote_keys=false),
+  ipv6RdnsZone(prefix):: std.join('.', std.reverse(std.stringChars(std.strReplace(std.strReplace(prefix, '/48', ''), ':', '')))) + '.ip6.arpa.',
+
+  commonWallVarsYaml:: commonWallVarsYaml,
   hosts: hosts,
 }

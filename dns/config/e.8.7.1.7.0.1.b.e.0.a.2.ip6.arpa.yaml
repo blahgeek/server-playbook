@@ -1,0 +1,9 @@
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "vpn-server.kingsroad.blahgeek.com."
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "vpn-client.kingsroad.blahgeek.com."
+6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
+  type: "PTR"
+  value: "web.kingsroad.blahgeek.com."
