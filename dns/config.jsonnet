@@ -35,13 +35,13 @@ local hostRules(name) = {
 {
   'blahgeek.com.yaml': utils.manifestYaml({
     '': [
-      A(hosts['wall'].ipv4),
+      A(hosts['eastwatch'].ipv4),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    'blog': CNAME('web.wall.blahgeek.com'),
-    'www': CNAME('web.wall.blahgeek.com'),
+    'blog': CNAME('web.eastwatch.blahgeek.com'),
+    'www': CNAME('web.eastwatch.blahgeek.com'),
     'mhome': CNAME('blahgeek-mhome.duckdns.org'),
     'xhome': CNAME('blahgeek-mhome.duckdns.org'),
 
@@ -57,18 +57,18 @@ local hostRules(name) = {
 
   'z1k.dev.yaml': utils.manifestYaml({
     '': [
-      A(hosts['wall'].ipv4),
-      AAAA(ipv6WebAddr('wall')),
+      A(hosts['eastwatch'].ipv4),
+      AAAA(ipv6WebAddr('eastwatch')),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    'search': CNAME('web.wall.blahgeek.com'),
-    'share': CNAME('web.wall.blahgeek.com'),
+    'search': CNAME('web.eastwatch.blahgeek.com'),
+    'share': CNAME('web.eastwatch.blahgeek.com'),
 
     'raven': MX([
       { exchange: 'eastwatch.blahgeek.com.', preference: 5 },
-      { exchange: 'wall.blahgeek.com.', preference: 10 },
+      { exchange: 'kingsroad.blahgeek.com.', preference: 10 },
     ]),
 
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnAPXEssA1Z1Js6uQ7kSGGbNj0N/vER3DygA/GnfIu6oILSUG/5XzSxIZN5t1qkdpwM3vKyMFmYzv0iDszl2PWeP0QDNVOIaMDweUAYZqt3DpoOmFuWNFZOLZs5V63AzpxeUcNQGXzttQFE7p2+TquM/Z3ZzSWggeSx/7MxesWy7taQbyjNuLTqArcAKwEitbqGg31hOJQ+YmByWHPEfPGzPRCIkUZbtSVkTJXefMGR0+252Tmo9KXDuhFnOfLZdPxnn7Tc3NPCbHbcfre2eqquCHWm1m65JEwSDcCxeRqqjgJSyIONxJKKZTY76xt8wNFRq3tMgGACfLfJWAsfWS4QIDAQAB'),

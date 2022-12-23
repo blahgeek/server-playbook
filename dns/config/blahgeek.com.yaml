@@ -3,7 +3,7 @@
     cloudflare:
       proxied: false
   type: "A"
-  value: "67.230.174.235"
+  value: "149.28.71.244"
 - type: "MX"
   values:
   - exchange: "aspmx.l.google.com."
@@ -50,7 +50,7 @@ blog:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.wall.blahgeek.com."
+  value: "web.eastwatch.blahgeek.com."
 eastwatch:
   octodns:
     cloudflare:
@@ -152,7 +152,7 @@ www:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.wall.blahgeek.com."
+  value: "web.eastwatch.blahgeek.com."
 xhome:
   octodns:
     cloudflare:
