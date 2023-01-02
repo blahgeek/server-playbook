@@ -20,7 +20,7 @@ utils.manifestYaml({
   zones: {
     [x]: {
       sources: ['config'],
-      targets: ['googlecloud', 'cloudflare'],
+      targets: ['cloudflare'],
     }
     for x in ['blahgeek.com.', 'z1k.dev.']
   } + {
