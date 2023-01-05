@@ -2,15 +2,6 @@ vpn_subnet_id: 43
 
 ipv6_prefix: "{{ yikai_net.eastwatch_prefix }}"
 
-tunnelbroker:
-  tb-wall:
-    remote: 67.230.174.235  # wall.blahgeek.com
-    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
-    is_server: true
-    routes:
-      - "{{ yikai_net.home_prefix }}"
-      - "{{ yikai_net.wall_prefix }}"
-
 bgp:
   vultr:
     peer_asn: 64515
