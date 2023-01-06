@@ -22,7 +22,7 @@ wall_servers:
       forward:
         # address: b-jp.vxtrans.com
         # port: 33925
-        address: ink-szzf-jp.inkiwike.com
+        address: sh-jp.iplc-zf.ink-iplc.com
         port: 10124
       route_v4:
         table: 1
