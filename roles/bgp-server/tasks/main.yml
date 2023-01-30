@@ -24,14 +24,6 @@
   tags:
     - bgp
 
-- name: Delete old tunnel broker interfaces if no tunnelbroker is defined
-  when: tunnelbroker is not defined
-  command: /bin/true
-  notify:
-    - Delete old tunnelbroker interfaces
-  tags:
-    - bgp
-
 - name: Remove legacy ipv6 SNPT config
   iptables_raw:
     ipversion: 6
