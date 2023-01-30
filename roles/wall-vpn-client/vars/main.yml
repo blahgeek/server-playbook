@@ -7,6 +7,11 @@ wall_servers:
     openvpn:
       udp2raw:
         client_listen_port: 3000
+      route_v4:
+        table: 1
+        fwmark: '0x1/0xf'
+      route_v6:
+        default: true
   - name: eastwatch
     host: eastwatch.blahgeek.com
     openvpn:
@@ -29,11 +34,6 @@ wall_servers:
         # port: 33925
         address: sh-jp.iplc-zf.ink-iplc.com
         port: 10124
-      route_v4:
-        table: 1
-        fwmark: '0x1/0xf'
-      route_v6:
-        default: true
 
 absent_wall_servers:
   - ironisland

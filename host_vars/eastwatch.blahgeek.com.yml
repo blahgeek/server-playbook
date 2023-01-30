@@ -4,11 +4,13 @@ ipv6_prefix: "{{ yikai_net.eastwatch_prefix }}"
 
 tunnelbroker:
   tb-wall:
-    remote: 67.230.174.235  # wall.blahgeek.com
+    remote: 89.208.251.190  # wall.blahgeek.com
     subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
     is_server: true
     routes:
-      - "{{ yikai_net.home_prefix }}"
+      # use two smaller subnets, to avoid conflicts (and set higher priority) than the openvpn route
+      - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 0)}}"
+      - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 1)}}"
       - "{{ yikai_net.wall_prefix }}"
 
 bgp:
