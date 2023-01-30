@@ -1,0 +1,45 @@
+vpn_subnet_id: 42
+
+ipv6_prefix: "{{ yikai_net.wall_prefix }}"
+
+tunnelbroker:
+  tb-proj6:
+    remote: 134.195.121.41
+    subnet: 2a0e:46c4:2d0d:8679::/64
+  # https://www.tunnelbroker.ch/tunnel/7196
+  tb-ch:
+    remote: 85.202.203.249
+    subnet: 2a09:4c0:fe0:12e::/64
+  tb-li:
+    remote: 185.44.83.17
+    subnet: 2a0c:9a40:100f:38d::/64
+    gre: true
+  tb-eastwatch:
+    remote: 149.28.71.244  # eastwatch
+    subnet: "{{ yikai_net.eastwatch_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    routes:
+      - 2000::/3
+
+bgp:
+  tb_proj6:
+    peer_asn: 208753
+    peer_addr: 2a0e:46c4:2d0d:8679::1
+    prefixes:
+      - "{{ ipv6_prefix }}"
+    export_filter: |
+      reject;
+  # shit... 208753 is down. HE.net would prefer this path over eastwatch (vultr)
+
+  tb_ch:
+    peer_asn: 58057
+    peer_addr: 2a09:4c0:fe0:12e::1
+    prefixes:
+      - "{{ ipv6_prefix }}"
+    export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      accept;
+  tb_li:
+    peer_asn: 34927
+    peer_addr: 2a0c:9a40:100f:38d::1
+    export_filter: |
+      reject;

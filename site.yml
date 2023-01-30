@@ -1,3 +1,11 @@
+- hosts: wall
+  roles:
+    - role: common-server
+    - role: wall-vpn-server
+    - role: sync-server
+    - role: web-server
+    - role: bgp-server
+
 - hosts: eastwatch
   roles:
     - role: common-server

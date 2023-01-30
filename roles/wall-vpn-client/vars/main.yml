@@ -2,6 +2,11 @@
 # for route_v4, the default route is the china net;
 # for route_v6, the default route is the yikai net.
 wall_servers:
+  - name: wall
+    host: wall.blahgeek.com
+    openvpn:
+      udp2raw:
+        client_listen_port: 3000
   - name: eastwatch
     host: eastwatch.blahgeek.com
     openvpn:
@@ -32,4 +37,3 @@ wall_servers:
 
 absent_wall_servers:
   - ironisland
-  - wall
