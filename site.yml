@@ -13,13 +13,6 @@
     - role: sync-server
     - role: web-server
 
-- hosts: kingsroad
-  roles:
-    - role: common-server
-    - role: wall-vpn-server
-    - role: bgp-server
-    - role: sync-server
-
 - hosts: mhome
   roles:
     - role: wall-vpn-client

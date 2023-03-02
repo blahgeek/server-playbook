@@ -15,25 +15,19 @@ wall_servers:
   - name: eastwatch
     host: eastwatch.blahgeek.com
     openvpn:
-      phantun:
-        id: 2
-        client_listen_port: 3101
+      forward:
+        address: di4gdf-sh-us-fdf66.inkiwike.com
+        port: 23333
+      # phantun:
+      #   id: 2
+      #   client_listen_port: 3101
       route_v4:
         table: 3
         fwmark: '0x3/0xf'
       route_v6:
         table: 3
         fwmark: '0x3/0xf'
-        uids:
-          - transmission
-  - name: kingsroad
-    host: kingsroad.blahgeek.com
-    openvpn:
-      forward:
-        # address: b-jp.vxtrans.com
-        # port: 33925
-        address: sh-jp.iplc-zf.ink-iplc.com
-        port: 10124
 
 absent_wall_servers:
   - ironisland
+  - kingsroad

@@ -31,7 +31,7 @@ raven:
   values:
   - exchange: "eastwatch.blahgeek.com."
     preference: 5
-  - exchange: "kingsroad.blahgeek.com."
+  - exchange: "wall.blahgeek.com."
     preference: 10
 search:
   octodns:

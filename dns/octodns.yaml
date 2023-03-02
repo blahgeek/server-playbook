@@ -31,11 +31,6 @@ zones:
     - "config"
     targets:
     - "googlecloud"
-  e.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
-    sources:
-    - "config"
-    targets:
-    - "googlecloud"
   z1k.dev.:
     sources:
     - "config"
