@@ -32,6 +32,14 @@ local hostRules(name) = {
   ['*.' + name]: CNAME('web.' + name + '.blahgeek.com.'),
 };
 
+local ipv6CommonRdnsEntries(name) = {
+  # docker_subnet_id
+  [ipv6RdnsName('d0ce:0000:0000:0000:6666')]: PTR('web.' + name + '.blahgeek.com'),
+  # vpn_subnet_id
+  [ipv6RdnsName('1000:0000:0000:0000:0001')]: PTR('vpn-server.' + name + '.blahgeek.com'),
+  [ipv6RdnsName('1000:0000:0000:0000:0002')]: PTR('vpn-client.' + name + '.blahgeek.com'),
+};
+
 {
   'blahgeek.com.yaml': utils.manifestYaml({
     '': [
@@ -79,14 +87,13 @@ local hostRules(name) = {
     [ipv6RdnsName('beef:0000:0000:0000:0023')]: PTR('oldtown.mhome.blahgeek.com'),
   }),
 
-} + {
-  [utils.ipv6RdnsZone(hosts[name].ipv6_prefix) + 'yaml']: utils.manifestYaml({
-    # docker_subnet_id
-    [ipv6RdnsName('d0ce:0000:0000:0000:6666')]: PTR('web.' + name + '.blahgeek.com'),
-    # vpn_subnet_id
-    [ipv6RdnsName('1000:0000:0000:0000:0001')]: PTR('vpn-server.' + name + '.blahgeek.com'),
-    [ipv6RdnsName('1000:0000:0000:0000:0002')]: PTR('vpn-client.' + name + '.blahgeek.com'),
-  })
-  for name in std.objectFields(hosts)
-  if hosts[name].ipv6_prefix != null
+  [utils.ipv6RdnsZone(hosts.eastwatch.ipv6_prefix) + 'yaml']: utils.manifestYaml({
+    [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('wall-tunnel-server.eastwatch.blahgeek.com'),
+    [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('wall-tunnel-client.eastwatch.blahgeek.com'),
+  } + ipv6CommonRdnsEntries('eastwatch')),
+
+  [utils.ipv6RdnsZone(hosts.wall.ipv6_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('wall')
+  ),
+
 }
