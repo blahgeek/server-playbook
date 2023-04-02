@@ -15,8 +15,9 @@ phantun:
     server_local_port: 3000
 
 yikai_net:
-  home_prefix: 2a06:a005:8d0::/48
-  wall_prefix: 2a06:a005:8d1::/48
+  usnet_prefix: 2a06:a005:08d0::/44
+  home_prefix: 2a06:a005:08d0::/48
+  wall_prefix: 2a06:a005:08d1::/48
   eastwatch_prefix: 2a0e:aa07:e035::/48
 
 ipv6_vpn_subnet_id: 0x1000

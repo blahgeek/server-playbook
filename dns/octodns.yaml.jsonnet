@@ -1,5 +1,14 @@
 local utils = import './utils.libsonnet';
 
+local normalZoneConfig = {
+  sources: ['config'],
+  targets: ['cloudflare'],
+};
+local reverseZoneConfig = {
+  sources: ['config'],
+  targets: ['googlecloud'],
+};
+
 utils.manifestYaml({
   providers: {
     googlecloud: {
@@ -18,16 +27,9 @@ utils.manifestYaml({
     },
   },
   zones: {
-    [x]: {
-      sources: ['config'],
-      targets: ['cloudflare'],
-    }
-    for x in ['blahgeek.com.', 'z1k.dev.']
-  } + {
-    [utils.ipv6RdnsZone(x)]: {
-      sources: ['config'],
-      targets: ['googlecloud'],
-    }
-    for x in std.objectValues(utils.commonWallVarsYaml.yikai_net)
+    'blahgeek.com.': normalZoneConfig,
+    'z1k.dev.': normalZoneConfig,
+    [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.eastwatch_prefix)]: reverseZoneConfig,
+    [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.usnet_prefix)]: reverseZoneConfig,
   }
 })
