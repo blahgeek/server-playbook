@@ -12,6 +12,12 @@ tunnelbroker:
       - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 0)}}"
       - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 1)}}"
       - "{{ yikai_net.wall_prefix }}"
+  tb-straywarrior:
+    remote: 104.225.147.139
+    subnet: "{{ yikai_net.straywarrior_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    is_server: true
+    routes:
+      - "{{ yikai_net.straywarrior_prefix }}"
 
 bgp:
   vultr:
@@ -23,3 +29,4 @@ bgp:
       - "{{ ipv6_prefix }}"
       - "{{ yikai_net.home_prefix }}"
       - "{{ yikai_net.wall_prefix }}"
+      - "{{ yikai_net.straywarrior_prefix }}"
