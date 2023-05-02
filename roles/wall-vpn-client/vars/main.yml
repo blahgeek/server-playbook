@@ -5,11 +5,8 @@ wall_servers:
   - name: wall
     host: wall.blahgeek.com
     openvpn:
-      # udp2raw:
-      #   client_listen_port: 3000
-      phantun:
-        id: 1
-        client_listen_port: 3100
+      udp2raw:
+        client_listen_port: 3000
       route_v4:
         table: 1
         fwmark: '0x1/0xf'
@@ -18,12 +15,14 @@ wall_servers:
   - name: eastwatch
     host: eastwatch.blahgeek.com
     openvpn:
+      udp2raw:
+        client_listen_port: 3001
       # forward:
       #   address: di4gdf-sh-us-fdf66.inkiwike.com
       #   port: 23333
-      phantun:
-        id: 2
-        client_listen_port: 3101
+      # phantun:
+      #   id: 2
+      #   client_listen_port: 3101
       route_v4:
         table: 3
         fwmark: '0x3/0xf'
