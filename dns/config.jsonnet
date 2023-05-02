@@ -46,13 +46,13 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 {
   'blahgeek.com.yaml': utils.manifestYaml({
     '': [
-      A(hosts['eastwatch'].ipv4),
+      A(hosts['fleabottom'].ipv4),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
     'blog': CNAME('web.eastwatch.blahgeek.com'),
-    'www': CNAME('web.eastwatch.blahgeek.com'),
+    'www': CNAME('fleabottom.blahgeek.com'),
     'mhome': CNAME('blahgeek-mhome.duckdns.org'),
     'xhome': CNAME('blahgeek-mhome.duckdns.org'),
 
