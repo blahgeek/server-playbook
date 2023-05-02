@@ -21,3 +21,4 @@
   roles:
     - role: common-server
     - role: beian-web-server
+    - role: tailscale-derp

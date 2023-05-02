@@ -1,0 +1,26 @@
+- name: Configure tailscale DERP server docker
+  tags: derp
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: tailscale-derp
+    image: fredliang/derper:5786d266e20adef99a74eeaca2c525af2a334d88
+    env:
+      DERP_DOMAIN: "ts-derp.{{ inventory_hostname }}"
+      DERP_ADDR: "0.0.0.0:80"  # serve http only. https would be provides by nginx proxy
+      VIRTUAL_PORT: "80"
+      VIRTUAL_HOST: "ts-derp.{{ inventory_hostname }}"
+      LETSENCRYPT_HOST: "ts-derp.{{ inventory_hostname }}"
+    ports:
+      - "3478:3478/udp"
+    expose:
+      - 80
+      - 3478/udp
+
+- name: Configure iptables port forward for derp udp
+  tags: derp
+  iptables_raw:
+    name: docker_forward_derp
+    table: nat
+    rules: |
+      -A PREROUTING -m addrtype --dst-type local -p udp --dport 3478 -j DNAT --to 10.255.0.100:3478
