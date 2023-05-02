@@ -15,7 +15,7 @@ zones:
     sources:
     - "config"
     targets:
-    - "googlecloud"
+    - "cloudflare"
   blahgeek.com.:
     sources:
     - "config"
@@ -25,7 +25,7 @@ zones:
     sources:
     - "config"
     targets:
-    - "googlecloud"
+    - "cloudflare"
   z1k.dev.:
     sources:
     - "config"
