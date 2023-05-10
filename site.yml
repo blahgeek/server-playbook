@@ -4,6 +4,7 @@
     - role: wall-vpn-server
     - role: sync-server
     - role: bgp-server
+    - role: wall-proxy-server
 
 - hosts: eastwatch
   roles:

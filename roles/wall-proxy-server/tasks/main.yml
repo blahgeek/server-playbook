@@ -1,0 +1,28 @@
+- name: Create /var/misc-http-proxy/conf.d folder
+  tags: wall-proxy
+  file:
+    path: /var/misc-http-proxy/conf.d
+    state: directory
+    mode: 0755
+
+- name: Copy misc proxy nginx server config
+  tags: wall-proxy
+  template:
+    src: misc_http_proxy.conf.j2
+    dest: /var/misc-http-proxy/conf.d/misc_http_proxy.conf
+  notify: Reload misc proxy nginx server
+
+- name: Configure misc proxy nginx server docker
+  tags: wall-proxy
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: misc-http-proxy
+    image: nginx:1.23.0
+    volumes:
+      - /var/misc-http-proxy/conf.d:/etc/nginx/conf.d:ro
+    env:
+      VIRTUAL_PORT: "80"
+      VIRTUAL_HOST: '{{ misc_http_proxy | map("regex_replace", "$", ".proxy." + inventory_hostname) | join(",") }}'
+      LETSENCRYPT_HOST: '{{ misc_http_proxy | map("regex_replace", "$", ".proxy." + inventory_hostname) | join(",") }}'
+    expose: 80

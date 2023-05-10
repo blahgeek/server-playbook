@@ -1,0 +1,13 @@
+{% for key, value in misc_http_proxy.items() %}
+
+server {
+  listen       80;
+  server_name  {{ key }}.proxy.{{ inventory_hostname }};
+
+  location / {
+    proxy_ssl_server_name on;
+    proxy_pass      {{ value }};
+  }
+}
+
+{% endfor %}

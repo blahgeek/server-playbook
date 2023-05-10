@@ -1,0 +1,6 @@
+- name: Reload misc proxy nginx server
+  docker_container:
+    container_default_behavior: no_defaults
+    name: misc-http-proxy
+    restart: yes
+  ignore_errors: yes
