@@ -5,6 +5,7 @@
     - role: sync-server
     - role: bgp-server
     - role: wall-proxy-server
+    - role: web-server
 
 - hosts: eastwatch
   roles:

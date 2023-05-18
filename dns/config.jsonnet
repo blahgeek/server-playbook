@@ -51,7 +51,8 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    'blog': CNAME('web.eastwatch.blahgeek.com'),
+    'blog': CNAME('web.wall.blahgeek.com'),
+    'wedding': CNAME('web.wall.blahgeek.com'),
     'www': CNAME('fleabottom.blahgeek.com'),
     'mhome': CNAME('blahgeek-mhome.duckdns.org'),
     'xhome': CNAME('blahgeek-mhome.duckdns.org'),
@@ -68,14 +69,13 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 
   'z1k.dev.yaml': utils.manifestYaml({
     '': [
-      A(hosts['eastwatch'].ipv4),
-      AAAA(ipv6WebAddr('eastwatch')),
+      A(hosts['wall'].ipv4),
+      AAAA(ipv6WebAddr('wall')),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    'search': CNAME('web.eastwatch.blahgeek.com'),
-    'share': CNAME('web.eastwatch.blahgeek.com'),
+    'share': CNAME('web.wall.blahgeek.com'),
 
     'raven': MX([
       { exchange: 'eastwatch.blahgeek.com.', preference: 5 },

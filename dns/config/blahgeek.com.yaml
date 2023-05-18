@@ -44,7 +44,7 @@ blog:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.eastwatch.blahgeek.com."
+  value: "web.wall.blahgeek.com."
 eastwatch:
   octodns:
     cloudflare:
@@ -124,6 +124,12 @@ web.wall:
       proxied: false
   type: "AAAA"
   value: "2a06:a005:08d1:d0ce::6666"
+wedding:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.wall.blahgeek.com."
 www:
   octodns:
     cloudflare:

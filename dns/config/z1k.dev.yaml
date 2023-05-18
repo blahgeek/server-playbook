@@ -3,12 +3,12 @@
     cloudflare:
       proxied: false
   type: "A"
-  value: "149.28.71.244"
+  value: "67.230.173.40"
 - octodns:
     cloudflare:
       proxied: false
   type: "AAAA"
-  value: "2a0e:aa07:e035:d0ce::6666"
+  value: "2a06:a005:08d1:d0ce::6666"
 - type: "MX"
   values:
   - exchange: "aspmx.l.google.com."
@@ -33,15 +33,9 @@ raven:
     preference: 5
   - exchange: "wall.blahgeek.com."
     preference: 10
-search:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.eastwatch.blahgeek.com."
 share:
   octodns:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.eastwatch.blahgeek.com."
+  value: "web.wall.blahgeek.com."

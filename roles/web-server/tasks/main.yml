@@ -5,6 +5,7 @@
     mode: 0755
   with_items:
     - /var/hpshare
+    - /var/wedding99
 
 - name: Copy config file for hpshare server
   copy:
@@ -43,3 +44,27 @@
       LETSENCRYPT_HOST: "blog.blahgeek.com,z1k.dev"
     expose: 80
 
+- name: Copy config file for wedding99 server
+  tags: wedding99
+  copy:
+    src: wedding99/config.py
+    dest: /var/wedding99/config.py
+
+- name: Configure docker wedding99
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: wedding99
+    image: blahgeek/wedding99:0.0.1
+    volumes:
+      - /var/wedding99:/data
+    env:
+      ADMIN_USER: "{{ wedding99.admin_user }}"
+      ADMIN_EMAIL: "{{ wedding99.admin_email }}"
+      ADMIN_PASSWD: "{{ wedding99.admin_password }}"
+      VIRTUAL_PORT: "8000"
+      VIRTUAL_PROTO: "uwsgi"
+      VIRTUAL_HOST: "{{ wedding99.domain }}"
+      LETSENCRYPT_HOST: "{{ wedding99.domain }}"
+    expose: 8000
+  tags: wedding99
