@@ -1,6 +1,0 @@
-- name: Restart docker searxng
-  docker_container:
-    container_default_behavior: no_defaults
-    name: searxng
-    restart: yes
-  ignore_errors: yes
