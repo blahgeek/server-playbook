@@ -55,16 +55,15 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: wedding99
-    image: blahgeek/wedding99:0.0.1
+    image: blahgeek/wedding99:0.0.3
     volumes:
       - /var/wedding99:/data
     env:
       ADMIN_USER: "{{ wedding99.admin_user }}"
       ADMIN_EMAIL: "{{ wedding99.admin_email }}"
       ADMIN_PASSWD: "{{ wedding99.admin_password }}"
-      VIRTUAL_PORT: "8000"
-      VIRTUAL_PROTO: "uwsgi"
+      VIRTUAL_PORT: "80"
       VIRTUAL_HOST: "{{ wedding99.domain }}"
       LETSENCRYPT_HOST: "{{ wedding99.domain }}"
-    expose: 8000
+    expose: 80
   tags: wedding99
