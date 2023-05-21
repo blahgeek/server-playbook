@@ -1,0 +1,4 @@
+- name: "Add extra nginx conf for virtual host for {{ host }}"
+  template:
+    src: "roles/docker/templates/virtual-host-nginx-extra.conf.j2"
+    dest: "/var/nginx-proxy/vhost.d/{{ host }}"

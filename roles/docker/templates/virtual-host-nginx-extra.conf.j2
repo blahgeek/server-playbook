@@ -1,0 +1,8 @@
+{% if static_url_path is defined %}
+
+location {{ static_url_path }} {
+  alias /usr/share/nginx/html/{{ static_dir }}/;
+  autoindex off;
+}
+
+{% endif %}
