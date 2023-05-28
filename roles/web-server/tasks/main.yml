@@ -78,7 +78,7 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: wedding99
-    image: blahgeek/wedding99:0.0.5
+    image: blahgeek/wedding99:0.1.0
     volumes:
       - /var/wedding99:/data
       - /var/nginx-proxy/html/wedding99:/static

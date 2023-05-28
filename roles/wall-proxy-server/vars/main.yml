@@ -1,3 +1,4 @@
 misc_http_proxy:
   openai-api: https://api.openai.com
   weixin-api: https://api.weixin.qq.com
+  tg-api: https://api.telegram.org
