@@ -1,19 +1,19 @@
 - name: Create /var/misc-http-proxy/conf.d folder
-  tags: wall-proxy
+  tags: proxy
   file:
     path: /var/misc-http-proxy/conf.d
     state: directory
     mode: 0755
 
 - name: Copy misc proxy nginx server config
-  tags: wall-proxy
+  tags: proxy
   template:
     src: misc_http_proxy.conf.j2
     dest: /var/misc-http-proxy/conf.d/misc_http_proxy.conf
   notify: Reload misc proxy nginx server
 
 - name: Configure misc proxy nginx server docker
-  tags: wall-proxy
+  tags: proxy
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
