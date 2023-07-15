@@ -1,14 +1,15 @@
 local utils = import './utils.libsonnet';
 
 local hosts = utils.hosts;
-local CLOUDFLARE_NO_PROXY = { octodns: { cloudflare: { proxied: false } } };
+local cf_proxy_setting(v) = { octodns: { cloudflare: { proxied: v } } };
 
 local ensureEndDot(val) = if std.endsWith(val, '.') then val else val + '.';
 
-local A(val) = {type: 'A', value: val} + CLOUDFLARE_NO_PROXY;
-local AAAA(val) = {type: 'AAAA', value: val} + CLOUDFLARE_NO_PROXY;
+local A(val) = {type: 'A', value: val} + cf_proxy_setting(false);
+local AAAA(val) = {type: 'AAAA', value: val} + cf_proxy_setting(false);
 local TXT(val) = {type: 'TXT', value: val};
-local CNAME(val) = {type: 'CNAME', value: ensureEndDot(val)} + CLOUDFLARE_NO_PROXY;
+local CNAME(val) = {type: 'CNAME', value: ensureEndDot(val)} + cf_proxy_setting(false);
+local CNAME_CF_PROXY(val) = {type: 'CNAME', value: ensureEndDot(val)} + cf_proxy_setting(true);
 local PTR(val) = {type: 'PTR', value: ensureEndDot(val) };
 local MX(vals) = {type: 'MX', values: vals};
 
@@ -54,6 +55,8 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'blog': CNAME('web.wall.blahgeek.com'),
     'wedding': CNAME('web.wall.blahgeek.com'),
     'wedding-photo': CNAME('iovip-z1.qiniuio.com'),
+
+    'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
 
     'www': CNAME('fleabottom.blahgeek.com'),
     'mhome': CNAME('blahgeek-mhome.duckdns.org'),
