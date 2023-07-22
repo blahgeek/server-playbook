@@ -1,0 +1,44 @@
+- name: Create directories for wedding99 server
+  tags:
+    - wedding99
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+  with_items:
+    - /var/wedding99
+    - /var/nginx-proxy/html/wedding99
+
+- name: Copy config file for wedding99 server
+  tags: wedding99
+  copy:
+    src: wedding99/config.py
+    dest: /var/wedding99/config.py
+
+- import_tasks: roles/docker/tasks/virtual-host-nginx-extra.yml
+  tags: wedding99
+  vars:
+    host: "{{ wedding99.domain }}"
+    static_url_path: "/static"
+    static_dir: "wedding99"
+
+- name: Configure docker wedding99
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: wedding99
+    image: blahgeek/wedding99:v0722-2
+    volumes:
+      - /var/wedding99:/data
+      - /var/nginx-proxy/html/wedding99:/static
+    env:
+      ADMIN_USER: "{{ wedding99.admin_user }}"
+      ADMIN_EMAIL: "{{ wedding99.admin_email }}"
+      ADMIN_PASSWD: "{{ wedding99.admin_password }}"
+      DJANGO_STATIC_ROOT: "/static"
+      VIRTUAL_PORT: "8000"
+      VIRTUAL_HOST: "{{ wedding99.domain }}"
+      VIRTUAL_PROTO: "uwsgi"
+      LETSENCRYPT_HOST: "{{ wedding99.domain }}"
+    expose: 8000
+  tags: wedding99

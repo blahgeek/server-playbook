@@ -141,7 +141,7 @@ wedding:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.wall.blahgeek.com."
+  value: "fleabottom.blahgeek.com."
 wedding-dev:
   octodns:
     cloudflare:
