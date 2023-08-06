@@ -102,6 +102,12 @@ qnsource.hpurl:
       proxied: false
   type: "CNAME"
   value: "iovip-z0.qbox.me."
+tg-api.proxy.wall:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "199.180.113.65"
 wall:
   octodns:
     cloudflare:
