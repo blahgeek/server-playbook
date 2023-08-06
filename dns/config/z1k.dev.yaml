@@ -3,7 +3,7 @@
     cloudflare:
       proxied: false
   type: "A"
-  value: "199.180.113.65"
+  value: "192.69.88.123"
 - octodns:
     cloudflare:
       proxied: false

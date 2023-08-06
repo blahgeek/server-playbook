@@ -57,7 +57,6 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'wedding': CNAME('fleabottom.blahgeek.com'),
     'wedding-photo': CNAME('iovip-z1.qiniuio.com'),
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
-    'tg-api.proxy.wall': A(hosts['wall'].ipv4),  # quickhack, no ipv6
 
     'www': CNAME('fleabottom.blahgeek.com'),
     'mhome': CNAME('blahgeek-mhome.duckdns.org'),

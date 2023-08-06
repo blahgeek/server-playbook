@@ -2,7 +2,6 @@
   roles:
     - role: common-server
     - role: wall-vpn-server
-    - role: sync-server
     - role: bgp-server
     - role: proxy-server
     - role: web-server
@@ -13,7 +12,7 @@
     - role: wall-vpn-server
     - role: bgp-server
     - role: sync-server
-    - role: web-server
+    - role: proxy-server
 
 - hosts: mhome
   roles:
