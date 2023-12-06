@@ -24,3 +24,4 @@
     - role: beian-web-server
     - role: wedding-server
     - role: tailscale-derp
+    - role: tailscale-node

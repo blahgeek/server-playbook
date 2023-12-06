@@ -1,0 +1,15 @@
+- name: Check tailscale authkey expiry
+  assert:
+    that:
+      - tailscale.authkey_valid_until > ansible_date_time.date
+  tags:
+    - tsnode
+
+- name: Configure tailscale
+  import_role:
+    name: artis3n.tailscale
+  vars:
+    tailscale_authkey: "{{ tailscale.authkey }}"
+    tailscale_args: "--ssh --accept-dns=false --netfilter-mode=off"
+  tags:
+    - tsnode
