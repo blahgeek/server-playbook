@@ -25,3 +25,4 @@
     - role: wedding-server
     - role: tailscale-derp
     - role: tailscale-node
+    - role: tailproxy
