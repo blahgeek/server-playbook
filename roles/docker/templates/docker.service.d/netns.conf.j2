@@ -1,5 +1,7 @@
 [Service]
 PrivateNetwork=yes
+# required by systemd 255: https://github.com/systemd/systemd/commit/c2da3bf2376440526e87da6124660d22ac2079d6
+PrivateMounts=no
 
 # cleanup
 ExecStartPre=-nsenter -t 1 -n -- ip link delete docker0
