@@ -4,7 +4,7 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: tailproxy
-    image: blahgeek/tailproxy:0.4
+    image: blahgeek/tailproxy:0.5
     env:
       STUNNEL_CERT_DIR: "/certs/tailproxy.{{ inventory_hostname }}/"
       STUNNEL_LOCAL_PORT: "8888"
