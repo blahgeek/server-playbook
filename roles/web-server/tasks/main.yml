@@ -69,10 +69,11 @@
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: blog
-    image: blahgeek/blog:20220603-2225
+    image: blahgeek/blog:20240414-1618
     env:
       VIRTUAL_PORT: "80"
       VIRTUAL_HOST: "blog.blahgeek.com,z1k.dev"
       LETSENCRYPT_HOST: "blog.blahgeek.com,z1k.dev"
     expose: 80
+  tags: blog
 
