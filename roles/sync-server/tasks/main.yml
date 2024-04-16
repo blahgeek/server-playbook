@@ -57,13 +57,15 @@
     hostname: "{{ raven_host }}"
 
 - name: Configure docker webdav
+  tags: webdav
   docker_container:
     container_default_behavior: no_defaults
     restart_policy: unless-stopped
     name: webdav
-    image: bytemark/webdav:2.4
+    # maltokyo/docker-nginx-webdav, but patched to add "user root", so no permission issue with rslsync (also root)
+    image: blahgeek/nginx-webdav:20240417-patch-root
     volumes:
-      - /data/Notes:/var/lib/dav/data/Notes
+      - /data/Notes:/media/data/Notes
     env:
       USERNAME: "{{ webdav_username }}"
       PASSWORD: "{{ webdav_password }}"
