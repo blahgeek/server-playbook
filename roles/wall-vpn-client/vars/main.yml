@@ -20,9 +20,6 @@ wall_servers:
       # forward:
       #   address: di4gdf-sh-us-fdf66.inkiwike.com
       #   port: 23333
-      # phantun:
-      #   id: 2
-      #   client_listen_port: 3101
       route_v4:
         table: 3
         fwmark: '0x3/0xf'

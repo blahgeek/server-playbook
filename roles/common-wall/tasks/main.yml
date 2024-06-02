@@ -18,29 +18,25 @@
     - { name: "net.core.default_qdisc", "value": "fq"}
     - { name: "net.ipv4.tcp_congestion_control", "value": "bbr"}
 
-- name: Install phantun
+- name: Install kissvpn
   unarchive:
-    src: https://github.com/dndx/phantun/releases/download/v0.5.0/phantun_x86_64-unknown-linux-gnu.zip
-    dest: /usr/local/bin/
+    src: https://github.com/blahgeek/kissvpn/releases/download/v0.1.4/kissvpn_v0.1.4_x86_64-unknown-linux-musl.zip
+    dest: /usr/local/bin
     include:
-      - phantun_server
-      - phantun_client
+      - kissvpn
     mode: 0755
     remote_src: yes
 
-- name: Install phantun services
+- name: Install kissvpn services
   copy:
-    dest: "/etc/systemd/system/phantun-{{ item }}@.service"
-    src: "systemd/phantun-{{ item }}@.service"
+    dest: "/etc/systemd/system/kissvpn-{{ item }}@.service"
+    src: "systemd/kissvpn-{{ item }}@.service"
   with_items:
     - server
     - client
 
-- name: Create /etc/phantun folder
+- name: Create /etc/kissvpn folder
   file:
-    path: "/etc/phantun/{{ item }}"
+    path: "/etc/kissvpn"
     state: directory
     mode: 0755
-  with_items:
-    - server
-    - client

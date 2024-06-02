@@ -9,11 +9,6 @@ udp2raw:
     cipher_mode: none
     key: blahnet
 
-phantun:
-  openvpn:
-    server_listen_port: 993
-    server_local_port: 3000
-
 yikai_net:
   usnet_prefix: 2a06:a005:08d0::/44
   home_prefix: 2a06:a005:08d0::/48

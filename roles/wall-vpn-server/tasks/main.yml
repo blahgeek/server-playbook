@@ -132,32 +132,12 @@
   with_dict: "{{ udp2raw }}"
   notify: Reload udp2raw server services
 
-- name: Remove old iptable rules for udp2raw
-  iptables_raw:
-    name: udp2raw_filter
-    state: absent
-
 - name: Configure iptables for udp2raw
   iptables_raw:
     name: "udp2raw_filter_{{ item.key }}"
     table: filter
     rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
   with_dict: "{{ udp2raw }}"
-
-- name: Install phantun server configs
-  template:
-    src: phantun_server.conf.j2
-    dest: "/etc/phantun/server/{{ item.key }}.conf"
-  with_dict: "{{ phantun }}"
-  notify: Reload phantun server services
-
-- name: Configure iptables for phantun
-  iptables_raw:
-    name: "phantun_nat_{{ item.key }}"
-    table: nat
-    rules: |
-      -A PREROUTING -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DNAT --to-destination 172.16.201.2
-  with_dict: "{{ phantun }}"
 
 - name: Copy openvpn keys
   copy:
@@ -170,3 +150,22 @@
     src: openvpn/static-server.conf.j2
     dest: /etc/openvpn/server.conf
   notify: Reload openvpn static server
+
+
+- name: Remove old iptable rules
+  iptables_raw:
+    name: "{{ item }}"
+    state: absent
+  with_items:
+    - udp2raw_filter
+    - phantun_nat_openvpn
+
+- name: Stop old server services
+  systemd:
+    name: "{{ item }}"
+    enabled: false
+    state: stopped
+  with_items:
+    - phantun-server@openvpn
+  ignore_errors: true
+

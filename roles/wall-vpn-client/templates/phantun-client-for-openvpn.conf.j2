@@ -1,6 +1,0 @@
-LOCAL=127.0.0.1:{{ item.openvpn.phantun.client_listen_port }}
-REMOTE={{ hostvars[item.host].ansible_default_ipv4.address }}:{{ phantun.openvpn.server_listen_port }}
-TUN=tun-phantun-{{ item.openvpn.phantun.id }}
-TUN_LOCAL=172.16.200.{{ item.openvpn.phantun.id * 2 + 1 }}
-TUN_PEER=172.16.200.{{ item.openvpn.phantun.id * 2 + 2 }}
-

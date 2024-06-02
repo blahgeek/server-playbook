@@ -6,14 +6,6 @@
     daemon-reload: yes
   with_dict: "{{ udp2raw }}"
 
-- name: Reload phantun server services
-  systemd:
-    name: "phantun-server@{{ item.key }}"
-    enabled: yes
-    state: restarted
-    daemon-reload: yes
-  with_dict: "{{ phantun }}"
-
 - name: Reload openvpn static server
   systemd:
     name: "openvpn@server"
