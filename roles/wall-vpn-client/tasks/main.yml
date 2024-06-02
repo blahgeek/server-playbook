@@ -88,3 +88,33 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+
+- name: Copy kissvpn key
+  copy:
+    src: ../common-wall/files/kissvpn/common.key
+    dest: /etc/kissvpn/common.key
+  notify: Reload kissvpn client services
+  tags:
+    - wall-client
+
+- name: Copy kissvpn client configs
+  when: item.kissvpn is defined
+  template:
+    src: kissvpn/client.conf.j2
+    dest: /etc/kissvpn/{{ item.name }}.conf
+    mode: 0755
+  notify: Reload kissvpn client services
+  with_items: "{{ wall_servers }}"
+  tags:
+    - wall-client
+
+- name: Copy kissvpn client up scripts
+  when: item.kissvpn is defined
+  template:
+    src: kissvpn/client.up.sh.j2
+    dest: /etc/kissvpn/{{ item.name }}.up.sh
+    mode: 0755
+  notify: Reload kissvpn client services
+  with_items: "{{ wall_servers }}"
+  tags:
+    - wall-client

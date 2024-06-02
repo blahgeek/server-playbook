@@ -24,3 +24,10 @@
     enabled: yes
     state: restarted
     daemon-reload: yes
+
+- name: Reload kissvpn service
+  systemd:
+    name: kissvpn-server
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

@@ -144,12 +144,16 @@
     src: ../common-wall/files/openvpn/static.key
     dest: /etc/openvpn/static.key
   notify: Reload openvpn static server
+  tags:
+    - vpn
 
 - name: Configure openvpn static server
   template:
     src: openvpn/static-server.conf.j2
     dest: /etc/openvpn/server.conf
   notify: Reload openvpn static server
+  tags:
+    - vpn
 
 
 - name: Remove old iptable rules
@@ -159,6 +163,8 @@
   with_items:
     - udp2raw_filter
     - phantun_nat_openvpn
+  tags:
+    - vpn
 
 - name: Stop old server services
   systemd:
@@ -168,4 +174,23 @@
   with_items:
     - phantun-server@openvpn
   ignore_errors: true
+  tags:
+    - vpn
 
+
+- name: Copy kissvpn key
+  copy:
+    src: ../common-wall/files/kissvpn/common.key
+    dest: /etc/kissvpn/common.key
+  notify: Reload kissvpn service
+  tags:
+    - vpn
+
+- name: Copy kissvpn server up script
+  template:
+    src: kissvpn/server.up.sh.j2
+    dest: /etc/kissvpn/server.up.sh
+    mode: 0755
+  notify: Reload kissvpn service
+  tags:
+    - vpn

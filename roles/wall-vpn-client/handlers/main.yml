@@ -14,3 +14,12 @@
     state: restarted
     daemon-reload: yes
   with_items: "{{ wall_servers }}"
+
+- name: Reload kissvpn client services
+  systemd:
+    name: "kissvpn-client@{{ item.name }}"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
+  when: item.kissvpn is defined
+  with_items: "{{ wall_servers }}"

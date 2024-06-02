@@ -12,6 +12,13 @@ wall_servers:
         fwmark: '0x1/0xf'
       route_v6:
         default: true
+    kissvpn:
+      route_v4:
+        table: 2
+        fwmark: '0x2/0xf'
+      route_v6:
+        table: 2
+        fwmark: '0x2/0xf'
   - name: eastwatch
     host: eastwatch.blahgeek.com
     openvpn:
@@ -26,6 +33,13 @@ wall_servers:
       route_v6:
         table: 3
         fwmark: '0x3/0xf'
+    kissvpn:
+      route_v4:
+        table: 4
+        fwmark: '0x4/0xf'
+      route_v6:
+        table: 4
+        fwmark: '0x4/0xf'
 
 absent_wall_servers:
   - ironisland

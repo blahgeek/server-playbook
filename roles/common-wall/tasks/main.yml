@@ -20,23 +20,32 @@
 
 - name: Install kissvpn
   unarchive:
-    src: https://github.com/blahgeek/kissvpn/releases/download/v0.1.4/kissvpn_v0.1.4_x86_64-unknown-linux-musl.zip
+    src: https://github.com/blahgeek/kissvpn/releases/download/v0.1.5/kissvpn_v0.1.5_x86_64-unknown-linux-musl.zip
     dest: /usr/local/bin
     include:
       - kissvpn
     mode: 0755
     remote_src: yes
+  tags:
+    - vpn
+    - wall-client
 
 - name: Install kissvpn services
   copy:
-    dest: "/etc/systemd/system/kissvpn-{{ item }}@.service"
-    src: "systemd/kissvpn-{{ item }}@.service"
+    dest: "/etc/systemd/system/{{ item }}.service"
+    src: "systemd/{{ item }}.service"
   with_items:
-    - server
-    - client
+    - kissvpn-server
+    - kissvpn-client@
+  tags:
+    - vpn
+    - wall-client
 
 - name: Create /etc/kissvpn folder
   file:
     path: "/etc/kissvpn"
     state: directory
     mode: 0755
+  tags:
+    - vpn
+    - wall-client

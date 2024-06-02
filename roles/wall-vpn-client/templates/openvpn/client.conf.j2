@@ -8,7 +8,7 @@ remote {{ hostvars[item.host].ansible_default_ipv4.address }} {{ openvpn.server_
 dev tun
 
 ifconfig {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.utils.nthhost(2) }} {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, hostvars[item.host].vpn_subnet_id) | ansible.utils.nthhost(1) }}
-ifconfig-ipv6 {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(2) }} {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(1) }}
+ifconfig-ipv6 {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(2) }}/124 {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(1) }}
 
 {% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.default is defined and item.openvpn.route_v6.default %}
 route-ipv6 2000::/3

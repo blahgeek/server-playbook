@@ -4,8 +4,8 @@ After=network-online.target
 
 [Service]
 Type=simple
-EnvironmentFile=/etc/kissvpn/$i.conf
-ExecStart=/usr/local/bin/kissvpn --key @/etc/kissvpn/$i.key --up_script /etc/kissvpn/$i.up.sh connect ${KISSVPN_REMOTE}
+EnvironmentFile=/etc/kissvpn/%i.conf
+ExecStart=/usr/local/bin/kissvpn --key @/etc/kissvpn/common.key --up-script /etc/kissvpn/%i.up.sh connect ${KISSVPN_REMOTE_IP}:53
 Restart=always
 RestartSec=30
 StartLimitBurst=10
