@@ -89,10 +89,7 @@
   tags:
     - wall-client
 
-- name: Copy kissvpn key
-  copy:
-    src: ../common-wall/files/kissvpn/common.key
-    dest: /etc/kissvpn/common.key
+- import_tasks: roles/common-wall/tasks/install-kissvpn.yml
   notify: Reload kissvpn client services
   tags:
     - wall-client

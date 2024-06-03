@@ -7,9 +7,9 @@ DEVICE="$1"
 
 ip addr add dev "$DEVICE" {{ local_v4 }}/32 peer {{ peer_v4 }}
 
-# override openvpn routes
-ip route add 192.168.0.0/17 dev "$DEVICE" via {{ peer_v4 }}
-ip route add 192.168.128.0/17 dev "$DEVICE" via {{ peer_v4 }}
+# # override openvpn routes
+# ip route add 192.168.0.0/17 dev "$DEVICE" via {{ peer_v4 }}
+# ip route add 192.168.128.0/17 dev "$DEVICE" via {{ peer_v4 }}
 
 
 {% set local_v6 = ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(4096) %}
