@@ -69,8 +69,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 
     // qiniu auth
     '_dnsauth.qnsource.hpurl': TXT('2022070701154107mculg4tn6wkyz7ia7n84wq2xy2wxgnlg1vdzq1ufao3i7qsr'),
-    '_0d63859ed24b6b968622c24602199b0f.qnsource.hpurl': CNAME('e6af22ecc0ea81bb019d8a067975242a.f8895168d151b32fa08a12b1fa9bcf12.ttdy86lylw.trust-provider.com'),
-    '_4ED1248A677AA6B2156CD55B4257396B.wedding-photo': CNAME('5B04C3679AC589EDA31A120B3004180B.9D31D9F2DA5D402D24BF8784058DCD72.TTDzKipprg.trust-provider.com'),
+    '_36010C22FBACF112943550BDCDE75424.qnsource.hpurl': CNAME('51F0713DB016BC7F5E647D460333923C.D9B55B23FD71EC50822B58C4A4D95730.cmcdt3vjd10mbk.trust-provider.com'),
 
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw" "qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB'),
 
