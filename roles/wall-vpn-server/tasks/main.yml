@@ -1,12 +1,6 @@
 - assert:
     that: ansible_os_family == 'Debian'
 
-# for some reason, `hostvars[item.host].ipv6_prefix` does not work directly in client's template
-- name: Set facts from hostvars so that client can reference them in template
-  set_fact:
-    ipv6_prefix: "{{ ipv6_prefix | default('') }}"
-  tags: always
-
 - name: Configure iptables for nat masquerade
   iptables_raw:
     name: nat_masquerade
@@ -88,23 +82,8 @@
   tags:
     - unatatp
 
-- name: Download and install udp2raw
-  unarchive:
-    remote_src: yes
-    src: https://github.com/wangyu-/udp2raw/releases/download/20200818.0/udp2raw_binaries.tar.gz
-    include: ["udp2raw_amd64"]
-    dest: /usr/local/bin/
-    mode: 0755
+- import_tasks: roles/common-wall/tasks/install-udp2raw.yml
   notify: Reload udp2raw server services
-
-- name: Add udp2raw systemd service
-  template:
-    src: systemd/udp2raw@.service.j2
-    dest: /etc/systemd/system/udp2raw@.service
-  vars:
-    udp2raw_binary_path: /usr/local/bin/udp2raw_amd64
-  notify:
-    - Reload udp2raw server services
 
 - name: Stop old udp2raw server services
   systemd:
@@ -118,12 +97,6 @@
     path: "/etc/udp2raw/{{ item }}.conf"
     state: absent
   with_items: "{{ udp2raw_cleanup_configs }}"
-
-- name: Create /etc/udp2raw folder
-  file:
-    path: /etc/udp2raw
-    state: directory
-    mode: 0755
 
 - name: Install udp2raw server configs
   template:
@@ -139,10 +112,7 @@
     rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
   with_dict: "{{ udp2raw }}"
 
-- name: Copy openvpn keys
-  copy:
-    src: ../common-wall/files/openvpn/static.key
-    dest: /etc/openvpn/static.key
+- import_tasks: roles/common-wall/tasks/install-openvpn.yml
   notify: Reload openvpn static server
   tags:
     - vpn

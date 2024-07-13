@@ -16,6 +16,11 @@
   tags:
     - wall-client
 
+- import_tasks: roles/common-wall/tasks/install-udp2raw.yml
+  notify: Reload udp2raw client services for openvpn
+  tags:
+    - wall-client
+
 - name: Install udp2raw client configs for openvpn
   template:
     src: udp2raw-for-openvpn.conf.j2
@@ -23,6 +28,11 @@
   notify: Reload udp2raw client services for openvpn
   when: item.openvpn.udp2raw is defined
   with_items: "{{ wall_servers }}"
+  tags:
+    - wall-client
+
+- import_tasks: roles/common-wall/tasks/install-openvpn.yml
+  notify: Reload openvpn client services
   tags:
     - wall-client
 

@@ -1,0 +1,7 @@
+- hosts: north
+  roles:
+    - role: common-wall
+
+- hosts: highgarden
+  roles:
+    - role: wall-vpn-client

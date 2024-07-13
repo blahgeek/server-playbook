@@ -17,3 +17,9 @@
     - { name: "net.ipv6.conf.all.forwarding", "value": "1"}
     - { name: "net.core.default_qdisc", "value": "fq"}
     - { name: "net.ipv4.tcp_congestion_control", "value": "bbr"}
+
+# for some reason, `hostvars[item.host].ipv6_prefix` does not work directly in client's template
+- name: Set facts from hostvars so that client can reference them in template
+  set_fact:
+    ipv6_prefix: "{{ ipv6_prefix | default('') }}"
+  tags: always

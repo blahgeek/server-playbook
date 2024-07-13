@@ -1,0 +1,26 @@
+- name: Download and install udp2raw
+  unarchive:
+    remote_src: yes
+    src: https://github.com/wangyu-/udp2raw/releases/download/20200818.0/udp2raw_binaries.tar.gz
+    include: ["udp2raw_amd64"]
+    dest: /usr/local/bin/
+    mode: 0755
+  tags:
+    - wall-client
+
+- name: Add udp2raw systemd service
+  template:
+    src: ../common-wall/templates/systemd/udp2raw@.service.j2
+    dest: /etc/systemd/system/udp2raw@.service
+  vars:
+    udp2raw_binary_path: /usr/local/bin/udp2raw_amd64
+  tags:
+    - wall-client
+
+- name: Create /etc/udp2raw folder
+  file:
+    path: /etc/udp2raw
+    state: directory
+    mode: 0755
+  tags:
+    - wall-client

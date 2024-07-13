@@ -14,7 +14,7 @@ ifconfig-ipv6 {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ip
 route-ipv6 2000::/3
 {% endif %}
 
-secret static.key
+secret /etc/openvpn/static.key
 cipher AES-128-CBC
 
 script-security 2
