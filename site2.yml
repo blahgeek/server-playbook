@@ -2,6 +2,10 @@
   roles:
     - role: common-wall
 
+- hosts: wall
+  roles:
+    - role: common-wall
+
 - hosts: highgarden
   roles:
     - role: wall-vpn-client

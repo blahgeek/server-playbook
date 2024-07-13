@@ -2,8 +2,8 @@
 # for route_v4, the default route is the china net;
 # for route_v6, the default route is the yikai net.
 wall_servers:
-  - name: north
-    host: north.blahgeek.com
+  - name: wall
+    host: wall.blahgeek.com
     openvpn:
       udp2raw:
         client_listen_port: 3000
@@ -12,13 +12,24 @@ wall_servers:
         fwmark: '0x1/0xf'
       route_v6:
         default: true
-    kissvpn:
+  - name: north
+    host: north.blahgeek.com
+    openvpn:
+      udp2raw:
+        client_listen_port: 3001
       route_v4:
         table: 2
         fwmark: '0x2/0xf'
       route_v6:
         table: 2
         fwmark: '0x2/0xf'
+    # kissvpn:
+    #   route_v4:
+    #     table: 2
+    #     fwmark: '0x2/0xf'
+    #   route_v6:
+    #     table: 2
+    #     fwmark: '0x2/0xf'
 
 absent_wall_servers:
   - ironisland
