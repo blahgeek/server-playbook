@@ -27,6 +27,7 @@
       - openvpn
       - htop
       - unzip
+      - python3-systemd  # required by fail2ban
     state: present
 
 - name: Install packages for debian
@@ -49,6 +50,7 @@
     content: |
       [sshd]
       enabled = true
+      backend = systemd
     dest: /etc/fail2ban/jail.local
   notify:
     - Reload fail2ban
@@ -74,3 +76,29 @@
     table: filter
     rules: |
       -P FORWARD ACCEPT
+
+- name: Disable resolvconf
+  systemd:
+    name: resolvconf
+    enabled: no
+    state: stopped
+  when: dns_server is defined
+  ignore_errors: yes
+
+- name: Make resolv.conf muttable
+  file:
+    attributes: "-i"
+    path: /etc/resolv.conf
+  when: dns_server is defined
+
+- name: Write resolv.conf
+  template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+  when: dns_server is defined
+
+- name: Make resolv.conf immutable
+  file:
+    attributes: "+i"
+    path: /etc/resolv.conf
+  when: dns_server is defined

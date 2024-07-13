@@ -26,3 +26,10 @@
     - role: tailscale-derp
     - role: tailscale-node
     - role: tailproxy
+
+- hosts: north
+  roles:
+    - role: common-server
+    - role: bgp-server
+    - role: wall-vpn-server
+    - role: proxy-server

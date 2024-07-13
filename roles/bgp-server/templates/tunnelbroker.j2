@@ -10,7 +10,7 @@ iface {{ item.key }} inet tunnel
 iface {{ item.key }} inet6 v4tunnel
 {% endif %}
         address {{ item.value.subnet | ansible.utils.nthhost(2 if is_client else 1) }}
-        netmask {{ item.value.subnet | ansible.netcommon.ipaddr('prefix') }}
+        netmask {{ item.value.subnet | ansible.utils.ipaddr('prefix') }}
         endpoint {{ item.value.remote }}
         local {{ ansible_default_ipv4.address }}
 {% if item.value.gre is defined and item.value.gre %}

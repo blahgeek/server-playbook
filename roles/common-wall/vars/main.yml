@@ -14,6 +14,7 @@ yikai_net:
   home_prefix: 2a06:a005:08d0::/48
   wall_prefix: 2a06:a005:08d1::/48
   eastwatch_prefix: 2a0e:aa07:e035::/48
+  north_prefix: 2a0e:b107:178c::/48
   straywarrior_prefix: 2a06:a005:08da::/48
 
 ipv6_vpn_subnet_id: 0x1000

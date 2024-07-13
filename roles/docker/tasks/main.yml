@@ -1,15 +1,3 @@
-- name: Install python pip
-  package:
-    name:
-      - python3-pip
-    state: present
-
-- name: Install docker sdk for python
-  pip:
-    name:
-      - docker
-      - docker-compose
-
 - name: Ensure docker.service.d folder exists
   file:
     path: /etc/systemd/system/docker.service.d

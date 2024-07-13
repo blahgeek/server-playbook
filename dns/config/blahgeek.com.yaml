@@ -30,6 +30,12 @@
       proxied: false
   type: "CNAME"
   value: "web.fleabottom.blahgeek.com."
+"*.north":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.north.blahgeek.com."
 "*.wall":
   octodns:
     cloudflare:
@@ -72,6 +78,12 @@ mhome:
       proxied: false
   type: "CNAME"
   value: "blahgeek-mhome.duckdns.org."
+north:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "188.245.57.116"
 qncdn.blog:
   octodns:
     cloudflare:
@@ -119,6 +131,17 @@ web.fleabottom:
       proxied: false
   type: "A"
   value: "47.92.242.60"
+web.north:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "188.245.57.116"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178c:d0ce::6666"
 web.wall:
 - octodns:
     cloudflare:

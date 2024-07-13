@@ -1,0 +1,23 @@
+vpn_subnet_id: 37
+
+ipv6_prefix: "{{ yikai_net.north_prefix }}"
+
+# the default dns server (ipv6) in hetzner cloud does not work from outside, so unreachable after setting up yikai-net's ipv6 address
+dns_server: 8.8.4.4
+
+tunnelbroker:
+  # https://www.tunnelbroker.ch/tunnel/17740
+  tb-ch:
+    remote: 194.50.94.248
+    subnet: 2a09:4c0:3e0:f21::/64
+    routes:
+      - 2000::/3
+
+bgp:
+  tb_ch:
+    peer_asn: 58057
+    peer_addr: 2a09:4c0:3e0:f21::1
+    prefixes:
+      - "{{ ipv6_prefix }}"
+    export_filter: |
+      accept;
