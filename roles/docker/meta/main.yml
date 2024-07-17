@@ -1,7 +1,0 @@
-dependencies:
-  - role: geerlingguy.docker
-    vars:
-  - role: geerlingguy.pip
-    vars:
-      pip_install_packages:
-        - docker

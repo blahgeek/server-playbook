@@ -20,6 +20,17 @@
     dest: /etc/docker/daemon.json
   notify: Reload docker
 
+- name: Install docker
+  import_role:
+    name: geerlingguy.docker
+
+- name: Install docker python package
+  import_role:
+    name: geerlingguy.pip
+  vars:
+    pip_install_packages:
+      - docker
+
 - name: Flush reload docker handlers
   meta: flush_handlers
 
