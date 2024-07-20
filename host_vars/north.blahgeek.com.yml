@@ -10,6 +10,14 @@ tunnelbroker:
   tb-ch:
     remote: 194.50.94.248
     subnet: 2a09:4c0:3e0:f21::/64
+
+  # https://my.bgptunnel.com/bgp_sessions
+  tb-ifog:
+    remote: 154.57.85.10
+    # my addr: 2a0c:9a40:a005::2a6
+    # peer addr: 2a0c:9a40:a005::2a5
+    subnet: 2a0c:9a40:a005::2a4/126
+    gre: true
     routes:
       - 2000::/3
 
@@ -19,5 +27,16 @@ bgp:
     peer_addr: 2a09:4c0:3e0:f21::1
     prefixes:
       - "{{ ipv6_prefix }}"
+      - "{{ yikai_net.home_prefix }}"
+    export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      accept;
+
+  tb_ifog:
+    peer_asn: 209533
+    peer_addr: 2a0c:9a40:a005::2a5
+    prefixes:
+      - "{{ ipv6_prefix }}"
+      - "{{ yikai_net.home_prefix }}"
     export_filter: |
       accept;
