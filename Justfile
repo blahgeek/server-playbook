@@ -14,3 +14,6 @@ dns_sync: dns_render
 # Run DNS sync
 dns_sync_doit: dns_render
     cd dns && pipenv run octodns-sync --config-file=octodns.yaml --doit
+
+qiniu_cert_refresh:
+    ./tools/qiniu_cert_refresh.sh

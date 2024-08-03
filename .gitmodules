@@ -1,0 +1,3 @@
+[submodule "third_party/acme.sh"]
+	path = third_party/acme.sh
+	url = https://github.com/acmesh-official/acme.sh.git
