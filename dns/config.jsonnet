@@ -93,17 +93,17 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnAPXEssA1Z1Js6uQ7kSGGbNj0N/vER3DygA/GnfIu6oILSUG/5XzSxIZN5t1qkdpwM3vKyMFmYzv0iDszl2PWeP0QDNVOIaMDweUAYZqt3DpoOmFuWNFZOLZs5V63AzpxeUcNQGXzttQFE7p2+TquM/Z3ZzSWggeSx/7MxesWy7taQbyjNuLTqArcAKwEitbqGg31hOJQ+YmByWHPEfPGzPRCIkUZbtSVkTJXefMGR0+252Tmo9KXDuhFnOfLZdPxnn7Tc3NPCbHbcfre2eqquCHWm1m65JEwSDcCxeRqqjgJSyIONxJKKZTY76xt8wNFRq3tMgGACfLfJWAsfWS4QIDAQAB'),
   }),
 
-  [utils.ipv6RdnsZone(hosts.eastwatch.ipv6_prefix) + 'yaml']: utils.manifestYaml({
-    [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('wall-tunnel-server.eastwatch.blahgeek.com'),
-    [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('wall-tunnel-client.eastwatch.blahgeek.com'),
-  } + ipv6CommonRdnsEntries('eastwatch')),
+  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.home_prefix) + 'yaml']: utils.manifestYaml({
+    [ipv6RdnsName('dead:0000:0000:0000:0001')]: PTR('highgarden.blahgeek.com'),
+  }),
 
-  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.usnet_prefix) + 'yaml']: utils.manifestYaml({
-    # home. prefix "0:" relative to usnet zone
-    [ipv6RdnsName('0:beef:0000:0000:0000:0001')]: PTR('mhome.blahgeek.com'),
-    [ipv6RdnsName('0:beef:0000:0000:0000:0023')]: PTR('oldtown.mhome.blahgeek.com'),
-    # straywarrior. prefix "a:" relative to usnet zone
-    [ipv6RdnsName('a:0001:0000:0000:0000:0001')]: PTR('straywarrior-tunnel-server.eastwatch.blahgeek.com'),
-    [ipv6RdnsName('a:0001:0000:0000:0000:0002')]: PTR('straywarrior-tunnel-client.eastwatch.blahgeek.com'),
-  } + ipv6CommonRdnsEntries('wall', prefix_relative_to_zone='1:'))
+  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.usnet_prefix) + 'yaml']: utils.manifestYaml(
+    {
+      # straywarrior. prefix "a:" relative to usnet zone
+      [ipv6RdnsName('a:0001:0000:0000:0000:0001')]: PTR('straywarrior-tunnel-server.eastwatch.blahgeek.com'),
+      [ipv6RdnsName('a:0001:0000:0000:0000:0002')]: PTR('straywarrior-tunnel-client.eastwatch.blahgeek.com'),
+    }
+    + ipv6CommonRdnsEntries('wall', prefix_relative_to_zone='1:')
+    + ipv6CommonRdnsEntries('eastwatch', prefix_relative_to_zone='2:')
+  )
 }

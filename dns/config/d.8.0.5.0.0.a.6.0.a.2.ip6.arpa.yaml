@@ -1,21 +1,24 @@
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.1:
   type: "PTR"
   value: "vpn-server.wall.blahgeek.com."
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.2:
+  type: "PTR"
+  value: "vpn-server.eastwatch.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0.a:
   type: "PTR"
   value: "straywarrior-tunnel-server.eastwatch.blahgeek.com."
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.e.e.b.0:
-  type: "PTR"
-  value: "mhome.blahgeek.com."
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.1:
   type: "PTR"
   value: "vpn-client.wall.blahgeek.com."
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.2:
+  type: "PTR"
+  value: "vpn-client.eastwatch.blahgeek.com."
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0.a:
   type: "PTR"
   value: "straywarrior-tunnel-client.eastwatch.blahgeek.com."
-3.2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.f.e.e.b.0:
-  type: "PTR"
-  value: "oldtown.mhome.blahgeek.com."
 6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d.1:
   type: "PTR"
   value: "web.wall.blahgeek.com."
+6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d.2:
+  type: "PTR"
+  value: "web.eastwatch.blahgeek.com."

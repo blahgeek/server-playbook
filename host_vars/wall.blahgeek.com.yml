@@ -24,8 +24,6 @@ bgp:
   tb_proj6:
     peer_asn: 208753
     peer_addr: 2a0e:46c4:2d0d:8679::1
-    prefixes:
-      - "{{ ipv6_prefix }}"
     export_filter: |
       reject;
   # shit... 208753 is down. HE.net would prefer this path over eastwatch (vultr)
@@ -33,11 +31,8 @@ bgp:
   tb_ch:
     peer_asn: 58057
     peer_addr: 2a09:4c0:fe0:27d::1
-    prefixes:
-      - "{{ ipv6_prefix }}"
     export_filter: |
-      bgp_path.prepend({{ my_asn }});
-      accept;
+      reject;
   tb_li:
     peer_asn: 34927
     peer_addr: 2a0c:9a40:100f:38d::1

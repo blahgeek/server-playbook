@@ -8,7 +8,7 @@ local hosts = {
   }
   for group in std.objectFields(ansibleHostsYaml.all.children)
   for hostname in std.objectFields(ansibleHostsYaml.all.children[group].hosts)
-  if hostname != 'mhome.blahgeek.com'
+  if hostname != 'highgarden.blahgeek.com'
 };
 
 {
