@@ -17,6 +17,9 @@ iface {{ item.key }} inet6 v4tunnel
         mode gre
 {% endif %}
         ttl 255
+{% if item.value.mtu is defined %}
+        up /bin/ip link set {{ item.key }} mtu {{ item.value.mtu }}
+{% endif %}
 {% if item.value.routes is defined %}
 {% for route in item.value.routes %}
         up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.utils.nthhost(1 if is_client else 2) }}
