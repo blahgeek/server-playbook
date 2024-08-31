@@ -113,7 +113,7 @@ wall:
     cloudflare:
       proxied: false
   type: "A"
-  value: "67.230.162.147"
+  value: "80.251.211.31"
 web.eastwatch:
 - octodns:
     cloudflare:
@@ -147,7 +147,7 @@ web.wall:
     cloudflare:
       proxied: false
   type: "A"
-  value: "67.230.162.147"
+  value: "80.251.211.31"
 - octodns:
     cloudflare:
       proxied: false

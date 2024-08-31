@@ -14,7 +14,7 @@
     - role: sync-server
     - role: proxy-server
 
-- hosts: mhome
+- hosts: highgarden
   roles:
     - role: wall-vpn-client
 
