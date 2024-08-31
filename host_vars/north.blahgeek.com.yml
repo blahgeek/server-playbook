@@ -6,10 +6,12 @@ ipv6_prefix: "{{ yikai_net.north_prefix }}"
 dns_server: 8.8.4.4
 
 tunnelbroker:
-  # https://www.tunnelbroker.ch/tunnel/17740
+  # https://www.tunnelbroker.ch/tunnel/18379
+  # Zurich
+  # Its german endpoint is broken
   tb-ch:
-    remote: 194.50.94.248
-    subnet: 2a09:4c0:3e0:f21::/64
+    remote: 193.33.94.248
+    subnet: 2a09:4c0:1e0:523::/64
 
   # https://my.bgptunnel.com/bgp_sessions
   tb-ifog:
@@ -25,7 +27,7 @@ tunnelbroker:
 bgp:
   tb_ch:
     peer_asn: 58057
-    peer_addr: 2a09:4c0:3e0:f21::1
+    peer_addr: 2a09:4c0:1e0:523::1
     prefixes:
       - "{{ ipv6_prefix }}"
       - "{{ yikai_net.home_prefix }}"
