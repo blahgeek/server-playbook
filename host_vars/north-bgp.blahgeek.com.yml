@@ -1,0 +1,23 @@
+
+tunnelbroker:
+  tb-north:
+    remote: 2a01:4f8:c012:95c9::1  # north.blahgeek.com
+    local: 2a0c:9a40:2510:1001::10e4
+    subnet: "{{ yikai_net.north_prefix | ansible.utils.ipsubnet(64, 1) }}"
+    is_server: true
+    mode: gre6
+    routes:
+      - "{{ yikai_net.north_prefix }}"
+      - "{{ yikai_net.home_prefix }}"
+
+bird_router_id: 1
+
+bgp:
+  ifog:
+    peer_asn: 34927
+    peer_addr: 2a0c:9a40:2510:1001::1
+    prefixes:
+      - "{{ yikai_net.north_prefix }}"
+      - "{{ yikai_net.home_prefix }}"
+    export_filter: |
+      accept;

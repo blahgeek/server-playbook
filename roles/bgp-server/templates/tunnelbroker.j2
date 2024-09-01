@@ -4,17 +4,27 @@
 {% endif %}
 
 auto {{ item.key }}
-{% if item.value.gre is defined and item.value.gre %}
+{# mode: "gre", "gre6", default (sit) #}
+{# NOTE: gre6 requires debian 12+ #}
+{% if item.value.mode is defined and item.value.mode == "gre" %}
 iface {{ item.key }} inet tunnel
+{% elif item.value.mode is defined and item.value.mode == "gre6" %}
+iface {{ item.key }} inet6 tunnel
 {% else %}
 iface {{ item.key }} inet6 v4tunnel
 {% endif %}
         address {{ item.value.subnet | ansible.utils.nthhost(2 if is_client else 1) }}
         netmask {{ item.value.subnet | ansible.utils.ipaddr('prefix') }}
         endpoint {{ item.value.remote }}
+{% if item.value.local is defined %}
+        local {{ item.value.local }}
+{% else %}
         local {{ ansible_default_ipv4.address }}
-{% if item.value.gre is defined and item.value.gre %}
+{% endif %}
+{% if item.value.mode is defined and item.value.mode == "gre" %}
         mode gre
+{% elif item.value.mode is defined and item.value.mode == "gre6" %}
+        mode ip6gre
 {% endif %}
         ttl 255
 {% if item.value.mtu is defined %}
@@ -23,5 +33,10 @@ iface {{ item.key }} inet6 v4tunnel
 {% if item.value.routes is defined %}
 {% for route in item.value.routes %}
         up /bin/ip -6 route add {{ route }} via {{ item.value.subnet | ansible.utils.nthhost(1 if is_client else 2) }}
+{% endfor %}
+{% endif %}
+{% if item.value.extra_up_cmds is defined %}
+{% for cmd in item.value.extra_up_cmds %}
+        up {{ cmd }}
 {% endfor %}
 {% endif %}

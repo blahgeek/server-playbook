@@ -14,7 +14,7 @@
     daemon-reload: yes
 
 - name: Reload network interfaces
-  shell: "ifdown {{ item }} || true; ip link del {{ item }} || true; ifup {{ item }}"
+  shell: "/usr/sbin/ifdown {{ item }} || true; ip link del {{ item }} || true; /usr/sbin/ifup {{ item }}"
   with_items:
     - unatatp-dummy
 

@@ -19,10 +19,18 @@ tunnelbroker:
     # my addr: 2a0c:9a40:a005::2a6
     # peer addr: 2a0c:9a40:a005::2a5
     subnet: 2a0c:9a40:a005::2a4/126
-    gre: true
+    mode: gre
     mtu: 1448
+
+  tb-north:
+    remote: 2a0c:9a40:2510:1001::10e4  # north-bgp.blahgeek.com
+    local: 2a01:4f8:c012:95c9::1
+    subnet: "{{ yikai_net.north_prefix | ansible.utils.ipsubnet(64, 1) }}"
+    mode: gre6
     routes:
       - 2000::/3
+    extra_up_cmds:
+      - /bin/ip -6 route add 2a0c:9a40:2510:1001::10e4/128 via fe80::1 dev eth0 || true
 
 bgp:
   tb_ch:
@@ -33,6 +41,7 @@ bgp:
       - "{{ yikai_net.home_prefix }}"
     export_filter: |
       bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
       accept;
 
   tb_ifog:
@@ -42,4 +51,6 @@ bgp:
       - "{{ ipv6_prefix }}"
       - "{{ yikai_net.home_prefix }}"
     export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
       accept;

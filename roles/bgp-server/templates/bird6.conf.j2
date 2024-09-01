@@ -1,4 +1,4 @@
-router id {{ ansible_default_ipv4.address }};
+router id {% if bird_router_id is defined %}{{ bird_router_id }}{% else %}{{ ansible_default_ipv4.address }}{% endif %};
 
 protocol kernel {
   scan time 60;

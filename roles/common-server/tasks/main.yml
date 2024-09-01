@@ -62,8 +62,15 @@
   command: fail2ban-client status sshd
   changed_when: False
 
+- name: Ensure dir /etc/network/interfaces.d
+  file:
+    path: /etc/network/interfaces.d
+    state: directory
+    mode: 0755
+
 - name: Ensure loading /etc/network/interfaces.d
   lineinfile:
+    create: true
     path: /etc/network/interfaces
     regexp: '^source '
     line: source /etc/network/interfaces.d/*
