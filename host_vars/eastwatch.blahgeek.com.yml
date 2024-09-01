@@ -29,4 +29,6 @@ bgp:
       - "{{ yikai_net.usnet_prefix }}"  # includes my own ipv6_prefix
       - "{{ yikai_net.home_prefix }}"
     export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
       accept;
