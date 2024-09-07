@@ -33,8 +33,3 @@
     - role: bgp-server
     - role: wall-vpn-server
     - role: proxy-server
-
-- hosts: north_bgp
-  roles:
-    - role: common-server
-    - role: bgp-server
