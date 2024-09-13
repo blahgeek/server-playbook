@@ -16,7 +16,6 @@ yikai_net:
   usnet_prefix: 2a06:a005:08d0::/44
   # so the following sites will always belong to usnet
   eastwatch_prefix: 2a06:a005:08d2::/48
-  wall_prefix: 2a06:a005:08d1::/48
   straywarrior_prefix: 2a06:a005:08da::/48
 
   # this is the orignal prefix assigned from ASN sponsor. use it for home
@@ -24,5 +23,6 @@ yikai_net:
 
   # 2a0e:b107:178c::/46 is from tunnelbroker.ch
   north_prefix: 2a0e:b107:178c::/48
+  wall_prefix: 2a0e:b107:178d::/48
 
 ipv6_vpn_subnet_id: 0x1000

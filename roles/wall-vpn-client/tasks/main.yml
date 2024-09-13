@@ -7,6 +7,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Remove old udp2raw client configs for openvpn
   file:
@@ -15,6 +16,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - import_tasks: roles/common-wall/tasks/install-udp2raw.yml
   notify: Reload udp2raw client services for openvpn
@@ -30,6 +32,7 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - import_tasks: roles/common-wall/tasks/install-openvpn.yml
   notify: Reload openvpn client services
@@ -45,6 +48,7 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Install openvpn client down scripts
   template:
@@ -55,6 +59,7 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Remove old openvpn services
   systemd:
@@ -65,6 +70,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Remove old openvpn client up scripts
   file:
@@ -73,6 +79,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Remove old openvpn client down scripts
   file:
@@ -81,6 +88,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Install openvpn client configs
   template:
@@ -90,6 +98,7 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Remove old openvpn client configs
   file:
@@ -98,6 +107,7 @@
   with_items: "{{ absent_wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - import_tasks: roles/common-wall/tasks/install-kissvpn.yml
   notify: Reload kissvpn client services
@@ -114,6 +124,7 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
 
 - name: Copy kissvpn client up scripts
   when: item.kissvpn is defined
@@ -125,3 +136,4 @@
   with_items: "{{ wall_servers }}"
   tags:
     - wall-client
+    - wall-client-config
