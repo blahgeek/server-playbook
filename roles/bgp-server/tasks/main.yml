@@ -19,8 +19,14 @@
     dest: "/etc/network/interfaces.d/{{ item.key }}"
   with_dict: "{{ tunnelbroker }}"
   notify:
-    - Delete old tunnelbroker interfaces
     - Reload tunnelbroker interfaces
+  tags:
+    - bgp
+
+- name: Delete old tunnelbroker interfaces
+  shell: "/usr/sbin/ifdown {{ item }} || true; ip link del {{ item }} || true; rm /etc/network/interfaces.d/{{ item }} || true"
+  with_items: "{{ tunnelbroker_delete }}"
+  when: tunnelbroker_delete is defined
   tags:
     - bgp
 

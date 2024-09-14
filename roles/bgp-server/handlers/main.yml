@@ -4,13 +4,6 @@
     state: restarted
     daemon-reload: yes
 
-- name: Delete old tunnelbroker interfaces
-  shell: "/usr/sbin/ifdown {{ item }} || true; ip link del {{ item }} || true"
-  with_items:
-    - tb-ipv6
-    - tb-north
-    - gre1
-
 - name: Reload tunnelbroker interfaces
   shell: "/usr/sbin/ifdown {{ item.key }} || true; ip link del {{ item.key }} || true; /usr/sbin/ifup {{ item.key }}"
   with_dict: "{{ tunnelbroker }}"
