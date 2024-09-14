@@ -27,5 +27,7 @@ utils.manifestYaml({
     'z1k.dev.': zoneConfig,
     [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.home_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.usnet_prefix)]: zoneConfig,
+    [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.north_prefix)]: zoneConfig,
+    [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.wall_prefix)]: zoneConfig,
   }
 })

@@ -37,11 +37,20 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
   # docker_subnet_id
   [ipv6RdnsName(prefix_relative_to_zone + 'd0ce:0000:0000:0000:6666')]:
     PTR('web.' + name + '.blahgeek.com'),
+  [ipv6RdnsName(prefix_relative_to_zone + 'd0ce:0000:0000:0000:0001')]:
+    PTR('docker-container.' + name + '.blahgeek.com'),
+  [ipv6RdnsName(prefix_relative_to_zone + 'd0c0:0000:0000:0000:0001')]:
+    PTR('docker-host.' + name + '.blahgeek.com'),
   # vpn_subnet_id
   [ipv6RdnsName(prefix_relative_to_zone + '1000:0000:0000:0000:0001')]:
-    PTR('vpn-server.' + name + '.blahgeek.com'),
+    PTR('ovpn-server.' + name + '.blahgeek.com'),
   [ipv6RdnsName(prefix_relative_to_zone + '1000:0000:0000:0000:0002')]:
-    PTR('vpn-client.' + name + '.blahgeek.com'),
+    PTR('ovpn-client.' + name + '.blahgeek.com'),
+
+  [ipv6RdnsName(prefix_relative_to_zone + '1000:0000:0000:0000:1000')]:
+    PTR('kissvpn-server.' + name + '.blahgeek.com'),
+  [ipv6RdnsName(prefix_relative_to_zone + '1000:0000:0000:0000:1001')]:
+    PTR('kissvpn-client.' + name + '.blahgeek.com'),
 };
 
 {
@@ -103,7 +112,13 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
       [ipv6RdnsName('a:0001:0000:0000:0000:0001')]: PTR('straywarrior-tunnel-server.eastwatch.blahgeek.com'),
       [ipv6RdnsName('a:0001:0000:0000:0000:0002')]: PTR('straywarrior-tunnel-client.eastwatch.blahgeek.com'),
     }
-    + ipv6CommonRdnsEntries('wall', prefix_relative_to_zone='1:')
     + ipv6CommonRdnsEntries('eastwatch', prefix_relative_to_zone='2:')
-  )
+  ),
+
+  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.north_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('north')
+  ),
+  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('wall')
+  ),
 }

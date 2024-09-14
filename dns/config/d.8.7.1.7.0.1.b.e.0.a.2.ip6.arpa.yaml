@@ -1,0 +1,21 @@
+0.0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "kissvpn-server.wall.blahgeek.com."
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "ovpn-server.wall.blahgeek.com."
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.d:
+  type: "PTR"
+  value: "docker-host.wall.blahgeek.com."
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
+  type: "PTR"
+  value: "docker-container.wall.blahgeek.com."
+1.0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "kissvpn-client.wall.blahgeek.com."
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
+  type: "PTR"
+  value: "ovpn-client.wall.blahgeek.com."
+6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
+  type: "PTR"
+  value: "web.wall.blahgeek.com."
