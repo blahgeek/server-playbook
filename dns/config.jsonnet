@@ -28,8 +28,8 @@ local ipv6RdnsName(addr) = std.join('.', std.reverse(std.stringChars(std.strRepl
 local hostRules(name) = {
   [name]: A(hosts[name].ipv4),
   ['web.' + name]:
-    [A(hosts[name].ipv4)] +
-    if hosts[name].ipv6_prefix != null then [AAAA(ipv6WebAddr(name))] else [],
+    (if !std.startsWith(hosts[name].ipv4, "192.168.") then [A(hosts[name].ipv4)] else []) +
+    (if hosts[name].ipv6_prefix != null then [AAAA(ipv6WebAddr(name))] else []),
   ['*.' + name]: CNAME('web.' + name + '.blahgeek.com.'),
 };
 

@@ -30,6 +30,12 @@
       proxied: false
   type: "CNAME"
   value: "web.fleabottom.blahgeek.com."
+"*.highgarden":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.highgarden.blahgeek.com."
 "*.north":
   octodns:
     cloudflare:
@@ -72,6 +78,12 @@ fleabottom:
 google._domainkey:
   type: "TXT"
   value: "v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw\" \"qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB"
+highgarden:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "192.168.0.1"
 mhome:
   octodns:
     cloudflare:
@@ -131,6 +143,12 @@ web.fleabottom:
       proxied: false
   type: "A"
   value: "47.92.242.60"
+web.highgarden:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:aa07:e035:d0ce::6666"
 web.north:
 - octodns:
     cloudflare:
