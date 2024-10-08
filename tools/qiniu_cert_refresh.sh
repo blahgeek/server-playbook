@@ -10,8 +10,14 @@ ACMESH="../third_party/acme.sh/acme.sh"
 
 install_domain() {
     DOMAIN="$1"
-    "$ACMESH" --issue --dns dns_cf -d "$DOMAIN"
+    "$ACMESH" --renew --dns dns_cf -d "$DOMAIN" || ret=$?
+    if [ $ret = 2 ]; then
+        return
+    elif [ $ret != 0 ]; then
+        exit $ret
+    fi
     "$ACMESH" --deploy -d "$DOMAIN" --deploy-hook qiniu
 }
 
+install_domain wedding-photo.blahgeek.com
 install_domain qnsource.hpurl.blahgeek.com
