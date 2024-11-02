@@ -63,6 +63,9 @@ blog:
       proxied: false
   type: "CNAME"
   value: "web.wall.blahgeek.com."
+dnspodcheck:
+  type: "TXT"
+  value: "70a8f523020ae061e3c2a4142fbbb1e1"
 eastwatch:
   octodns:
     cloudflare:
@@ -84,12 +87,11 @@ highgarden:
       proxied: false
   type: "A"
   value: "192.168.0.1"
-highgarden-domestic:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "blahgeek-highgarden.duckdns.org."
+highgarden-dyn:
+  type: "NS"
+  values:
+  - "f1g1ns1.dnspod.net."
+  - "f1g1ns2.dnspod.net."
 north:
   octodns:
     cloudflare:

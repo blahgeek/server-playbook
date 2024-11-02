@@ -12,6 +12,7 @@ local CNAME(val) = {type: 'CNAME', value: ensureEndDot(val)} + cf_proxy_setting(
 local CNAME_CF_PROXY(val) = {type: 'CNAME', value: ensureEndDot(val)} + cf_proxy_setting(true);
 local PTR(val) = {type: 'PTR', value: ensureEndDot(val) };
 local MX(vals) = {type: 'MX', values: vals};
+local NS(vals) = {type: 'NS', values: [ensureEndDot(val) for val in vals] };
 
 local GMAIL_MX = MX([
   {exchange: 'aspmx.l.google.com.', preference: 1},
@@ -68,7 +69,11 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
 
     'www': CNAME('fleabottom.blahgeek.com'),
-    'highgarden-domestic': CNAME('blahgeek-highgarden.duckdns.org'),
+
+    # geodns in dnspod
+    # *.highgarden-dyn -> blahgeek-highgarden.duckdns.org. for CN
+    # *.highgarden-dyn -> web.highgarden.blahgeek.com. for others
+    'highgarden-dyn': NS(['f1g1ns1.dnspod.net', 'f1g1ns2.dnspod.net']),
 
     'qncdn.blog': CNAME('qncdn.blog.blahgeek.com.qiniudns.com'),
     'qncdn.hpurl': CNAME('idv0ypk.qiniudns.com'),
@@ -79,6 +84,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     '_dnsauth.qnsource.hpurl': TXT('2022070701154107mculg4tn6wkyz7ia7n84wq2xy2wxgnlg1vdzq1ufao3i7qsr'),
     '_36010C22FBACF112943550BDCDE75424.qnsource.hpurl': CNAME('51F0713DB016BC7F5E647D460333923C.D9B55B23FD71EC50822B58C4A4D95730.cmcdt3vjd10mbk.trust-provider.com'),
 
+    'dnspodcheck': TXT('70a8f523020ae061e3c2a4142fbbb1e1'),
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw" "qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB'),
 
   } + std.foldr(function(a, b) a+b, [hostRules(x) for x in std.objectFields(hosts)], {})),
