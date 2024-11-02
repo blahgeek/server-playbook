@@ -68,8 +68,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
 
     'www': CNAME('fleabottom.blahgeek.com'),
-    'mhome': CNAME('blahgeek-mhome.duckdns.org'),
-    'xhome': CNAME('blahgeek-mhome.duckdns.org'),
+    'highgarden-domestic': CNAME('blahgeek-highgarden.duckdns.org'),
 
     'qncdn.blog': CNAME('qncdn.blog.blahgeek.com.qiniudns.com'),
     'qncdn.hpurl': CNAME('idv0ypk.qiniudns.com'),
