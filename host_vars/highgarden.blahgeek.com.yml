@@ -13,9 +13,6 @@ wall_servers:
       route_v6:
         table: 1
         fwmark: '0x1/0xf'
-        uids:
-          - tinyproxy
-          - dnsmasq
   - name: north
     host: north.blahgeek.com
     openvpn:
