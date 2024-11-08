@@ -36,10 +36,7 @@ bgp:
     peer_addr: 2a09:4c0:1e0:523::1
     prefixes:
       - "{{ ipv6_prefix }}"
-      - "{{ yikai_net.home_prefix }}"
     export_filter: |
-      bgp_path.prepend({{ my_asn }});
-      bgp_path.prepend({{ my_asn }});
       accept;
 
   tb_ifog:
@@ -47,10 +44,7 @@ bgp:
     peer_addr: 2a0c:9a40:a001::71
     prefixes:
       - "{{ ipv6_prefix }}"
-      - "{{ yikai_net.home_prefix }}"
     export_filter: |
-      bgp_path.prepend({{ my_asn }});
-      bgp_path.prepend({{ my_asn }});
       accept;
 
   rb_ftst:
@@ -58,8 +52,5 @@ bgp:
     peer_addr: 2a01:20e:1001:1f5::1
     prefixes:
       - "{{ ipv6_prefix }}"
-      - "{{ yikai_net.home_prefix }}"
     export_filter: |
-      bgp_path.prepend({{ my_asn }});
-      bgp_path.prepend({{ my_asn }});
       accept;
