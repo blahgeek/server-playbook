@@ -9,6 +9,10 @@ iface unatatp-dummy inet manual
   down /sbin/ip rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
   down /sbin/ip -6 rule del fwmark {{ unatatp.route_fwmark }} lookup {{ unatatp.route_table }}
 {% if ipv6_prefix is defined %}
-  up /sbin/ip -6 route add local {{ ipv6_prefix | ansible.utils.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo
-  down /sbin/ip -6 route del local {{ ipv6_prefix | ansible.utils.ipsubnet(64, unatatp.ipv6_subnet_id)}} dev lo || true
+  {# use home prefix, because home prefix is recognized as US ip. this means that anycast should not be used for home prefix in bgp. #}
+  {# use vpn_subnet_id so that different servers will use different addresses #}
+  {# matches unatatp.service.j2 #}
+  {% set _v6net = yikai_net.home_prefix | ansible.utils.ipsubnet(64, vpn_subnet_id + 0x3000) %}
+  up /sbin/ip -6 route add local {{ _v6net }} dev lo
+  down /sbin/ip -6 route del local {{ _v6net }} dev lo || true
 {% endif %}
