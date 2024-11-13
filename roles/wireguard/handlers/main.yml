@@ -1,0 +1,6 @@
+- name: Reload wireguard
+  systemd:
+    name: "wg-quick@wg0"
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

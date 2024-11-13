@@ -17,6 +17,7 @@
 - hosts: highgarden
   roles:
     - role: wall-vpn-client
+    - role: wireguard
 
 - hosts: fleabottom
   roles:
@@ -33,3 +34,9 @@
     - role: bgp-server
     - role: wall-vpn-server
     - role: proxy-server
+
+- hosts: mudgate
+  roles:
+    - role: common-server
+    - role: common-wall
+    - role: wireguard

@@ -9,3 +9,4 @@
 - hosts: highgarden
   roles:
     - role: wall-vpn-client
+    - role: wireguard
