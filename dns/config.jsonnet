@@ -1,6 +1,10 @@
 local utils = import './utils.libsonnet';
 
-local hosts = utils.hosts;
+local hosts = utils.hosts + {
+  highgarden+: {
+    ipv4_web: utils.hosts.mudgate.ipv4,
+  },
+};
 local cf_proxy_setting(v) = { octodns: { cloudflare: { proxied: v } } };
 
 local ensureEndDot(val) = if std.endsWith(val, '.') then val else val + '.';
@@ -29,7 +33,7 @@ local ipv6RdnsName(addr) = std.join('.', std.reverse(std.stringChars(std.strRepl
 local hostRules(name) = {
   [name]: A(hosts[name].ipv4),
   ['web.' + name]:
-    (if !std.startsWith(hosts[name].ipv4, "192.168.") then [A(hosts[name].ipv4)] else []) +
+    [A(if std.objectHas(hosts[name], 'ipv4_web') then hosts[name].ipv4_web else hosts[name].ipv4)] +
     (if hosts[name].ipv6_prefix != null then [AAAA(ipv6WebAddr(name))] else []),
   ['*.' + name]: CNAME('web.' + name + '.blahgeek.com.'),
 };
