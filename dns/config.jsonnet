@@ -111,11 +111,11 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnAPXEssA1Z1Js6uQ7kSGGbNj0N/vER3DygA/GnfIu6oILSUG/5XzSxIZN5t1qkdpwM3vKyMFmYzv0iDszl2PWeP0QDNVOIaMDweUAYZqt3DpoOmFuWNFZOLZs5V63AzpxeUcNQGXzttQFE7p2+TquM/Z3ZzSWggeSx/7MxesWy7taQbyjNuLTqArcAKwEitbqGg31hOJQ+YmByWHPEfPGzPRCIkUZbtSVkTJXefMGR0+252Tmo9KXDuhFnOfLZdPxnn7Tc3NPCbHbcfre2eqquCHWm1m65JEwSDcCxeRqqjgJSyIONxJKKZTY76xt8wNFRq3tMgGACfLfJWAsfWS4QIDAQAB'),
   }),
 
-  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.home_prefix) + 'yaml']: utils.manifestYaml({
+  [utils.ipv6RdnsZone(utils.yikai_net.home_prefix) + 'yaml']: utils.manifestYaml({
     [ipv6RdnsName('dead:0000:0000:0000:0001')]: PTR('highgarden.blahgeek.com'),
   }),
 
-  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.usnet_prefix) + 'yaml']: utils.manifestYaml(
+  [utils.ipv6RdnsZone(utils.yikai_net.usnet_prefix) + 'yaml']: utils.manifestYaml(
     {
       # straywarrior. prefix "a:" relative to usnet zone
       [ipv6RdnsName('a:0001:0000:0000:0000:0001')]: PTR('straywarrior-tunnel-server.eastwatch.blahgeek.com'),
@@ -124,10 +124,10 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     + ipv6CommonRdnsEntries('eastwatch', prefix_relative_to_zone='2:')
   ),
 
-  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.north_prefix) + 'yaml']: utils.manifestYaml(
+  [utils.ipv6RdnsZone(utils.yikai_net.north_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('north')
   ),
-  [utils.ipv6RdnsZone(utils.commonWallVarsYaml.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
+  [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('wall')
   ),
 }

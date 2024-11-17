@@ -1,13 +1,20 @@
-local ansibleHostsYaml = std.parseYaml(importstr '../hosts.yml');
+# std.parseYaml does not support anchors.
+local ansibleHostsYamlStr =
+  std.strReplace(
+    std.strReplace(importstr '../hosts.yml', "&my_hostvars", ""),
+    "*my_hostvars",
+    "null"
+  ) ;
+
+local ansibleHostsYaml = std.parseYaml(ansibleHostsYamlStr);
 local commonWallVarsYaml = std.parseYaml(importstr '../roles/common-wall/vars/main.yml');
 
 local hosts = {
-  [std.split(hostname, '.')[0]]: {
-    ipv4: ansibleHostsYaml.all.children[group].hosts[hostname].ansible_host,
-    ipv6_prefix: std.get(commonWallVarsYaml.yikai_net, std.split(hostname, '.')[0] + '_prefix'),
+  [std.split(item.key, '.')[0]]: {
+    ipv4: item.value.ansible_host,
+    ipv6_prefix: std.get(item.value, "ipv6_prefix"),
   }
-  for group in std.objectFields(ansibleHostsYaml.all.children)
-  for hostname in std.objectFields(ansibleHostsYaml.all.children[group].hosts)
+  for item in std.objectKeysValues(ansibleHostsYaml.all.vars.my_hostvars)
 };
 
 {
@@ -18,6 +25,10 @@ local hosts = {
     local chars = std.stringChars(std.strReplace(parts[0], ':', ''));
     std.join('.', std.reverse(std.slice(chars, 0, prefixLen / 4, 1))) + '.ip6.arpa.',
 
-  commonWallVarsYaml:: commonWallVarsYaml,
-  hosts: hosts,
+  hosts:: hosts,
+  yikai_net:: commonWallVarsYaml.yikai_net + {
+    [x + "_prefix"]: hosts[x].ipv6_prefix
+    for x in std.objectFields(hosts)
+    if std.objectHas(hosts[x], "ipv6_prefix")
+  },
 }
