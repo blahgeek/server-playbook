@@ -2,7 +2,7 @@
 
 DEVICE="$1"
 
-{% set vpn_subnet_id = hostvars[item.host].vpn_subnet_id %}
+{% set vpn_subnet_id = my_hostvars[item.host].vpn_subnet_id %}
 {% set local_v4 = '192.168.0.0/16' | ansible.utils.ipsubnet(24, vpn_subnet_id) | ansible.utils.nthhost(102) %}
 {% set peer_v4 = '192.168.0.0/16' | ansible.utils.ipsubnet(24, vpn_subnet_id) | ansible.utils.nthhost(101) %}
 
@@ -18,7 +18,7 @@ ip rule add fwmark {{ item.kissvpn.route_v4.fwmark }} table {{ item.kissvpn.rout
 {% endif %}
 
 
-{% set ipv6_prefix = hostvars[item.host].ipv6_prefix %}
+{% set ipv6_prefix = my_hostvars[item.host].ipv6_prefix %}
 {% set local_v6 = ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(4097) %}
 {% set peer_v6 = ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(4096) %}
 

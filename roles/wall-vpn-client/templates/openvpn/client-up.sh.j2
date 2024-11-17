@@ -14,7 +14,7 @@ ip rule add fwmark {{ item.openvpn.route_v4.fwmark }} table {{ item.openvpn.rout
 
 {% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.table is defined %}
 ip -6 route flush table {{ item.openvpn.route_v6.table }} || true
-ip -6 route add table {{ item.openvpn.route_v6.table }} 2000::/3 via {{ hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(1) }} dev "$DEVICE"
+ip -6 route add table {{ item.openvpn.route_v6.table }} 2000::/3 via {{ my_hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(1) }} dev "$DEVICE"
 
 while ip -6 rule del table {{ item.openvpn.route_v6.table }} 2>/dev/null; do true; done
 

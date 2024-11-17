@@ -1,7 +1,3 @@
-vpn_subnet_id: 42
-
-ipv6_prefix: "{{ yikai_net.wall_prefix }}"
-
 tunnelbroker:
   tb-ifog:
     remote: 193.148.248.18

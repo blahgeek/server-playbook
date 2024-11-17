@@ -1,4 +1,4 @@
-- hosts: wall
+- hosts: wall.blahgeek.com
   roles:
     - role: common-server
     - role: wall-vpn-server
@@ -6,7 +6,7 @@
     - role: proxy-server
     - role: web-server
 
-- hosts: eastwatch
+- hosts: eastwatch.blahgeek.com
   roles:
     - role: common-server
     - role: wall-vpn-server
@@ -14,12 +14,12 @@
     - role: sync-server
     - role: proxy-server
 
-- hosts: highgarden
+- hosts: highgarden.blahgeek.com
   roles:
     - role: wall-vpn-client
     - role: wireguard
 
-- hosts: fleabottom
+- hosts: fleabottom.blahgeek.com
   roles:
     - role: common-server
     - role: beian-web-server
@@ -28,14 +28,14 @@
     - role: tailscale-node
     - role: tailproxy
 
-- hosts: north
+- hosts: north.blahgeek.com
   roles:
     - role: common-server
     - role: bgp-server
     - role: wall-vpn-server
     - role: proxy-server
 
-- hosts: mudgate
+- hosts: mudgate.blahgeek.com
   roles:
     - role: common-server
     - role: common-wall

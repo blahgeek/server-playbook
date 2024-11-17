@@ -1,7 +1,3 @@
-vpn_subnet_id: 43
-
-ipv6_prefix: "{{ yikai_net.eastwatch_prefix }}"
-
 tunnelbroker_delete:
   - tb-wall
 

@@ -1,4 +1,1 @@
-vpn_subnet_id: 254  # not used
-ipv6_prefix: "fdc8:c28d:0e98::/48"  # not used
-
 docker_install_compose: false  # cannot access github from fleabottom....
