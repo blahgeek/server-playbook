@@ -68,11 +68,14 @@ services:
       - VIRTUAL_PORT=8000
       - LETSENCRYPT_HOST=whoami.highgarden.blahgeek.com
 
+  # this is for serving proxy through china-unicom ipv6 address
+  # domain is tailproxy.highgarden-dyn.blahgeek.com
+  # the domain resolves differently for CN and others (china-unicom and yikai-net, respectively)
+  # so that letsencrypt can successfully access it
   tailproxy:
     restart: unless-stopped
     image: blahgeek/tailproxy:0.5
     container_name: tailproxy
-    # NOTE: highgarden-dyn resolves differently for CN and others, so that letsencrypt can successfully access it
     environment:
       - STUNNEL_CERT_DIR=/certs/tailproxy.highgarden-dyn.blahgeek.com/
       # yes.. the below line works. interesting
