@@ -61,7 +61,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 {
   'blahgeek.com.yaml': utils.manifestYaml({
     '': [
-      A(hosts['fleabottom'].ipv4),
+      A(hosts.highgarden.ipv4_web),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
@@ -72,7 +72,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     'wedding-photo': CNAME('iovip-z1.qiniuio.com'),
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
 
-    'www': CNAME('fleabottom.blahgeek.com'),
+    'www': A(hosts.highgarden.ipv4_web),
 
     # geodns in dnspod
     # *.highgarden-dyn -> blahgeek-highgarden.duckdns.org. for CN

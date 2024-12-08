@@ -3,7 +3,7 @@
     cloudflare:
       proxied: false
   type: "A"
-  value: "47.92.242.60"
+  value: "39.98.54.132"
 - type: "MX"
   values:
   - exchange: "aspmx.l.google.com."
@@ -218,5 +218,5 @@ www:
   octodns:
     cloudflare:
       proxied: false
-  type: "CNAME"
-  value: "fleabottom.blahgeek.com."
+  type: "A"
+  value: "39.98.54.132"

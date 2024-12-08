@@ -68,6 +68,17 @@ services:
       - VIRTUAL_PORT=8000
       - LETSENCRYPT_HOST=whoami.highgarden.blahgeek.com
 
+  beian-web:
+    restart: unless-stopped
+    image: blahgeek/beian-web:20251208
+    container_name: beian-web
+    expose:
+      - "8000"
+    environment:
+      - VIRTUAL_HOST=blahgeek.com,www.blahgeek.com
+      - VIRTUAL_PORT=8000
+      - LETSENCRYPT_HOST=blahgeek.com,www.blahgeek.com
+
   # this is for serving proxy through china-unicom ipv6 address
   # domain is tailproxy.highgarden-dyn.blahgeek.com
   # the domain resolves differently for CN and others (china-unicom and yikai-net, respectively)
