@@ -78,6 +78,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     # *.highgarden-dyn -> blahgeek-highgarden.duckdns.org. for CN
     # *.highgarden-dyn -> web.highgarden.blahgeek.com. for others
     'highgarden-dyn': NS(['f1g1ns1.dnspod.net', 'f1g1ns2.dnspod.net']),
+    '*.highgarden-v4': A(hosts.highgarden.ipv4_web),
 
     'qncdn.blog': CNAME('qncdn.blog.blahgeek.com.qiniudns.com'),
     'qncdn.hpurl': CNAME('idv0ypk.qiniudns.com'),

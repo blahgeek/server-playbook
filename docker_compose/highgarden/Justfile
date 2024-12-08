@@ -1,3 +1,8 @@
+set dotenv-load  # loading .env file
+
+_list:
+  @just --list
+
 up:
     docker -H ssh://root@192.168.0.1 compose up -d
 

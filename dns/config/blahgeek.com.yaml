@@ -36,6 +36,12 @@
       proxied: false
   type: "CNAME"
   value: "web.highgarden.blahgeek.com."
+"*.highgarden-v4":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "39.98.54.132"
 "*.mudgate":
   octodns:
     cloudflare:
