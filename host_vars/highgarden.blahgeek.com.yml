@@ -1,6 +1,3 @@
-# route_v4 and route_v6 have different mechanisms... see iptable rules.
-# for route_v4, the default route is the china net;
-# for route_v6, the default route is the yikai net.
 wall_servers:
   - name: wall
     host: wall.blahgeek.com
