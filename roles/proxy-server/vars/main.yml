@@ -1,5 +1,8 @@
 misc_http_proxy:
   openai-api: https://api.openai.com
   weixin-api: https://api.weixin.qq.com
+  perplexity-api: https://api.perplexity.ai
+  anthropic-api: https://api.anthropic.com
+  openrouter-api: https://openrouter.ai/api/
   tg-api: https://api.telegram.org
   tailscale-controlplane: https://controlplane.tailscale.com
