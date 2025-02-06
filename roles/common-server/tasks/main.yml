@@ -91,21 +91,25 @@
     state: stopped
   when: dns_server is defined
   ignore_errors: yes
+  tags: dns
 
 - name: Make resolv.conf muttable
   file:
     attributes: "-i"
     path: /etc/resolv.conf
   when: dns_server is defined
+  tags: dns
 
 - name: Write resolv.conf
   template:
     src: resolv.conf.j2
     dest: /etc/resolv.conf
   when: dns_server is defined
+  tags: dns
 
 - name: Make resolv.conf immutable
   file:
     attributes: "+i"
     path: /etc/resolv.conf
   when: dns_server is defined
+  tags: dns
