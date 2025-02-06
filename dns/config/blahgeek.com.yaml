@@ -48,12 +48,6 @@
       proxied: false
   type: "CNAME"
   value: "web.mudgate.blahgeek.com."
-"*.north":
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.north.blahgeek.com."
 "*.wall":
   octodns:
     cloudflare:
@@ -110,12 +104,6 @@ mudgate:
       proxied: false
   type: "A"
   value: "39.98.54.132"
-north:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "188.245.57.116"
 qncdn.blog:
   octodns:
     cloudflare:
@@ -180,17 +168,6 @@ web.mudgate:
       proxied: false
   type: "A"
   value: "39.98.54.132"
-web.north:
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "188.245.57.116"
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "AAAA"
-  value: "2a0e:b107:178c:d0ce::6666"
 web.wall:
 - octodns:
     cloudflare:

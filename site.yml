@@ -26,13 +26,6 @@
     - role: tailscale-node
     - role: tailproxy
 
-- hosts: north.blahgeek.com
-  roles:
-    - role: common-server
-    - role: bgp-server
-    - role: wall-vpn-server
-    - role: proxy-server
-
 - hosts: mudgate.blahgeek.com
   roles:
     - role: common-server

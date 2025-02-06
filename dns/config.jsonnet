@@ -125,9 +125,6 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     + ipv6CommonRdnsEntries('eastwatch', prefix_relative_to_zone='2:')
   ),
 
-  [utils.ipv6RdnsZone(utils.yikai_net.north_prefix) + 'yaml']: utils.manifestYaml(
-    ipv6CommonRdnsEntries('north')
-  ),
   [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('wall')
   ),

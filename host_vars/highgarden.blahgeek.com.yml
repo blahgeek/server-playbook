@@ -10,17 +10,17 @@ wall_servers:
       route_v6:
         table: 1
         fwmark: '0x1/0xf'
-  - name: north
-    host: north.blahgeek.com
-    openvpn:
-      udp2raw:
-        client_listen_port: 3001
-      route_v4:
-        table: 2
-        fwmark: '0x2/0xf'
-      route_v6:
-        table: 2
-        fwmark: '0x2/0xf'
+  # - name: north
+  #   host: north.blahgeek.com
+  #   openvpn:
+  #     udp2raw:
+  #       client_listen_port: 3001
+  #     route_v4:
+  #       table: 2
+  #       fwmark: '0x2/0xf'
+  #     route_v6:
+  #       table: 2
+  #       fwmark: '0x2/0xf'
     # kissvpn:
     #   route_v4:
     #     table: 2
