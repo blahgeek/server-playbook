@@ -31,3 +31,4 @@ wall_servers:
 
 absent_wall_servers:
   - ironisland
+  - north

@@ -1,45 +1,56 @@
 router id {% if bird_router_id is defined %}{{ bird_router_id }}{% else %}{{ ansible_default_ipv4.address }}{% endif %};
 
+# Kernel protocol is only for exporting (write bgp routes to kernel),
+# not for importing (read routes from kernel).
+# Instead, routes must be explicitly specified in static protocol to advertise in bgp.
+
 protocol kernel {
   scan time 60;
   import none;
-#  export all;   # Actually insert routes into the kernel routing table
+  export where source != RTS_STATIC;
 }
 
 protocol device {
   scan time 60;
 }
 
-{% for name, value in bgp.items() %}
-
-table tb_{{ name }};
-
 protocol static {
-  table tb_{{ name }};
-
-  # use blackhole because we would configure the routes manually
-{% if value.prefixes is defined %}
-{% for prefix in value.prefixes %}
+# use blackhole (dummy) because it will not be written into kernel route table anyway.
+{% if bgp_advertise_prefixes is defined %}
+{% for prefix in bgp_advertise_prefixes %}
   route {{ prefix }} blackhole;
 {% endfor %}
 {% endif %}
 }
 
+{% for name, value in bgp_connections.items() %}
 protocol bgp {{ name }} {
-  table tb_{{ name }};
-
-  local as {{ my_asn }};
   # no source address. rely on route table to select source. this simplifies the configuration
-  import none;
-{% if value.export_filter is defined %}
+  local as {{ my_asn }};
+
+  # route table to bgp (aka, advertise)
   export filter {
-    {{ value.export_filter }}
+    if source != RTS_STATIC then reject;
+    {% if value.export_filter is defined %}
+      {{ value.export_filter }}
+    {% else %}
+      accept;
+    {% endif %}
   };
-{% else %}
-  export all;
-{% endif %}
+
+  # bgp to route table
+  import filter {
+    {% if value.import_filter is defined %}
+      {{ value.import_filter }}
+    {% else %}
+      accept;
+    {% endif %}
+  };
+
   graceful restart on;
+
   neighbor {{ value.peer_addr }} as {{ value.peer_asn }};
+
 {% if value.password is defined %}
   password "{{ value.password }}";
 {% endif %}

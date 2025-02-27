@@ -7,15 +7,25 @@ tunnelbroker:
     subnet: 2a0c:9a40:a001::c/126
     mode: gre
     mtu: 1448
+
+  tb-whitetree:
+    remote: "{{ my_hostvars['whitetree.blahgeek.com'].ansible_host }}"
+    subnet: "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 1) }}"
     routes:
       - 2000::/3
 
-bgp:
+bgp_advertise_prefixes:
+  - "{{ ipv6_prefix }}"
+  - "{{ yikai_net.home_prefix }}"
+
+bgp_connections:
   tb_ifog:
     peer_asn: 209533
     peer_addr: 2a0c:9a40:a001::d
-    prefixes:
-      - "{{ ipv6_prefix }}"
-      - "{{ yikai_net.home_prefix }}"
     export_filter: |
+      bgp_path.prepend({{ my_asn }});
       accept;
+    # no import for this connection,
+    # default routes is going through whitetree
+    import_filter: |
+      reject;

@@ -9,13 +9,16 @@ tunnelbroker:
     routes:
       - "{{ yikai_net.straywarrior_prefix }}"
 
-bgp:
+bgp_advertise_prefixes:
+  - "{{ yikai_net.usnet_prefix }}"  # includes my own ipv6_prefix
+
+bgp_connections:
   vultr:
     peer_asn: 64515
     peer_addr: 2001:19f0:ffff::1
     password: legendary
     multihop: 2
-    prefixes:
-      - "{{ yikai_net.usnet_prefix }}"  # includes my own ipv6_prefix
-    export_filter: |
-      accept;
+    # TODO: no idea why, received routes are all unreachable.
+    # so just reject all routes and rely on the default route (system default) for now
+    import_filter: |
+      reject;
