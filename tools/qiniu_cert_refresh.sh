@@ -1,4 +1,4 @@
-#!/bin/bash -ex
+#!/bin/bash
 
 export CF_Token="$CLOUDFLARE_API_TOKEN"
 # blahgeek.com zone
