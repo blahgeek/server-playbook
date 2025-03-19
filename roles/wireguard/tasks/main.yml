@@ -28,11 +28,14 @@
   when: wireguard_hosts[inventory_hostname].is_server is defined and wireguard_hosts[inventory_hostname].is_server
   iptables_raw:
     name: wireguard_forward
+    # port 3000 is for newhome-bridge. remove after 2025 May
     table: nat
     rules: |
       -A PREROUTING ! -i wg* -p tcp --dport 443 -j DNAT --to-destination 192.168.100.100
       -A PREROUTING ! -i wg* -p tcp --dport 80 -j DNAT --to-destination 192.168.100.100
       -A PREROUTING ! -i wg* -p tcp --dport 8888 -j DNAT --to-destination 192.168.100.100
+      -A PREROUTING ! -i wg* -p udp --dport 3000 -j DNAT --to-destination 192.168.0.178
   tags:
     - wireguard
+    - wireguard-iptables
 
