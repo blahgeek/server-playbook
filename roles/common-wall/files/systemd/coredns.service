@@ -1,0 +1,13 @@
+[Unit]
+Description=Coredns server
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/coredns -dns.port 5353 -conf /etc/coredns/Corefile
+Restart=always
+RestartSec=30
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target

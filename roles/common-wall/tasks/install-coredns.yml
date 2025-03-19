@@ -1,0 +1,19 @@
+- name: Install coredns
+  unarchive:
+    src: https://github.com/coredns/coredns/releases/download/v1.12.0/coredns_1.12.0_linux_amd64.tgz
+    dest: /usr/local/bin
+    include:
+      - coredns
+    mode: 0755
+    remote_src: yes
+
+- name: Install coredns services
+  copy:
+    dest: "/etc/systemd/system/coredns.service"
+    src: "../common-wall/files/systemd/coredns.service"
+
+- name: Create /etc/coredns folder
+  file:
+    path: "/etc/coredns"
+    state: directory
+    mode: 0755
