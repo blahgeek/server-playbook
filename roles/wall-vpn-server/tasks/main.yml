@@ -162,3 +162,31 @@
   notify: Reload kissvpn service
   tags:
     - vpn
+
+
+# NAT64
+- name: Install nat64 packages
+  package:
+    name:
+      - tayga
+    state: present
+  tags:
+    - nat64
+
+- name: Render tayga config for debian
+  template:
+    src: tayga.debian_conf.j2
+    dest: /etc/default/tayga
+  notify:
+    - Reload tayga service
+  tags:
+    - nat64
+
+- name: Render tayga config
+  template:
+    src: tayga.conf.j2
+    dest: /etc/tayga.conf
+  notify:
+    - Reload tayga service
+  tags:
+    - nat64

@@ -31,3 +31,10 @@
     enabled: yes
     state: restarted
     daemon-reload: yes
+
+- name: Reload tayga service
+  systemd:
+    name: tayga
+    enabled: yes
+    state: restarted
+    daemon-reload: yes
