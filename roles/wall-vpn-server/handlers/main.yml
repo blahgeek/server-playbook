@@ -38,3 +38,10 @@
     enabled: yes
     state: restarted
     daemon-reload: yes
+
+- name: Reload dns64 service
+  systemd:
+    name: dnsproxy@dns64
+    enabled: yes
+    state: restarted
+    daemon-reload: yes

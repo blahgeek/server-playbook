@@ -190,3 +190,16 @@
     - Reload tayga service
   tags:
     - nat64
+
+- import_tasks: roles/common-wall/tasks/install-dnsproxy.yml
+  notify: Reload dns64 service
+  tags:
+    - nat64
+
+- name: Render dnsproxy dns64 config
+  template:
+    src: dnsproxy/dns64.yaml.j2
+    dest: /etc/dnsproxy/dns64.yaml
+  notify: Reload dns64 service
+  tags:
+    - nat64

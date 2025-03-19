@@ -1,0 +1,13 @@
+[Unit]
+Description=Dnsproxy server
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/dnsproxy --config-path /etc/dnsproxy/%i.yaml
+Restart=always
+RestartSec=30
+StartLimitBurst=10
+
+[Install]
+WantedBy=multi-user.target

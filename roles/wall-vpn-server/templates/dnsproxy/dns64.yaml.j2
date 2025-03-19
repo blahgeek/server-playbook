@@ -1,0 +1,12 @@
+---
+listen-addrs:
+  - "0.0.0.0"
+listen-ports:
+  - 5353
+upstream:
+  - "8.8.8.8:53"
+dns64: true
+dns64-prefix:
+  - "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 0x6464) | ansible.utils.ipsubnet(96, 0) }}"
+
+# TODO: https://github.com/AdguardTeam/AdGuardHome/issues/7514
