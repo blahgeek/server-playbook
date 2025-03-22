@@ -79,7 +79,7 @@
     # NOTE: only handle {home_prefix(/48)}:dea0::/64. allow incoming tcp connections for others. see home rules.v6
     rules: |
       -A PREROUTING -m addrtype --dst-type local -j ACCEPT
-      -A PREROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} ! -d {{ ipv6_prefix }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A PREROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
   tags:
     - unatatp
 
