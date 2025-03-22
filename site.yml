@@ -2,6 +2,7 @@
   roles:
     - role: common-server
     - role: wall-vpn-server
+    - role: nat64-server
     - role: bgp-server
     - role: proxy-server
     - role: web-server
@@ -10,6 +11,7 @@
   roles:
     - role: common-server
     - role: wall-vpn-server
+    - role: nat64-server
     - role: bgp-server
     - role: sync-server
     - role: proxy-server
