@@ -12,7 +12,7 @@ CONFIGURE_NAT44="yes"
 DAEMON_OPTS=""
 
 # IPv4 address to assign to the NAT64 tunnel device
-IPV4_TUN_ADDR="192.168.254.1"
+IPV4_TUN_ADDR="172.17.0.1"
 
 # IPv6 address to assign to the NAT64 tunnel device
 IPV6_TUN_ADDR="{{ ipv6_prefix | ansible.utils.ipsubnet(64, 0x6464) | ansible.utils.ipsubnet(96, 1) | ansible.utils.nthhost(1) }}"
