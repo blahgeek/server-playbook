@@ -38,10 +38,3 @@
     enabled: yes
     state: restarted
     daemon-reload: yes
-
-- name: Reload coredns service
-  systemd:
-    name: coredns
-    enabled: yes
-    state: restarted
-    daemon-reload: yes

@@ -201,16 +201,3 @@
   tags:
     - nat64
 
-- import_tasks: roles/common-wall/tasks/install-coredns.yml
-  notify: Reload coredns service
-  tags:
-    - nat64
-
-- name: Render coredns config
-  template:
-    src: coredns/Corefile.j2
-    dest: /etc/coredns/Corefile
-  notify:
-    - Reload coredns service
-  tags:
-    - nat64
