@@ -37,4 +37,5 @@
   roles:
     - role: common-server
     - role: common-wall
+    - role: nat64-server
     - role: wireguard

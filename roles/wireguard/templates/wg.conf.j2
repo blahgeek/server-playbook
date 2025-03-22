@@ -1,6 +1,7 @@
 {% set self_host = wireguard_hosts[inventory_hostname] %}
 [Interface]
 Address = {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, wireguard_subnet_id) | ansible.utils.nthhost(self_host.host_id) }}/24
+Address = {{ wireguard_ipv6_prefix | ansible.utils.nthhost(self_host.host_id) }}/64
 PrivateKey = {{ self_host.private }}
 ListenPort = {{ wireguard_port }}
 Table = off
@@ -13,6 +14,15 @@ PreDown = ip rule del fwmark 0x{{ wireguard_route_table }}/0xf table {{ wireguar
 
 {% if self_host.is_server is defined and self_host.is_server %}
 PostUp = ip route add 192.168.0.0/16 via {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, wireguard_subnet_id) | ansible.utils.nthhost(1) }} dev %i
+PostUp = ip -6 route add {{ yikai_net.home_prefix }} via {{ wireguard_ipv6_prefix | ansible.utils.nthhost(1) }} dev %i
+{% else %}
+
+{% for k, v in wireguard_hosts.items() %}
+{% if k != inventory_hostname and my_hostvars[k].ipv6_prefix is defined %}
+PostUp = ip -6 route add {{ my_hostvars[k].ipv6_prefix }} via {{ wireguard_ipv6_prefix | ansible.utils.nthhost(v.host_id) }} dev %i
+{% endif %}
+{% endfor %}
+
 {% endif %}
 
 {% for k, v in wireguard_hosts.items() %}
@@ -20,6 +30,8 @@ PostUp = ip route add 192.168.0.0/16 via {{ '192.168.0.0/16' | ansible.utils.ips
 [Peer]
 PublicKey = {{ v.public }}
 AllowedIPs = 0.0.0.0/0
+AllowedIPs = ::/0
+
 {% if v.is_server is defined and v.is_server %}
 Endpoint = {{ v.ip }}:{{ wireguard_port }}
 {# keepalive is required in case the server need to initiate the first connection #}

@@ -1,3 +1,4 @@
+wireguard_ipv6_prefix: "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(64, 0x8196) }}"
 wireguard_port: 7193
 wireguard_route_table: 7
 wireguard_subnet_id: 7
