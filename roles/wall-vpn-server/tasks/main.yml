@@ -191,6 +191,16 @@
   tags:
     - nat64
 
+- name: Configure iptables filter for nat64
+  iptables_raw:
+    ipversion: 6
+    name: nat64_filter
+    table: filter
+    rules: |
+      -A INPUT ! -s {{ yikai_net.home_prefix }} -d {{ ipv6_prefix | ansible.utils.ipsubnet(64, 0x6464) | ansible.utils.ipsubnet(96, 0) }} -j DROP
+  tags:
+    - nat64
+
 - import_tasks: roles/common-wall/tasks/install-coredns.yml
   notify: Reload coredns service
   tags:
