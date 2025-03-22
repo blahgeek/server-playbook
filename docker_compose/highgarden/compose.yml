@@ -18,6 +18,8 @@ networks:
 #       (except tailproxy, which is special)
 #    in ipv4 network, serve from mudgate (via port forwarding)
 
+# FIXME: since nat64 is used for non-cn domains, external network is almost essential
+
 volumes:
   nextcloud-app:
   nextcloud-db:
@@ -57,6 +59,9 @@ services:
       - certs:/etc/nginx/certs:rw
       - acme:/etc/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - default
+      - external
 
   whoami:
     restart: unless-stopped
@@ -79,10 +84,18 @@ services:
       - VIRTUAL_PORT=8000
       - LETSENCRYPT_HOST=blahgeek.com,www.blahgeek.com
 
-  # this is for serving proxy through china-unicom ipv6 address
-  # domain is tailproxy.highgarden-dyn.blahgeek.com
-  # the domain resolves differently for CN and others (china-unicom and yikai-net, respectively)
-  # so that letsencrypt can successfully access it
+  # Serve https proxy (forward to 192.168.0.1 tinyproxy)
+  # It can be accessed in two ways:
+  # - tailproxy.highgarden-dyn.
+  #   the domain resolves differently for CN and others
+  #   * CN: china-unicom ipv6
+  #   * GLOBAL: same as web.highgarden., yikai-net ipv6 and mudgate ipv4
+  #     (so that letsencrypt can successfully access it, because china-unicom ipv6 cannot serve http)
+  # - tailproxy.highgarden-v4.
+  #   * only mudgate ipv4
+  #
+  # But anyway, they are forwarded to the ipv6 address of this docker
+  #
   tailproxy:
     restart: unless-stopped
     image: blahgeek/tailproxy:0.5
@@ -94,39 +107,17 @@ services:
       - STUNNEL_REMOTE=192.168.0.1:8888
       # virtual_port is actually useless
       - VIRTUAL_PORT=80
-      - VIRTUAL_HOST=tailproxy.highgarden-dyn.blahgeek.com
-      - LETSENCRYPT_HOST=tailproxy.highgarden-dyn.blahgeek.com
+      - VIRTUAL_HOST=tailproxy.highgarden-dyn.blahgeek.com,tailproxy.highgarden-v4.blahgeek.com
+      - LETSENCRYPT_HOST=tailproxy.highgarden-dyn.blahgeek.com,tailproxy.highgarden-v4.blahgeek.com
     volumes:
       - certs:/certs:ro
-    # ipv6 only, no need for port mapping
+    # all forwarded to ipv6, no need for port mapping
     expose:
       - "8888"
     networks:
       default:
       external:
-        # a special address. iptables would forward CN WAN ipv6 to this addr
         ipv6_address: 2a0e:aa07:e035:d0ce::9607
-
-  # this is for serving proxy through mudgate forward port (ipv4)
-  # domain is tailproxy.highgarden-v4.blahgeek.com
-  tailproxy-v4:
-    restart: unless-stopped
-    image: blahgeek/tailproxy:0.5
-    container_name: tailproxy-v4
-    environment:
-      - STUNNEL_CERT_DIR=/certs/tailproxy.highgarden-v4.blahgeek.com/
-      - STUNNEL_LOCAL_PORT=8888
-      - STUNNEL_REMOTE=192.168.0.1:8888
-      # virtual_port is actually useless
-      - VIRTUAL_PORT=80
-      - VIRTUAL_HOST=tailproxy.highgarden-v4.blahgeek.com
-      - LETSENCRYPT_HOST=tailproxy.highgarden-v4.blahgeek.com
-    volumes:
-      - certs:/certs:ro
-    expose:
-      - "8888"
-    ports:
-      - "8888:8888"
 
   nextcloud-db:
     image: mariadb:10.6
