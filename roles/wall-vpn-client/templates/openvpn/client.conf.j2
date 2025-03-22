@@ -10,6 +10,7 @@ dev tun
 ifconfig {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, my_hostvars[item.host].vpn_subnet_id) | ansible.utils.nthhost(2) }} {{ '192.168.0.0/16' | ansible.utils.ipsubnet(24, my_hostvars[item.host].vpn_subnet_id) | ansible.utils.nthhost(1) }}
 ifconfig-ipv6 {{ my_hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(2) }}/124 {{ my_hostvars[item.host].ipv6_prefix | ansible.utils.ipsubnet(64, ipv6_vpn_subnet_id) | ansible.utils.nthhost(1) }}
 
+route-ipv6 {{ my_hostvars[item.host].ipv6_prefix }}
 {% if item.openvpn.route_v6 is defined and item.openvpn.route_v6.default is defined and item.openvpn.route_v6.default %}
 route-ipv6 2000::/3
 {% endif %}
