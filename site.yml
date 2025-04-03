@@ -16,11 +16,6 @@
     - role: sync-server
     - role: proxy-server
 
-- hosts: whitetree.blahgeek.com
-  roles:
-    - role: common-server
-    - role: bgp-server
-
 - hosts: highgarden.blahgeek.com
   roles:
     - role: wall-vpn-client

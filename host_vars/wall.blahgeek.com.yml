@@ -10,11 +10,8 @@ tunnelbroker:
     routes:
       - 2000::/3
 
-  tb-whitetree:
-    remote: "{{ my_hostvars['whitetree.blahgeek.com'].ansible_host }}"
-    subnet: "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 1) }}"
-    # routes:
-    #   - 2000::/3
+tunnelbroker_delete:
+  - tb-whitetree
 
 bgp_advertise_prefixes:
   - "{{ ipv6_prefix }}"

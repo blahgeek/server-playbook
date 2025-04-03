@@ -128,11 +128,4 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
   [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('wall')
   ),
-
-  [utils.ipv6RdnsZone(utils.yikai_net.whitetree_prefix) + 'yaml']: utils.manifestYaml(
-    ipv6CommonRdnsEntries('whitetree') + {
-      [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('wall-tunnel-server.whitetree.blahgeek.com'),
-      [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('wall-tunnel-client.whitetree.blahgeek.com'),
-    }
-  ),
 }
