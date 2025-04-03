@@ -23,6 +23,7 @@ protocol static {
 {% endif %}
 }
 
+{% if bgp_connections is defined %}
 {% for name, value in bgp_connections.items() %}
 protocol bgp {{ name }} {
   # no source address. rely on route table to select source. this simplifies the configuration
@@ -60,3 +61,4 @@ protocol bgp {{ name }} {
 }
 
 {% endfor %}
+{% endif %}

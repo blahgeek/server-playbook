@@ -1,0 +1,7 @@
+tunnelbroker:
+  tb-dragonstone:
+    remote: "{{ my_hostvars['dragonstone.blahgeek.com'].ansible_host }}"
+    subnet: "{{ my_hostvars['dragonstone.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    is_server: false
+    routes:
+      - "2000::/3"
