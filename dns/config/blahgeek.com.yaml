@@ -18,6 +18,12 @@
     preference: 10
 - type: "TXT"
   value: "v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all"
+"*.dragonstone":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.dragonstone.blahgeek.com."
 "*.eastwatch":
   octodns:
     cloudflare:
@@ -30,6 +36,12 @@
       proxied: false
   type: "CNAME"
   value: "web.fleabottom.blahgeek.com."
+"*.harrenhal":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.harrenhal.blahgeek.com."
 "*.highgarden":
   octodns:
     cloudflare:
@@ -54,12 +66,6 @@
       proxied: false
   type: "CNAME"
   value: "web.wall.blahgeek.com."
-"*.whitetree":
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.whitetree.blahgeek.com."
 _36010C22FBACF112943550BDCDE75424.qnsource.hpurl:
   octodns:
     cloudflare:
@@ -78,6 +84,12 @@ blog:
 dnspodcheck:
   type: "TXT"
   value: "70a8f523020ae061e3c2a4142fbbb1e1"
+dragonstone:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "45.76.195.106"
 eastwatch:
   octodns:
     cloudflare:
@@ -93,6 +105,12 @@ fleabottom:
 google._domainkey:
   type: "TXT"
   value: "v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw\" \"qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB"
+harrenhal:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "5.188.38.163"
 highgarden:
   octodns:
     cloudflare:
@@ -140,6 +158,17 @@ wall:
       proxied: false
   type: "A"
   value: "104.255.70.190"
+web.dragonstone:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "45.76.195.106"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178c:d0ce::6666"
 web.eastwatch:
 - octodns:
     cloudflare:
@@ -157,6 +186,17 @@ web.fleabottom:
       proxied: false
   type: "A"
   value: "47.92.242.60"
+web.harrenhal:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "5.188.38.163"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178e:d0ce::6666"
 web.highgarden:
 - octodns:
     cloudflare:
@@ -174,6 +214,11 @@ web.mudgate:
       proxied: false
   type: "A"
   value: "39.98.54.132"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178f:d0ce::6666"
 web.wall:
 - octodns:
     cloudflare:
@@ -185,17 +230,6 @@ web.wall:
       proxied: false
   type: "AAAA"
   value: "2a0e:b107:178d:d0ce::6666"
-web.whitetree:
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "118.91.187.42"
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "AAAA"
-  value: "2a0e:b107:178c:d0ce::6666"
 wedding:
   octodns:
     cloudflare:
@@ -214,12 +248,6 @@ wedding-photo:
       proxied: false
   type: "CNAME"
   value: "iovip-z1.qiniuio.com."
-whitetree:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "118.91.187.42"
 www:
   octodns:
     cloudflare:

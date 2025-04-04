@@ -128,4 +128,15 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
   [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('wall')
   ),
+  [utils.ipv6RdnsZone(utils.yikai_net.harrenhal_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('harrenhal')
+  ),
+  [utils.ipv6RdnsZone(utils.yikai_net.dragonstone_prefix) + 'yaml']: utils.manifestYaml(
+    {
+      # harrenhal
+      [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('harrenhal-tunnel-server.dragonstone.blahgeek.com'),
+      [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('harrenhal-tunnel-client.dragonstone.blahgeek.com'),
+    }
+    + ipv6CommonRdnsEntries('dragonstone')
+  ),
 }

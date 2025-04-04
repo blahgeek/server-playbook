@@ -1,3 +1,8 @@
+processors:
+  ignore-cloudflare-domainkey:
+    class: "octodns.processor.filter.NameRejectlistFilter"
+    rejectlist:
+    - "cf2024-1._domainkey"
 providers:
   cloudflare:
     class: "octodns_cloudflare.CloudflareProvider"
@@ -12,31 +17,50 @@ providers:
     project: "yikai-net"
 zones:
   5.3.0.e.7.0.a.a.e.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:
     - "cloudflare"
   blahgeek.com.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:
     - "cloudflare"
   c.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:
     - "cloudflare"
   d.8.0.5.0.0.a.6.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:
     - "cloudflare"
   d.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
+    sources:
+    - "config"
+    targets:
+    - "cloudflare"
+  e.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:
     - "cloudflare"
   z1k.dev.:
+    processors:
+    - "ignore-cloudflare-domainkey"
     sources:
     - "config"
     targets:

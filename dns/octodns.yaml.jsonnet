@@ -1,11 +1,21 @@
 local utils = import './utils.libsonnet';
 
+local processors = {
+  # a cloudflare bug? cannot delete this domain due to email related settings...
+  'ignore-cloudflare-domainkey': {
+    'class': 'octodns.processor.filter.NameRejectlistFilter',
+    'rejectlist': ['cf2024-1._domainkey'],
+  },
+};
+
 local zoneConfig = {
   sources: ['config'],
   targets: ['cloudflare'],
+  processors: ['ignore-cloudflare-domainkey'],
 };
 
 utils.manifestYaml({
+  processors: processors,
   providers: {
     googlecloud: {
       class: 'octodns_googlecloud.GoogleCloudProvider',
@@ -28,6 +38,7 @@ utils.manifestYaml({
     [utils.ipv6RdnsZone(utils.yikai_net.home_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.usnet_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix)]: zoneConfig,
-    [utils.ipv6RdnsZone(utils.yikai_net.whitetree_prefix)]: zoneConfig,
+    [utils.ipv6RdnsZone(utils.yikai_net.dragonstone_prefix)]: zoneConfig,
+    [utils.ipv6RdnsZone(utils.yikai_net.harrenhal_prefix)]: zoneConfig,
   }
 })

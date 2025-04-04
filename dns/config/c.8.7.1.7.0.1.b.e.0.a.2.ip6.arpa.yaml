@@ -1,27 +1,27 @@
 0.0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
   type: "PTR"
-  value: "kissvpn-server.whitetree.blahgeek.com."
+  value: "kissvpn-server.dragonstone.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
   type: "PTR"
-  value: "ovpn-server.whitetree.blahgeek.com."
+  value: "ovpn-server.dragonstone.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.d:
   type: "PTR"
-  value: "docker-host.whitetree.blahgeek.com."
+  value: "docker-host.dragonstone.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
   type: "PTR"
-  value: "wall-tunnel-server.whitetree.blahgeek.com."
+  value: "harrenhal-tunnel-server.dragonstone.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
   type: "PTR"
-  value: "docker-container.whitetree.blahgeek.com."
+  value: "docker-container.dragonstone.blahgeek.com."
 1.0.0.1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
   type: "PTR"
-  value: "kissvpn-client.whitetree.blahgeek.com."
+  value: "kissvpn-client.dragonstone.blahgeek.com."
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
   type: "PTR"
-  value: "ovpn-client.whitetree.blahgeek.com."
+  value: "ovpn-client.dragonstone.blahgeek.com."
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
   type: "PTR"
-  value: "wall-tunnel-client.whitetree.blahgeek.com."
+  value: "harrenhal-tunnel-client.dragonstone.blahgeek.com."
 6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
   type: "PTR"
-  value: "web.whitetree.blahgeek.com."
+  value: "web.dragonstone.blahgeek.com."
