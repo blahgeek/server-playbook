@@ -16,18 +16,6 @@
     - role: sync-server
     - role: proxy-server
 
-- hosts: dragonstone.blahgeek.com
-  roles:
-    - role: common-server
-    - role: nat64-server
-    - role: bgp-server
-
-- hosts: harrenhal.blahgeek.com
-  roles:
-    - role: common-server
-    - role: bgp-server
-    - role: wall-vpn-server
-
 - hosts: highgarden.blahgeek.com
   roles:
     - role: wall-vpn-client

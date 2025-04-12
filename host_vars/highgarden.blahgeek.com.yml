@@ -21,20 +21,8 @@ wall_servers:
       route_v6:
         table: 2
         fwmark: '0x2/0xf'
-  - name: harrenhal
-    host: harrenhal.blahgeek.com
-    openvpn:
-      udp2raw:
-        client_listen_port: 3002
-      route_v4:
-        table: 3
-        fwmark: '0x3/0xf'
-      route_v6:
-        table: 3
-        fwmark: '0x3/0xf'
-        extra_routes_in_default_table:
-          - "{{ my_hostvars['dragonstone.blahgeek.com'].ipv6_prefix }}"
 
 absent_wall_servers:
   - ironisland
   - north
+  - harrenhal

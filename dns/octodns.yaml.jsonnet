@@ -38,7 +38,5 @@ utils.manifestYaml({
     [utils.ipv6RdnsZone(utils.yikai_net.home_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.usnet_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix)]: zoneConfig,
-    [utils.ipv6RdnsZone(utils.yikai_net.dragonstone_prefix)]: zoneConfig,
-    [utils.ipv6RdnsZone(utils.yikai_net.harrenhal_prefix)]: zoneConfig,
   }
 })
