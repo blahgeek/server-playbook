@@ -84,6 +84,8 @@
     - unatatp
 
 - import_tasks: roles/common-wall/tasks/install-udp2raw.yml
+  tags:
+    - udp2raw
   notify: Reload udp2raw server services
 
 - name: Stop old udp2raw server services
@@ -92,18 +94,24 @@
     enabled: false
     state: stopped
   with_items: "{{ udp2raw_cleanup_configs }}"
+  tags:
+    - udp2raw
 
 - name: Cleanup old udp2raw configs
   file:
     path: "/etc/udp2raw/{{ item }}.conf"
     state: absent
   with_items: "{{ udp2raw_cleanup_configs }}"
+  tags:
+    - udp2raw
 
 - name: Install udp2raw server configs
   template:
     src: udp2raw.conf.j2
     dest: "/etc/udp2raw/{{ item.key }}-server.conf"
   with_dict: "{{ udp2raw }}"
+  tags:
+    - udp2raw
   notify: Reload udp2raw server services
 
 - name: Configure iptables for udp2raw
@@ -111,6 +119,8 @@
     name: "udp2raw_filter_{{ item.key }}"
     table: filter
     rules: "-A INPUT -p tcp -m tcp --dport {{ item.value.server_listen_port }} -j DROP"
+  tags:
+    - udp2raw
   with_dict: "{{ udp2raw }}"
 
 - import_tasks: roles/common-wall/tasks/install-openvpn.yml

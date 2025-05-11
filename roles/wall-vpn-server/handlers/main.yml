@@ -5,6 +5,8 @@
     state: restarted
     daemon-reload: yes
   with_dict: "{{ udp2raw }}"
+  tags:
+    - udp2raw
 
 - name: Reload openvpn static server
   systemd:
