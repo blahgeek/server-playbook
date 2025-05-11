@@ -21,13 +21,6 @@
     - role: wall-vpn-client
     - role: wireguard
 
-- hosts: fleabottom.blahgeek.com
-  roles:
-    - role: common-server
-    - role: tailscale-derp
-    - role: tailscale-node
-    - role: tailproxy
-
 - hosts: mudgate.blahgeek.com
   roles:
     - role: common-server

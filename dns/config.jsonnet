@@ -68,7 +68,6 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 
     'blog': CNAME('web.wall.blahgeek.com'),
 
-    'wedding': CNAME('fleabottom.blahgeek.com'),
     'wedding-photo': CNAME('iovip-z1.qiniuio.com'),
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
 
