@@ -13,5 +13,8 @@ secret static.key
 # 128bit, faster
 cipher AES-128-CBC
 
-fragment 1300
+# udp2raw accept packets up to 1375
+# for ipv4, minus 28 for ip header and udp header. also minus some buffer
+# hopefully this (minus openvpn header) is enough for minimum requirement of ipv6 network MTU (1280)
+fragment 1340
 mssfix
