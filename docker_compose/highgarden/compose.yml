@@ -230,3 +230,18 @@ services:
       - default
       # requires "external" network for ipv6 ping
       - external
+
+  inkstand-render-server:
+    container_name: inkstand-render-server
+    image: blahgeek/inkstand-render-server:0.2
+    restart: unless-stopped
+    environment:
+      - API_KEY=${INKSTAND_RENDER_SERVER_APIKEY}
+      - VIRTUAL_HOST=inkstand-render-server.highgarden.blahgeek.com
+      - VIRTUAL_PORT=3000
+      - LETSENCRYPT_HOST=inkstand-render-server.highgarden.blahgeek.com
+    expose:
+      - "3000"
+    networks:
+      - default
+      - external
