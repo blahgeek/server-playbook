@@ -2,15 +2,15 @@ version: '2'
 name: composes  # backward compatibility
 
 networks:
+  # must all in :d0ce::/64, because only this range is forward to docker namespace
   default:
     enable_ipv6: true
     ipam:
       config:
-        # NOTE: in home-net, but not in :d0ce:: range,
-        # because :d0ce:: range is public (allow incoming connections), while others are not.
+        # only :d0ce::/65 range is public (allow incoming connections), the upper half is not.
         # so containers with only "default" network will have a usable ipv6 address for outgoing connections (essential since nat64 is used for non-cn domains),
         # but is still not reachable from outside.
-        - subnet: 2a0e:aa07:e035:d0cf::/80
+        - subnet: 2a0e:aa07:e035:d0ce:8000::/80
   external:
     enable_ipv6: true
     ipam:
