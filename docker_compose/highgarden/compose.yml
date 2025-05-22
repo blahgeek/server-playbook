@@ -10,7 +10,7 @@ networks:
         # because :d0ce:: range is public (allow incoming connections), while others are not.
         # so containers with only "default" network will have a usable ipv6 address for outgoing connections (essential since nat64 is used for non-cn domains),
         # but is still not reachable from outside.
-        - subnet: 2a0e:aa07:e035:a0ce::/64
+        - subnet: 2a0e:aa07:e035:d0cf::/80
   external:
     enable_ipv6: true
     ipam:
