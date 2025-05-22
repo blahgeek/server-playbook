@@ -2,6 +2,15 @@ version: '2'
 name: composes  # backward compatibility
 
 networks:
+  default:
+    enable_ipv6: true
+    ipam:
+      config:
+        # NOTE: in home-net, but not in :d0ce:: range,
+        # because :d0ce:: range is public (allow incoming connections), while others are not.
+        # so containers with only "default" network will have a usable ipv6 address for outgoing connections (essential since nat64 is used for non-cn domains),
+        # but is still not reachable from outside.
+        - subnet: 2a0e:aa07:e035:a0ce::/64
   external:
     enable_ipv6: true
     ipam:
@@ -17,8 +26,6 @@ networks:
 #    in ipv6 network, only serve in yikai-net (no nat or port expose required, use container's ip directly);
 #       (except tailproxy, which is special)
 #    in ipv4 network, serve from mudgate (via port forwarding)
-
-# FIXME: since nat64 is used for non-cn domains, external network is almost essential
 
 volumes:
   nextcloud-app:
@@ -140,10 +147,6 @@ services:
       - nextcloud-db
     expose:
       - "80"
-    networks:
-      - default
-      # requires "external" network for accessing its own domain (ipv6 only)
-      - external
     volumes:
       - nextcloud-app:/var/www/html
       - /data/NextcloudData:/var/www/html/data
@@ -185,10 +188,6 @@ services:
   #   restart: unless-stopped
   #   expose:
   #     - "9980"
-  #   networks:
-  #     - default
-  #     # requires "external" network for accessing app domain (ipv6 only)
-  #     - external
   #   environment:
   #     - server_name=nextcloud-office.highgarden.blahgeek.com
   #     - extra_params=--o:ssl.enable=false --o:ssl.termination=true
@@ -201,10 +200,6 @@ services:
     image: onlyoffice/documentserver
     container_name: onlyoffice
     restart: unless-stopped
-    networks:
-      - default
-      # requires "external" network for accessing app domain (ipv6 only)
-      - external
     expose:
       - "80"
     environment:
@@ -226,10 +221,6 @@ services:
       - VIRTUAL_HOST=smokeping.highgarden.blahgeek.com
       - LETSENCRYPT_HOST=smokeping.highgarden.blahgeek.com
       - VIRTUAL_PORT=80
-    networks:
-      - default
-      # requires "external" network for ipv6 ping
-      - external
 
   inkstand-render-server:
     container_name: inkstand-render-server
@@ -242,6 +233,3 @@ services:
       - LETSENCRYPT_HOST=inkstand-render-server.highgarden.blahgeek.com
     expose:
       - "3000"
-    networks:
-      - default
-      - external
