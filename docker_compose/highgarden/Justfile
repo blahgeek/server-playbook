@@ -3,6 +3,11 @@ set dotenv-load  # loading .env file
 _list:
   @just --list
 
-up:
+render:
+    jsonnet -S compose.jsonnet > compose.yml
+
+up: render
     docker -H ssh://root@192.168.0.1 compose up -d
 
+down: render
+    docker -H ssh://root@192.168.0.1 compose down
