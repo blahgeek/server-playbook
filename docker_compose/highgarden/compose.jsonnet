@@ -31,7 +31,9 @@ std.manifestYamlDoc({
     "nextcloud-db": {},
     "html": {},
     "certs": {},
-    "acme": {}
+    "acme": {},
+    "prometheus-data": {},
+    "grafana-data": {},
   },
   services: {
 
@@ -224,5 +226,31 @@ std.manifestYamlDoc({
           "API_KEY=${INKSTAND_RENDER_SERVER_APIKEY}",
         ],
       },
+
+    "prometheus":
+      base("prometheus") + {
+        image: "prom/prometheus",
+        volumes+: [
+          "/var/docker-files/prometheus/:/etc/prometheus/",
+          "prometheus-data:/prometheus",
+        ],
+        command: |||
+          --config.file=/etc/prometheus/prometheus.yml
+          --storage.tsdb.path=/prometheus
+          --storage.tsdb.retention.time=1y
+        |||,
+      },
+    "grafana":
+      base("grafana") +
+      http_service(3000, "grafana.highgarden.blahgeek.com") + {
+        image: "grafana/grafana-oss",
+        volumes+: [
+          "grafana-data:/var/lib/grafana",
+        ],
+        // https://grafana.com/docs/grafana/latest/setup-grafana/configure-grafana/#configuration-options
+        environment+: [
+          "GF_DEFAULT_INSTANCE_NAME=highgarden",
+        ],
+      }
   }
 }, quote_keys=false, indent_array_in_object=true)

@@ -37,6 +37,19 @@ services:
       - "8000"
     image: "blahgeek/beian-web:20251208"
     restart: "unless-stopped"
+  grafana:
+    container_name: "grafana"
+    environment:
+      - "VIRTUAL_HOST=grafana.highgarden.blahgeek.com"
+      - "VIRTUAL_PORT=3000"
+      - "LETSENCRYPT_HOST=grafana.highgarden.blahgeek.com"
+      - "GF_DEFAULT_INSTANCE_NAME=highgarden"
+    expose:
+      - "3000"
+    image: "grafana/grafana-oss"
+    restart: "unless-stopped"
+    volumes:
+      - "grafana-data:/var/lib/grafana"
   inkstand-render-server:
     container_name: "inkstand-render-server"
     environment:
@@ -128,6 +141,17 @@ services:
       - "80"
     image: "onlyoffice/documentserver"
     restart: "unless-stopped"
+  prometheus:
+    command: |
+      --config.file=/etc/prometheus/prometheus.yml
+      --storage.tsdb.path=/prometheus
+      --storage.tsdb.retention.time=1y
+    container_name: "prometheus"
+    image: "prom/prometheus"
+    restart: "unless-stopped"
+    volumes:
+      - "/var/docker-files/prometheus/:/etc/prometheus/"
+      - "prometheus-data:/prometheus"
   smokeping:
     container_name: "smokeping"
     environment:
@@ -176,6 +200,8 @@ version: "2"
 volumes:
   acme: {}
   certs: {}
+  grafana-data: {}
   html: {}
   nextcloud-app: {}
   nextcloud-db: {}
+  prometheus-data: {}
