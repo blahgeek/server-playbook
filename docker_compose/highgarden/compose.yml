@@ -147,11 +147,24 @@ services:
       --storage.tsdb.path=/prometheus
       --storage.tsdb.retention.time=1y
     container_name: "prometheus"
+    environment:
+      - "VIRTUAL_HOST=prometheus.highgarden.blahgeek.com"
+      - "VIRTUAL_PORT=9090"
+      - "LETSENCRYPT_HOST=prometheus.highgarden.blahgeek.com"
+    expose:
+      - "9090"
     image: "prom/prometheus"
     restart: "unless-stopped"
     volumes:
       - "/var/docker-files/prometheus/:/etc/prometheus/"
       - "prometheus-data:/prometheus"
+  prometheus-json-exporter:
+    command: "--config.file=/config.yml"
+    container_name: "prometheus-json-exporter"
+    image: "quay.io/prometheuscommunity/json-exporter"
+    restart: "unless-stopped"
+    volumes:
+      - "/var/docker-files/prometheus-json-exporter/config.yml:/config.yml"
   smokeping:
     container_name: "smokeping"
     environment:

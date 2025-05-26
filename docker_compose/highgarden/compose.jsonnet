@@ -228,7 +228,8 @@ std.manifestYamlDoc({
       },
 
     "prometheus":
-      base("prometheus") + {
+      base("prometheus") +
+      http_service(9090, "prometheus.highgarden.blahgeek.com") + {
         image: "prom/prometheus",
         volumes+: [
           "/var/docker-files/prometheus/:/etc/prometheus/",
@@ -239,6 +240,14 @@ std.manifestYamlDoc({
           --storage.tsdb.path=/prometheus
           --storage.tsdb.retention.time=1y
         |||,
+      },
+    "prometheus-json-exporter":
+      base("prometheus-json-exporter") + {
+        volumes+: [
+          "/var/docker-files/prometheus-json-exporter/config.yml:/config.yml",
+        ],
+        image: "quay.io/prometheuscommunity/json-exporter",
+        command: "--config.file=/config.yml",
       },
     "grafana":
       base("grafana") +
