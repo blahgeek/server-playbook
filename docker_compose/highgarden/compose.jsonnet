@@ -108,13 +108,17 @@ std.manifestYamlDoc({
     // It can be accessed in two ways:
     // - tailproxy.highgarden-dyn.
     //   the domain resolves differently for CN and others
-    //   * CN: china-unicom ipv6
+    //   * CN: china-unicom ipv6 and ipv4
     //   * GLOBAL: same as web.highgarden., yikai-net ipv6 and mudgate ipv4
     //     (so that letsencrypt can successfully access it, because china-unicom ipv6 cannot serve http)
     // - tailproxy.highgarden-v4.
-    //   * only mudgate ipv4
+    //   * only mudgate ipv4 (TODO: maybe use china-unicom ipv4?)
     //
-    // But anyway, they are forwarded to the ipv6 address of this docker
+    // tailproxy.highgarden-dyn. Forwarding path:
+    // - for mudgate ipv4, it goes through mudate NAT64, forwarded to this container's ipv6 addr
+    // - for yikai-net ipv6, no NAT
+    // - for china-unicom ipv6, DNAT in highgarden, forwarded to this container's ipv6 addr
+    // - for china-unicom ipv4, DNAT in highgarden, forwarded to 192.168.100.100
     //
     "tailproxy":
       base("tailproxy") +
@@ -124,16 +128,17 @@ std.manifestYamlDoc({
         image: "blahgeek/tailproxy:0.5",
         environment+: [
           "STUNNEL_CERT_DIR=/certs/tailproxy.highgarden-dyn.blahgeek.com/",
-          // yes.. the below line works. interesting
-          "STUNNEL_LOCAL_PORT=2a0e:aa07:e035:d0ce::9607:8888",
-          "STUNNEL_REMOTE=192.168.0.1:8888",
+          "STUNNEL_LOCAL_PORT=:::8888",  // this binds both ipv6 and ipv4
+          "STUNNEL_REMOTE=192.168.0.1:8889",
         ],
         volumes+: [
           "certs:/certs:ro"
         ],
-        // all forwarded to ipv6, no need for port mapping
         expose+: [
           "8888"
+        ],
+        ports+: [
+          "8888:8888"
         ],
       },
 

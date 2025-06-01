@@ -73,9 +73,9 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 
     'www': A(hosts.highgarden.ipv4_web),
 
-    # geodns in dnspod
-    # *.highgarden-dyn -> blahgeek-highgarden.duckdns.org. for CN
-    # *.highgarden-dyn -> web.highgarden.blahgeek.com. for others
+    # geodns in dnspod. see highgarden compose.jsonnet
+    # *.highgarden-dyn -> blahgeek-highgarden.duckdns.org.
+    # *.highgarden-dyn -> web.highgarden.blahgeek.com.
     'highgarden-dyn': NS(['f1g1ns1.dnspod.net', 'f1g1ns2.dnspod.net']),
     '*.highgarden-v4': A(hosts.highgarden.ipv4_web),
 

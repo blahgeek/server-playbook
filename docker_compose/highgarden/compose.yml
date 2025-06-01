@@ -185,8 +185,8 @@ services:
       - "VIRTUAL_PORT=80"
       - "LETSENCRYPT_HOST=tailproxy.highgarden-dyn.blahgeek.com,tailproxy.highgarden-v4.blahgeek.com"
       - "STUNNEL_CERT_DIR=/certs/tailproxy.highgarden-dyn.blahgeek.com/"
-      - "STUNNEL_LOCAL_PORT=2a0e:aa07:e035:d0ce::9607:8888"
-      - "STUNNEL_REMOTE=192.168.0.1:8888"
+      - "STUNNEL_LOCAL_PORT=:::8888"
+      - "STUNNEL_REMOTE=192.168.0.1:8889"
     expose:
       - "80"
       - "8888"
@@ -196,6 +196,8 @@ services:
       external:
         gw_priority: 10
         ipv6_address: "2a0e:aa07:e035:d0ce::9607"
+    ports:
+      - "8888:8888"
     restart: "unless-stopped"
     volumes:
       - "certs:/certs:ro"
