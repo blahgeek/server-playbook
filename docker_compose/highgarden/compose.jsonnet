@@ -83,7 +83,13 @@ std.manifestYamlDoc({
       network_external() + {
         image: "nginxproxy/acme-companion",
         environment+: [
-          "DEFAULT_EMAIL=letsencrypt@blahgeek.com"
+          "DEFAULT_EMAIL=letsencrypt@blahgeek.com",
+          "ACME_CHALLENGE=DNS-01",
+          "ACMESH_DNS_API_CONFIG=" + std.manifestJsonMinified({
+            "DNS_API": "dns_cf",
+            "CF_Token": "${CLOUDFLARE_API_TOKEN}",
+            "CF_Account_ID": "174ec50f32adc28bfcf27b9328d5308b",
+          }),
         ],
         volumes_from+: [
           "nginx-proxy"
@@ -104,17 +110,7 @@ std.manifestYamlDoc({
       http_service(8000, "blahgeek.com,www.blahgeek.com") + {
         image: "blahgeek/beian-web:20251208",
       },
-    // Serve https proxy (forward to 192.168.0.1 tinyproxy)
-    // It can be accessed in two ways:
-    // - tailproxy.highgarden-dyn.
-    //   the domain resolves differently for CN and others
-    //   * CN: china-unicom ipv6 and ipv4
-    //   * GLOBAL: same as web.highgarden., yikai-net ipv6 and mudgate ipv4
-    //     (so that letsencrypt can successfully access it, because china-unicom ipv6 cannot serve http)
-    // - tailproxy.highgarden-v4.
-    //   * only mudgate ipv4 (TODO: maybe use china-unicom ipv4?)
-    //
-    // tailproxy.highgarden-dyn. Forwarding path:
+    // Forwarding path:
     // - for mudgate ipv4, it goes through mudate NAT64, forwarded to this container's ipv6 addr
     // - for yikai-net ipv6, no NAT
     // - for china-unicom ipv6, DNAT in highgarden, forwarded to this container's ipv6 addr
@@ -124,7 +120,14 @@ std.manifestYamlDoc({
       base("tailproxy") +
       network_external("2a0e:aa07:e035:d0ce::9607") +
       // the http service is actually useless (virtual_port is not used), only the cert is used
-      http_service(80, "tailproxy.highgarden-dyn.blahgeek.com,tailproxy.highgarden-v4.blahgeek.com") + {
+      http_service(80,
+                   std.join(",", [
+                     "tailproxy.highgarden-dyn.blahgeek.com",
+                     "tailproxy.highgarden-v4.blahgeek.com",
+                     "tailproxy.highgarden-dyn-v4.blahgeek.com",
+                     "tailproxy.highgarden-dyn-v6.blahgeek.com",
+                   ])
+                  ) + {
         image: "blahgeek/tailproxy:0.5",
         environment+: [
           "STUNNEL_CERT_DIR=/certs/tailproxy.highgarden-dyn.blahgeek.com/",

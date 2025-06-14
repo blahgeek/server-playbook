@@ -30,6 +30,24 @@
       proxied: false
   type: "CNAME"
   value: "web.highgarden.blahgeek.com."
+"*.highgarden-dyn":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "blahgeek-highgarden.duckdns.org."
+"*.highgarden-dyn-v4":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "blahgeek-highgarden-v4.duckdns.org."
+"*.highgarden-dyn-v6":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "blahgeek-highgarden-v6.duckdns.org."
 "*.highgarden-v4":
   octodns:
     cloudflare:
@@ -81,11 +99,6 @@ highgarden:
       proxied: false
   type: "A"
   value: "192.168.0.1"
-highgarden-dyn:
-  type: "NS"
-  values:
-  - "f1g1ns1.dnspod.net."
-  - "f1g1ns2.dnspod.net."
 mudgate:
   octodns:
     cloudflare:
