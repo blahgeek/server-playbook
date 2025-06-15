@@ -42,20 +42,6 @@
     table: nat
     rules: "-A PREROUTING -d 192.168.{{ vpn_subnet_id }}.1 -p tcp --dport 9099 -j DNAT --to 10.255.0.100:9099"
 
-- name: Configure docker raven-postfix
-  docker_container:
-    container_default_behavior: no_defaults
-    restart_policy: unless-stopped
-    name: raven-postfix
-    image: blahgeek/raven-postfix:0.4
-    ports:
-      - "25:25"
-      - "465:465"
-      - "587:587"
-    volumes:
-      - /data/Raven:/root/Maildir
-    hostname: "{{ raven_host }}"
-
 - name: Configure docker webdav
   tags: webdav
   docker_container:

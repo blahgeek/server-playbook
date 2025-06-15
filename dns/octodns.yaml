@@ -3,6 +3,7 @@ processors:
     class: "octodns.processor.filter.NameRejectlistFilter"
     rejectlist:
     - "cf2024-1._domainkey"
+    - "raven"
 providers:
   cloudflare:
     class: "octodns_cloudflare.CloudflareProvider"

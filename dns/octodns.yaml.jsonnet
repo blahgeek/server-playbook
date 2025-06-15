@@ -1,10 +1,10 @@
 local utils = import './utils.libsonnet';
 
 local processors = {
-  # a cloudflare bug? cannot delete this domain due to email related settings...
+  # these domains are managed by cloudflare (email)
   'ignore-cloudflare-domainkey': {
     'class': 'octodns.processor.filter.NameRejectlistFilter',
-    'rejectlist': ['cf2024-1._domainkey'],
+    'rejectlist': ['cf2024-1._domainkey', 'raven'],
   },
 };
 

@@ -1,5 +1,3 @@
-raven_host: raven.z1k.dev
-
 webdav_username: blahgeek
 webdav_password: !vault |
   $ANSIBLE_VAULT;1.1;AES256

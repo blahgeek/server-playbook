@@ -1,3 +1,0 @@
-home_mailbox = Maildir/
-mailbox_command = 
-virtual_alias_maps = hash:/etc/postfix/virtual
