@@ -22,6 +22,7 @@
     - role: wall-vpn-server
     - role: nat64-server
     - role: bgp-server
+    - role: docker
 
 - hosts: highgarden.blahgeek.com
   roles:
