@@ -45,6 +45,13 @@ zones:
     - "config"
     targets:
     - "cloudflare"
+  e.8.7.1.7.0.1.b.e.0.a.2.ip6.arpa.:
+    processors:
+    - "ignore-cloudflare-domainkey"
+    sources:
+    - "config"
+    targets:
+    - "cloudflare"
   z1k.dev.:
     processors:
     - "ignore-cloudflare-domainkey"

@@ -120,4 +120,8 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
   [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
     ipv6CommonRdnsEntries('wall')
   ),
+
+  [utils.ipv6RdnsZone(utils.yikai_net.whitetree_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('whitetree')
+  ),
 }

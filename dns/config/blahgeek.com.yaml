@@ -66,6 +66,12 @@
       proxied: false
   type: "CNAME"
   value: "web.wall.blahgeek.com."
+"*.whitetree":
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "CNAME"
+  value: "web.whitetree.blahgeek.com."
 _36010C22FBACF112943550BDCDE75424.qnsource.hpurl:
   octodns:
     cloudflare:
@@ -179,6 +185,17 @@ web.wall:
       proxied: false
   type: "AAAA"
   value: "2a0e:b107:178d:d0ce::6666"
+web.whitetree:
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "136.244.102.78"
+- octodns:
+    cloudflare:
+      proxied: false
+  type: "AAAA"
+  value: "2a0e:b107:178e:d0ce::6666"
 wedding-dev:
   octodns:
     cloudflare:
@@ -191,6 +208,12 @@ wedding-photo:
       proxied: false
   type: "CNAME"
   value: "iovip-z1.qiniuio.com."
+whitetree:
+  octodns:
+    cloudflare:
+      proxied: false
+  type: "A"
+  value: "136.244.102.78"
 www:
   octodns:
     cloudflare:
