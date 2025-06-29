@@ -1,0 +1,26 @@
+tunnelbroker:
+  tb-wall:
+    remote: "{{ my_hostvars['wall.blahgeek.com'].ansible_host }}"
+    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    is_server: true
+    routes:
+      - "{{ my_hostvars['wall.blahgeek.com'].ipv6_prefix }}"
+      # higher priority than openvpn route.
+      - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 0) }}"
+      - "{{ yikai_net.home_prefix | ansible.utils.ipsubnet(49, 1) }}"
+
+bgp_advertise_prefixes:
+  - "{{ ipv6_prefix }}"
+  - "{{ yikai_net.home_prefix }}"
+  - "{{ my_hostvars['wall.blahgeek.com'].ipv6_prefix }}"
+
+bgp_connections:
+  vultr:
+    peer_asn: 64515
+    peer_addr: 2001:19f0:ffff::1
+    password: legendary
+    multihop: 2
+    # TODO: no idea why, received routes are all unreachable.
+    # so just reject all routes and rely on the default route (system default) for now
+    import_filter: |
+      reject;
