@@ -25,6 +25,8 @@ bgp_connections:
     peer_asn: 209533
     peer_addr: 2a0c:9a40:a001::d
     export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
       accept;
     # no import for this connection, use default routes above
     import_filter: |
