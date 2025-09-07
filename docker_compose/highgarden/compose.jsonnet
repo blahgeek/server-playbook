@@ -268,6 +268,16 @@ std.manifestYamlDoc({
         environment+: [
           "GF_DEFAULT_INSTANCE_NAME=highgarden",
         ],
+      },
+
+    "gdrive-webdav-proxy":
+      base("gdrive-webdav-proxy") +
+      http_service(8080, "gdrive-webdav-proxy.highgarden.blahgeek.com") + {
+        image: "rclone/rclone:sha-fd1665a",
+        volumes+: [
+          "/var/docker-files/gdrive-webdav-proxy/rclone.conf:/rclone.conf",
+        ],
+        command: "--config /rclone.conf serve webdav --user blahgeek --pass ${GDRIVE_WEBDAV_PROXY_PASSWORD} --addr :8080 gdrive:Notes",
       }
   }
 }, quote_keys=false, indent_array_in_object=true)

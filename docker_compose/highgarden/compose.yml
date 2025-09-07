@@ -39,6 +39,19 @@ services:
       - "8000"
     image: "blahgeek/beian-web:20251208"
     restart: "unless-stopped"
+  gdrive-webdav-proxy:
+    command: "--config /rclone.conf serve webdav --user blahgeek --pass ${GDRIVE_WEBDAV_PROXY_PASSWORD} --addr :8080 gdrive:Notes"
+    container_name: "gdrive-webdav-proxy"
+    environment:
+      - "VIRTUAL_HOST=gdrive-webdav-proxy.highgarden.blahgeek.com"
+      - "VIRTUAL_PORT=8080"
+      - "LETSENCRYPT_HOST=gdrive-webdav-proxy.highgarden.blahgeek.com"
+    expose:
+      - "8080"
+    image: "rclone/rclone:sha-fd1665a"
+    restart: "unless-stopped"
+    volumes:
+      - "/var/docker-files/gdrive-webdav-proxy/rclone.conf:/rclone.conf"
   grafana:
     container_name: "grafana"
     environment:
