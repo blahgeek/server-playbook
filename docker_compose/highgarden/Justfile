@@ -7,7 +7,7 @@ render:
     jsonnet -S compose.jsonnet > compose.yml
 
 up: render
-    docker -H ssh://root@192.168.0.1 compose up -d
+    docker --context highgarden compose up -d
 
 down: render
-    docker -H ssh://root@192.168.0.1 compose down
+    docker --context highgarden compose down
