@@ -216,6 +216,20 @@ services:
     restart: "unless-stopped"
     volumes:
       - "certs:/certs:ro"
+  vaultwarden:
+    container_name: "vaultwarden"
+    environment:
+      - "VIRTUAL_HOST=vaultwarden.highgarden.blahgeek.com"
+      - "VIRTUAL_PORT=80"
+      - "LETSENCRYPT_HOST=vaultwarden.highgarden.blahgeek.com"
+      - "DOMAIN=https://vaultwarden.highgarden.blahgeek.com"
+      - "ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}"
+    expose:
+      - "80"
+    image: "vaultwarden/server:latest"
+    restart: "unless-stopped"
+    volumes:
+      - "/var/docker-files/vaultwarden:/data"
   whoami:
     container_name: "whoami"
     environment:

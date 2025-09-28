@@ -278,6 +278,19 @@ std.manifestYamlDoc({
           "/var/docker-files/gdrive-webdav-proxy/rclone.conf:/rclone.conf",
         ],
         command: "--config /rclone.conf serve webdav --user blahgeek --pass ${GDRIVE_WEBDAV_PROXY_PASSWORD} --addr :8080 gdrive:Notes",
+      },
+
+    "vaultwarden":
+      base("vaultwarden") +
+      http_service(80, "vaultwarden.highgarden.blahgeek.com") + {
+        image: "vaultwarden/server:latest",
+        volumes+: [
+          "/var/docker-files/vaultwarden:/data",
+        ],
+        environment+: [
+          "DOMAIN=https://vaultwarden.highgarden.blahgeek.com",
+          "ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}",
+        ],
       }
   }
 }, quote_keys=false, indent_array_in_object=true)
