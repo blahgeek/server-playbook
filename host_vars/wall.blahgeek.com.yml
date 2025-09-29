@@ -24,10 +24,15 @@ bgp_connections:
   tb_ifog:
     peer_asn: 209533
     peer_addr: 2a0c:9a40:a001::d
+    # export_filter: |
+    #   bgp_path.prepend({{ my_asn }});
+    #   bgp_path.prepend({{ my_asn }});
+    #   bgp_path.prepend({{ my_asn }});
+    #   accept;
+    # 不知道为什么，prepend三次之后流量还是会从这里来（比较便宜？）
+    # 质量不太行，还是关掉吧
     export_filter: |
-      bgp_path.prepend({{ my_asn }});
-      bgp_path.prepend({{ my_asn }});
-      accept;
+      reject;
     # no import for this connection, use default routes above
     import_filter: |
       reject;
