@@ -291,6 +291,16 @@ std.manifestYamlDoc({
           "DOMAIN=https://vaultwarden.highgarden.blahgeek.com",
           "ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}",
         ],
+      },
+
+    "claw-gateway-proxy":
+      base("claw-gateway-proxy") +
+      http_service(80, "claw.highgarden.blahgeek.com") +
+      {
+        image: "pure/simple-reverse-proxy@sha256:9db95a52fb35ce6feb708fb1c45d4f3f670367da40d5f9d3ecf2281ccf892e1a",
+        environment+: [
+          "UPSTREAM=192.168.0.21:18789",
+        ],
       }
   }
 }, quote_keys=false, indent_array_in_object=true)
