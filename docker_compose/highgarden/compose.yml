@@ -237,7 +237,7 @@ services:
       - "ADMIN_TOKEN=${VAULTWARDEN_ADMIN_TOKEN}"
     expose:
       - "80"
-    image: "vaultwarden/server:latest"
+    image: "vaultwarden/server:1.35.4"
     restart: "unless-stopped"
     volumes:
       - "/var/docker-files/vaultwarden:/data"

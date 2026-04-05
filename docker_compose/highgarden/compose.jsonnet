@@ -283,7 +283,7 @@ std.manifestYamlDoc({
     "vaultwarden":
       base("vaultwarden") +
       http_service(80, "vaultwarden.highgarden.blahgeek.com") + {
-        image: "vaultwarden/server:latest",
+        image: "vaultwarden/server:1.35.4",
         volumes+: [
           "/var/docker-files/vaultwarden:/data",
         ],
