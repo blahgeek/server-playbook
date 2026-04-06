@@ -64,6 +64,22 @@
     expose: 8000
   tags: hpshare
 
+- name: Configure docker shlink
+  docker_container:
+    container_default_behavior: no_defaults
+    restart_policy: unless-stopped
+    name: shlink
+    image: shlinkio/shlink:5
+    env:
+      IS_HTTPS_ENABLED: "false"
+      INITIAL_API_KEY: "{{ shlink.api_key }}"
+      DEFAULT_DOMAIN: "{{ shlink.domain }}"
+      VIRTUAL_PORT: "8080"
+      VIRTUAL_HOST: "{{ shlink.domain }}"
+      LETSENCRYPT_HOST: "{{ shlink.domain }}"
+    expose: 8080
+  tags: shlink
+
 - name: Configure docker blog website
   docker_container:
     container_default_behavior: no_defaults
