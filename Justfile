@@ -9,11 +9,11 @@ dns_render:
 
 # Run DNS sync, dry run
 dns_sync: dns_render
-    cd dns && pipenv run octodns-sync --config-file=octodns.yaml
+    cd dns && uv run octodns-sync --config-file=octodns.yaml
 
 # Run DNS sync
 dns_sync_doit: dns_render
-    cd dns && pipenv run octodns-sync --config-file=octodns.yaml --doit
+    cd dns && uv run octodns-sync --config-file=octodns.yaml --doit
 
 qiniu_cert_refresh:
     ./tools/qiniu_cert_refresh.sh

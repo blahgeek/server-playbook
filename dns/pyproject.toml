@@ -1,0 +1,11 @@
+[project]
+name = "dns"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "octodns~=0.9",
+    "octodns-cloudflare>=0.0.9",
+    "octodns-googlecloud>=0.0.3",
+]
