@@ -32,9 +32,3 @@ s:
       proxied: false
   type: "CNAME"
   value: "web.wall.blahgeek.com."
-share:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.wall.blahgeek.com."
