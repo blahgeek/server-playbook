@@ -4,6 +4,13 @@
     state: restarted
     daemon-reload: yes
 
-- name: Reload tunnelbroker interfaces
-  shell: "/usr/sbin/ifdown {{ item.key }} || true; ip link del {{ item.key }} || true; /usr/sbin/ifup {{ item.key }}"
+
+# split down & up, to prevent conflict on routes
+
+- name: Down tunnelbroker interfaces
+  shell: "/usr/sbin/ifdown {{ item.key }} || true; ip link del {{ item.key }} || true"
+  with_dict: "{{ tunnelbroker }}"
+
+- name: Up tunnelbroker interfaces
+  shell: "/usr/sbin/ifup {{ item.key }}"
   with_dict: "{{ tunnelbroker }}"

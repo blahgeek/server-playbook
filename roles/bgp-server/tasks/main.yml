@@ -19,7 +19,8 @@
     dest: "/etc/network/interfaces.d/{{ item.key }}"
   with_dict: "{{ tunnelbroker }}"
   notify:
-    - Reload tunnelbroker interfaces
+    - Down tunnelbroker interfaces
+    - Up tunnelbroker interfaces
   tags:
     - bgp
 
