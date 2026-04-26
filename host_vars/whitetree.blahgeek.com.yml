@@ -22,5 +22,10 @@ bgp_connections:
     multihop: 2
     # TODO: no idea why, received routes are all unreachable.
     # so just reject all routes and rely on the default route (system default) for now
+    export_filter: |
+      bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
+      bgp_path.prepend({{ my_asn }});
+      accept;
     import_filter: |
       reject;
