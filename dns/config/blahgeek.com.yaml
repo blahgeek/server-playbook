@@ -18,12 +18,6 @@
     preference: 10
 - type: "TXT"
   value: "v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all"
-"*.eastwatch":
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.eastwatch.blahgeek.com."
 "*.highgarden":
   octodns:
     cloudflare:
@@ -90,12 +84,6 @@ blog:
 dnspodcheck:
   type: "TXT"
   value: "70a8f523020ae061e3c2a4142fbbb1e1"
-eastwatch:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "149.28.71.244"
 google._domainkey:
   type: "TXT"
   value: "v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmACHFeqUClWjUrUTp7izB56nNy7q9qFtnojQMKQ8MrdqqqBgxWrvJfNWP20DWgMmQ6MXCANRldfJ+zJMEbKoiHsMOVHTb/SApjh3Vj5ONvvcYjAIwPTrFoPu857JI+DHjIVkdP78xHiWB4P7lxFeo7ajt80ov47eKDHiCStfFLnhMfegt0Q2i44WO+kUWG5Dw\" \"qyTb3RORKds94/wjnm5NwLK288ZaGqPq9y9n5ok6ZS46rSRJvm+HjGASNT4BD2+y5XS7sc4xeTpebEnop9MpRtlr1QfNwHltnSjrpV7HCIPten52NsBYhpG7j4v+JsosssYjQ0wtscEkwNRYWaJsQIDAQAB"
@@ -141,17 +129,6 @@ wall:
       proxied: false
   type: "A"
   value: "104.255.70.190"
-web.eastwatch:
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "149.28.71.244"
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "AAAA"
-  value: "2a06:a005:08d2:d0ce::6666"
 web.highgarden:
 - octodns:
     cloudflare:
