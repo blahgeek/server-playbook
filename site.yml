@@ -7,15 +7,6 @@
     - role: proxy-server
     - role: web-server
 
-- hosts: eastwatch.blahgeek.com
-  roles:
-    - role: common-server
-    - role: wall-vpn-server
-    - role: nat64-server
-    - role: bgp-server
-    - role: sync-server
-    - role: proxy-server
-
 - hosts: whitetree.blahgeek.com
   roles:
     - role: common-server
