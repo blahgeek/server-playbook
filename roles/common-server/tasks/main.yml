@@ -30,6 +30,7 @@
       - htop
       - unzip
       - python3-systemd  # required by fail2ban
+      - ifupdown
     state: present
 
 - name: Install packages for debian

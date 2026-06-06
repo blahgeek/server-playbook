@@ -15,6 +15,13 @@
     - role: bgp-server
     - role: docker
 
+- hosts: hardhome.blahgeek.com
+  roles:
+    - role: common-server
+    - role: wall-vpn-server
+    - role: nat64-server
+    - role: bgp-server
+
 - hosts: highgarden.blahgeek.com
   roles:
     - role: wall-vpn-client
