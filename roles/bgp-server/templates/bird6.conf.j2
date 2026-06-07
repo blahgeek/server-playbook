@@ -47,6 +47,7 @@ protocol bgp {{ name }} {
       accept;
     {% endif %}
   };
+  import keep filtered on;
 
   graceful restart on;
 
