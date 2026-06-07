@@ -70,18 +70,46 @@
   tags:
     - unatatp
 
-- name: Configure ip6tables for unatatp
-  when: unatatp is defined and ipv6_prefix is defined
+- name: Remove legacy ip6tables
+  when: ipv6_prefix is defined
   iptables_raw:
     ipversion: 6
-    name: unatatp_route_6
+    name: "{{ item.name }}"
+    table: "{{ item.table }}"
+    state: absent
+  with_items:
+    - { name: "udp6_nat", table: "nat" }
+    - { name: "unatatp_route_6", table: "mangle" }
+  tags:
+    - unatatp
+    - v6nat
+
+- name: Configure ip6tables stateless map
+  when: ipv6_prefix is defined
+  iptables_raw:
+    ipversion: 6
+    name: stateless_nat
     table: mangle
     # NOTE: only handle {home_prefix(/48)}:dea0::/60. allow incoming tcp connections for others. see home rules.v6
     rules: |
-      -A PREROUTING -m addrtype --dst-type local -j ACCEPT
-      -A PREROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -p tcp -j TPROXY --on-port {{ unatatp.port }} --on-ip ::1 --tproxy-mark {{ unatatp.route_fwmark }}
+      -A POSTROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -j SNPT --src-pfx {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} --dst-pfx {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}}
+      -A PREROUTING -d {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} -j DNPT --src-pfx {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} --dst-pfx {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} 
   tags:
     - unatatp
+    - v6nat
+
+- name: Configure ip6tables stateless map notrack
+  when: ipv6_prefix is defined
+  iptables_raw:
+    ipversion: 6
+    name: stateless_nat_notrack
+    table: raw
+    rules: |
+      -A PREROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -j NOTRACK
+      -A PREROUTING -s {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} -j NOTRACK
+  tags:
+    - unatatp
+    - v6nat
 
 - import_tasks: roles/common-wall/tasks/install-udp2raw.yml
   tags:
