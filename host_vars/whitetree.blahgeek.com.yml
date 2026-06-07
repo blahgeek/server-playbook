@@ -7,7 +7,7 @@ tunnelbroker:
       - "{{ my_hostvars['wall.blahgeek.com'].ipv6_prefix }}"
   tb-hardhome:
     remote: "{{ my_hostvars['hardhome.blahgeek.com'].ansible_host }}"
-    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 2)}}"
     is_server: true
     routes:
       - "{{ my_hostvars['hardhome.blahgeek.com'].ipv6_prefix }}"

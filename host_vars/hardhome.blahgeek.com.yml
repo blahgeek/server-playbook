@@ -14,7 +14,7 @@ tunnelbroker:
     mtu: 1448
   tb-whitetree:
     remote: "{{ my_hostvars['whitetree.blahgeek.com'].ansible_host }}"
-    subnet: "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    subnet: "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 2)}}"
     routes:
       - "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix }}"
 
