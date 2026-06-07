@@ -10,6 +10,9 @@
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
   type: "PTR"
   value: "wall-tunnel-server.whitetree.blahgeek.com."
+1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.0:
+  type: "PTR"
+  value: "hardhome-tunnel-server.whitetree.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
   type: "PTR"
   value: "docker-container.whitetree.blahgeek.com."
@@ -22,6 +25,9 @@
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
   type: "PTR"
   value: "wall-tunnel-client.whitetree.blahgeek.com."
+2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.0:
+  type: "PTR"
+  value: "hardhome-tunnel-client.whitetree.blahgeek.com."
 6.6.6.6.0.0.0.0.0.0.0.0.0.0.0.0.e.c.0.d:
   type: "PTR"
   value: "web.whitetree.blahgeek.com."

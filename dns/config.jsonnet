@@ -126,6 +126,9 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
       # wall
       [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('wall-tunnel-server.whitetree.blahgeek.com'),
       [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('wall-tunnel-client.whitetree.blahgeek.com'),
+      # hardhome
+      [ipv6RdnsName('0002:0000:0000:0000:0001')]: PTR('hardhome-tunnel-server.whitetree.blahgeek.com'),
+      [ipv6RdnsName('0002:0000:0000:0000:0002')]: PTR('hardhome-tunnel-client.whitetree.blahgeek.com'),
     }
     + ipv6CommonRdnsEntries('whitetree')
   ),
