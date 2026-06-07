@@ -16,9 +16,7 @@ tunnelbroker:
       - 2000::/3
 
 bgp_advertise_prefixes:
-  # NOTE: broadcast both from here and from whitetree
   - "{{ ipv6_prefix }}"
-  - "{{ yikai_net.home_prefix }}"
 
 bgp_connections:
   tb_ifog:

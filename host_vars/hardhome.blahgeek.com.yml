@@ -12,10 +12,16 @@ tunnelbroker:
     subnet: 2a0c:9a40:a009::28/126
     mode: gre
     mtu: 1448
+  tb-whitetree:
+    remote: "{{ my_hostvars['whitetree.blahgeek.com'].ansible_host }}"
+    subnet: "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
+    routes:
+      - "{{ my_hostvars['whitetree.blahgeek.com'].ipv6_prefix }}"
 
 bgp_advertise_prefixes:
+  # NOTE: broadcast both from here and from whitetree
   - "{{ ipv6_prefix }}"
-#   - "{{ yikai_net.home_prefix }}"
+  - "{{ yikai_net.home_prefix }}"
 
 bgp_connections:
   route64:

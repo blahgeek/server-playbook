@@ -190,7 +190,7 @@ web.whitetree:
     cloudflare:
       proxied: false
   type: "A"
-  value: "136.244.102.78"
+  value: "80.240.26.175"
 - octodns:
     cloudflare:
       proxied: false
@@ -213,7 +213,7 @@ whitetree:
     cloudflare:
       proxied: false
   type: "A"
-  value: "136.244.102.78"
+  value: "80.240.26.175"
 www:
   octodns:
     cloudflare:
