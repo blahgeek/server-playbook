@@ -39,5 +39,6 @@ utils.manifestYaml({
     [utils.ipv6RdnsZone(utils.yikai_net.usnet_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix)]: zoneConfig,
     [utils.ipv6RdnsZone(utils.yikai_net.whitetree_prefix)]: zoneConfig,
+    [utils.ipv6RdnsZone(utils.yikai_net.hardhome_prefix)]: zoneConfig,
   }
 })

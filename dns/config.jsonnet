@@ -129,4 +129,8 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     }
     + ipv6CommonRdnsEntries('whitetree')
   ),
+
+  [utils.ipv6RdnsZone(utils.yikai_net.hardhome_prefix) + 'yaml']: utils.manifestYaml(
+    ipv6CommonRdnsEntries('hardhome')
+  ),
 }
