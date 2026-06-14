@@ -117,15 +117,12 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
     + ipv6CommonRdnsEntries('eastwatch', prefix_relative_to_zone='2:')
   ),
 
-  [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
-    ipv6CommonRdnsEntries('wall')
-  ),
+  // [utils.ipv6RdnsZone(utils.yikai_net.wall_prefix) + 'yaml']: utils.manifestYaml(
+  //   ipv6CommonRdnsEntries('wall')
+  // ),
 
   [utils.ipv6RdnsZone(utils.yikai_net.whitetree_prefix) + 'yaml']: utils.manifestYaml(
     {
-      # wall
-      [ipv6RdnsName('0001:0000:0000:0000:0001')]: PTR('wall-tunnel-server.whitetree.blahgeek.com'),
-      [ipv6RdnsName('0001:0000:0000:0000:0002')]: PTR('wall-tunnel-client.whitetree.blahgeek.com'),
       # hardhome
       [ipv6RdnsName('0002:0000:0000:0000:0001')]: PTR('hardhome-tunnel-server.whitetree.blahgeek.com'),
       [ipv6RdnsName('0002:0000:0000:0000:0002')]: PTR('hardhome-tunnel-client.whitetree.blahgeek.com'),

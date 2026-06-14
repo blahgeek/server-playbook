@@ -60,12 +60,6 @@
       proxied: false
   type: "CNAME"
   value: "web.mudgate.blahgeek.com."
-"*.wall":
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "CNAME"
-  value: "web.wall.blahgeek.com."
 "*.whitetree":
   octodns:
     cloudflare:
@@ -135,12 +129,6 @@ qnsource.hpurl:
       proxied: false
   type: "CNAME"
   value: "iovip-z0.qbox.me."
-wall:
-  octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "104.255.70.190"
 web.hardhome:
 - octodns:
     cloudflare:
@@ -174,17 +162,6 @@ web.mudgate:
       proxied: false
   type: "AAAA"
   value: "fd6c:3035:c45a:d0ce::6666"
-web.wall:
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "A"
-  value: "104.255.70.190"
-- octodns:
-    cloudflare:
-      proxied: false
-  type: "AAAA"
-  value: "2a0e:b107:178d:d0ce::6666"
 web.whitetree:
 - octodns:
     cloudflare:

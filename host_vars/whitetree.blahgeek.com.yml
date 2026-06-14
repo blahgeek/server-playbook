@@ -1,10 +1,4 @@
 tunnelbroker:
-  tb-wall:
-    remote: "{{ my_hostvars['wall.blahgeek.com'].ansible_host }}"
-    subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 1)}}"
-    is_server: true
-    routes:
-      - "{{ my_hostvars['wall.blahgeek.com'].ipv6_prefix }}"
   tb-hardhome:
     remote: "{{ my_hostvars['hardhome.blahgeek.com'].ansible_host }}"
     subnet: "{{ ipv6_prefix | ansible.utils.ipsubnet(64, 2)}}"
@@ -18,7 +12,6 @@ tunnelbroker:
 bgp_advertise_prefixes:
   - "{{ ipv6_prefix }}"
   - "{{ yikai_net.home_prefix }}"
-  - "{{ my_hostvars['wall.blahgeek.com'].ipv6_prefix }}"
   # - "{{ my_hostvars['hardhome.blahgeek.com'].ipv6_prefix }}"
 
 bgp_connections:

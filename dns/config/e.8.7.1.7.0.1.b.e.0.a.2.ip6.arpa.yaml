@@ -7,9 +7,6 @@
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.0.d:
   type: "PTR"
   value: "docker-host.whitetree.blahgeek.com."
-1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
-  type: "PTR"
-  value: "wall-tunnel-server.whitetree.blahgeek.com."
 1.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.0:
   type: "PTR"
   value: "hardhome-tunnel-server.whitetree.blahgeek.com."
@@ -22,9 +19,6 @@
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1:
   type: "PTR"
   value: "ovpn-client.whitetree.blahgeek.com."
-2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.1.0.0.0:
-  type: "PTR"
-  value: "wall-tunnel-client.whitetree.blahgeek.com."
 2.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.0.0:
   type: "PTR"
   value: "hardhome-tunnel-client.whitetree.blahgeek.com."
