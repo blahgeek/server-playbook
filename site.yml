@@ -4,8 +4,6 @@
     - role: wall-vpn-server
     - role: nat64-server
     - role: bgp-server
-    - role: proxy-server
-    - role: web-server
 
 - hosts: whitetree.blahgeek.com
   roles:
@@ -14,6 +12,8 @@
     - role: nat64-server
     - role: bgp-server
     - role: docker
+    - role: proxy-server
+    - role: web-server
 
 - hosts: hardhome.blahgeek.com
   roles:

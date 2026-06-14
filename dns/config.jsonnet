@@ -66,7 +66,7 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    'blog': CNAME('web.wall.blahgeek.com'),
+    'blog': CNAME('web.whitetree.blahgeek.com'),
 
     'wedding-photo': CNAME('iovip-z1.qiniuio.com'),
     'wedding-dev': CNAME_CF_PROXY('ffabb251-f5b7-4144-9148-07d032a4160e.cfargotunnel.com'),
@@ -94,13 +94,13 @@ local ipv6CommonRdnsEntries(name, prefix_relative_to_zone='') = {
 
   'z1k.dev.yaml': utils.manifestYaml({
     '': [
-      A(hosts['wall'].ipv4),
-      AAAA(ipv6WebAddr('wall')),
+      A(hosts['whitetree'].ipv4),
+      AAAA(ipv6WebAddr('whitetree')),
       GMAIL_MX,
       TXT('v=spf1 include:_spf.mx.cloudflare.net include:_spf.google.com ~all'),
     ],
 
-    's': CNAME('web.wall.blahgeek.com'),
+    's': CNAME('web.whitetree.blahgeek.com'),
     'google._domainkey': TXT('v=DKIM1\\; k=rsa\\; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnAPXEssA1Z1Js6uQ7kSGGbNj0N/vER3DygA/GnfIu6oILSUG/5XzSxIZN5t1qkdpwM3vKyMFmYzv0iDszl2PWeP0QDNVOIaMDweUAYZqt3DpoOmFuWNFZOLZs5V63AzpxeUcNQGXzttQFE7p2+TquM/Z3ZzSWggeSx/7MxesWy7taQbyjNuLTqArcAKwEitbqGg31hOJQ+YmByWHPEfPGzPRCIkUZbtSVkTJXefMGR0+252Tmo9KXDuhFnOfLZdPxnn7Tc3NPCbHbcfre2eqquCHWm1m65JEwSDcCxeRqqjgJSyIONxJKKZTY76xt8wNFRq3tMgGACfLfJWAsfWS4QIDAQAB'),
   }),
 

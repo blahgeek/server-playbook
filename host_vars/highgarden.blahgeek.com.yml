@@ -1,15 +1,4 @@
 wall_servers:
-  - name: wall
-    host: wall.blahgeek.com
-    openvpn:
-      udp2raw:
-        client_listen_port: 3000
-      route_v4:
-        table: 1
-        fwmark: '0x1/0xf'
-      route_v6:
-        table: 1
-        fwmark: '0x1/0xf'
   - name: hardhome
     host: hardhome.blahgeek.com
     openvpn:
@@ -34,6 +23,7 @@ wall_servers:
         fwmark: '0x3/0xf'
 
 absent_wall_servers:
+  - wall
   - ironisland
   - north
   - harrenhal

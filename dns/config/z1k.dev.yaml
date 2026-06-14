@@ -3,12 +3,12 @@
     cloudflare:
       proxied: false
   type: "A"
-  value: "104.255.70.190"
+  value: "80.240.26.175"
 - octodns:
     cloudflare:
       proxied: false
   type: "AAAA"
-  value: "2a0e:b107:178d:d0ce::6666"
+  value: "2a0e:b107:178e:d0ce::6666"
 - type: "MX"
   values:
   - exchange: "aspmx.l.google.com."
@@ -31,4 +31,4 @@ s:
     cloudflare:
       proxied: false
   type: "CNAME"
-  value: "web.wall.blahgeek.com."
+  value: "web.whitetree.blahgeek.com."
