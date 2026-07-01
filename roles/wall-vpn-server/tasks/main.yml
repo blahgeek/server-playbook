@@ -92,7 +92,7 @@
     table: mangle
     # NOTE: only handle {home_prefix(/48)}:dea0::/60. allow incoming tcp connections for others. see home rules.v6
     rules: |
-      -A POSTROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -j SNPT --src-pfx {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} --dst-pfx {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}}
+      -A POSTROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} ! -o itb+ -j SNPT --src-pfx {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} --dst-pfx {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}}
       -A PREROUTING -d {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} -j DNPT --src-pfx {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} --dst-pfx {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} 
   tags:
     - unatatp
@@ -106,7 +106,7 @@
     table: raw
     rules: |
       -A PREROUTING -s {{ yikai_net.home_prefix | ansible.utils.ipsubnet(60, 0xdea) }} -j NOTRACK
-      -A PREROUTING -s {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} -j NOTRACK
+      -A PREROUTING -d {{ ipv6_prefix | ansible.utils.ipsubnet(60, 0xdea)}} -j NOTRACK
   tags:
     - unatatp
     - v6nat

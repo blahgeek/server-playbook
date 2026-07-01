@@ -12,7 +12,6 @@ tunnelbroker:
 bgp_advertise_prefixes:
   - "{{ ipv6_prefix }}"
   - "{{ yikai_net.home_prefix }}"
-  # - "{{ my_hostvars['hardhome.blahgeek.com'].ipv6_prefix }}"
 
 bgp_connections:
   vultr:
