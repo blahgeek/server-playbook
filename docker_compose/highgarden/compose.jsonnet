@@ -27,8 +27,6 @@ std.manifestYamlDoc({
   //       (except tailproxy, which is special)
   //    in ipv4 network, serve from mudgate (via port forwarding)
   volumes: {
-    "nextcloud-app": {},
-    "nextcloud-db": {},
     "html": {},
     "certs": {},
     "acme": {},
@@ -145,78 +143,6 @@ std.manifestYamlDoc({
         ],
       },
 
-    local nextcloud_db_env = [
-      "MYSQL_PASSWORD=${NEXTCLOUD_MYSQL_PASSWORD}",
-      "MYSQL_DATABASE=nextcloud",
-      "MYSQL_USER=nextcloud",
-      "MYSQL_HOST=nextcloud-db",
-    ],
-    "nextcloud-db":
-      base("nextcloud-db") + {
-        image: "mariadb:10.6",
-        "command": "--transaction-isolation=READ-COMMITTED --log-bin=binlog --binlog-format=ROW",
-        volumes+: [
-          "nextcloud-db:/var/lib/mysql"
-        ],
-        environment+: nextcloud_db_env + [
-          "MYSQL_ROOT_PASSWORD=${NEXTCLOUD_MYSQL_ROOT_PASSWORD}",
-        ],
-      },
-    "nextcloud-app":
-      base("nextcloud-app") +
-      http_service(80, "nextcloud.highgarden.blahgeek.com") + {
-        image: "nextcloud:30-apache",
-        "depends_on": [
-          "nextcloud-db"
-        ],
-        volumes+: [
-          "nextcloud-app:/var/www/html",
-          "/data/NextcloudData:/var/www/html/data"
-        ],
-        environment+: nextcloud_db_env + [
-          "APACHE_DISABLE_REWRITE_IP=1",
-          // https://github.com/nextcloud/documentation/pull/11295
-          "APACHE_BODY_LIMIT=8589934592",
-          "TRUSTED_PROXIES=172.16.0.0/12",
-        ]
-      },
-    "nextcloud-cron":
-      base("nextcloud-cron") + {
-        // same image & volume & mysql environment as above
-        image: "nextcloud:30-apache",
-        "depends_on": [
-          "nextcloud-db"
-        ],
-        volumes+: [
-          "nextcloud-app:/var/www/html",
-          "/data/NextcloudData:/var/www/html/data"
-        ],
-        environment+: nextcloud_db_env,
-        entrypoint: "/cron.sh"
-      },
-    // use onlyoffice now.
-    // # the builtin one in nextcloud-app does not contain proper fonts
-    // nextcloud-office:
-    //   image: collabora/code
-    //   container_name: nextcloud-office
-    //   restart: unless-stopped
-    //   expose:
-    //     - "9980"
-    //   environment:
-    //     - server_name=nextcloud-office.highgarden.blahgeek.com
-    //     - extra_params=--o:ssl.enable=false --o:ssl.termination=true
-    //     - aliasgroup1=https://nextcloud.highgarden.blahgeek.com:443
-    //     - VIRTUAL_HOST=nextcloud-office.highgarden.blahgeek.com
-    //     - VIRTUAL_PORT=9980
-    //     - LETSENCRYPT_HOST=nextcloud-office.highgarden.blahgeek.com
-    "onlyoffice":
-      base("onlyoffice") +
-      http_service(80, "onlyoffice.highgarden.blahgeek.com") + {
-        image: "onlyoffice/documentserver",
-        environment+: [
-          "JWT_SECRET=${ONLYOFFICE_JWT_SECRET}",
-        ]
-      },
     "smokeping":
       base("smokeping") +
       http_service(80, "smokeping.highgarden.blahgeek.com") + {
@@ -283,7 +209,7 @@ std.manifestYamlDoc({
     "vaultwarden":
       base("vaultwarden") +
       http_service(80, "vaultwarden.highgarden.blahgeek.com") + {
-        image: "vaultwarden/server:1.35.4",
+        image: "vaultwarden/server:1.37.0",
         volumes+: [
           "/var/docker-files/vaultwarden:/data",
         ],
