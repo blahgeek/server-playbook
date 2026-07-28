@@ -1,4 +1,1 @@
 docker_install_compose: false  # cannot access github from fleabottom....
-
-nat64:
-  forward_highgarden: true
