@@ -1,0 +1,13 @@
+- name: Configure port forwarder
+  iptables_raw:
+    name: port_forwarder
+    table: nat
+    rules: |
+      {% for item in port_forwarder %}
+      -A PREROUTING -p {{ item.proto }} --dport {{ item.src_port }} -j DNAT --to-destination {{ item.dst_ip }}:{{ predefined_ports.get(item.dst_port, item.dst_port) }}
+      -A POSTROUTING -p {{ item.proto }} -d {{ item.dst_ip }} --dport {{ predefined_ports.get(item.dst_port, item.dst_port) }} -j MASQUERADE
+      {% endfor %}
+  when: port_forwarder is defined
+  tags:
+    - port-forwarder
+
